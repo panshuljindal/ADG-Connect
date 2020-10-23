@@ -2,4 +2,18 @@
     <string name="app_name">ADG Internals</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <string-array name="momTitleStrings">
+        <item>Core Meeting MOM</item>
+        <item>Board Meeting MOM</item>
+        <item>IOS-fusion Event MOM</item>
+        <item>MEME-O-Mania Event MOM</item>
+    </string-array>
+
+    <string-array name="momDateStrings">
+        <item>24 October 2020</item>
+        <item>01 November 2020</item>
+        <item>12 November 2020</item>
+        <item>25 November 2020</item>
+    </string-array>
 </resources>

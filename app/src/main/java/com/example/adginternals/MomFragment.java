@@ -3,10 +3,13 @@ package com.example.adginternals;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,15 +17,18 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class MomFragment extends Fragment {
+    RecyclerView recyclerView;String t[] , d[] ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public MomFragment() {
         // Required empty public constructor
@@ -53,12 +59,23 @@ public class MomFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        //Toast.makeText(getContext(), "Oncreate", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mom, container, false);
+        View view = inflater.inflate(R.layout.fragment_mom, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.mom_recycler);
+        t = getResources().getStringArray(R.array.momTitleStrings);
+        d = getResources().getStringArray(R.array.momDateStrings);
+        MyAdapter myAdapter = new MyAdapter(getContext() , t , d);
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+         return  view;
+       //return inflater.inflate(R.layout.fragment_mom, container, false);
     }
 }

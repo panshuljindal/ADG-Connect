@@ -2,6 +2,8 @@ package com.example.adginternals;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -11,11 +13,21 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class MainActivity extends AppCompatActivity {
     private SmoothBottomBar smoothBottomBar;
+//    String t[] , d[] ;
+   // RecyclerView recyclerView ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       // recyclerView = findViewById(R.id.mom_recycler);
+//        t = getResources().getStringArray(R.array.momTitleStrings);
+//        d = getResources().getStringArray(R.array.momDateStrings);
+
+        //MyAdapter myAdapter = new MyAdapter(this , t , d);
+//        recyclerView.setAdapter(myAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);
