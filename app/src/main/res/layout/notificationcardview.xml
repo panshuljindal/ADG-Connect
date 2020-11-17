@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="375dp"
+    android:layout_height="70dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="20dp"
+    app:cardBackgroundColor="#171717"
+    app:cardCornerRadius="20.5dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="8dp"
+        app:srcCompat="@drawable/ic_calendar1" />
+
+    <TextView
+        android:id="@+id/card2text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="10dp"
+        android:text="Core Meeting"
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/card2text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="34dp"
+        android:text="06 Aug, 10PM"
+        android:textColor="#ffffff"
+        android:textSize="14dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        app:srcCompat="@drawable/ic_ellipse"
+        android:layout_marginLeft="345dp"
+        android:layout_marginTop="25dp"/>
+
+
+</androidx.cardview.widget.CardView>

@@ -2,63 +2,60 @@ package com.example.adginternals;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
 public class HomeFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    RecyclerView recyclerView1,recyclerViewNotification;
+    ArrayList<card1item> list1;
+    ArrayList<card2item> list2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        recyclerView1 = (RecyclerView) view.findViewById(R.id.recyclerview1);
+        recyclerViewNotification= (RecyclerView) view.findViewById(R.id.recyclerviewNotifications);
+
+        list1 = new ArrayList<>();
+        list2 = new ArrayList<>();
+        addData();
+
+        card1adapter adapter = new card1adapter(getContext(),list1);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerView1.setAdapter(adapter);
+        recyclerView1.setLayoutManager(manager);
+
+        card2adapter adapter1= new card2adapter(getContext(),list2);
+        LinearLayoutManager manager1= new LinearLayoutManager(getContext());
+        manager1.setOrientation(RecyclerView.VERTICAL);
+        recyclerViewNotification.setAdapter(adapter1);
+        recyclerViewNotification.setLayoutManager(manager1);
+
+        return view;
+    }
+    public void addData(){
+        list1.add(new card1item(R.drawable.androidback,R.drawable.andicon,"ANDROID","New Event Coming Up","Development of an App is underway","Meeting Scheduled on Monday"));
+        list1.add(new card1item(R.drawable.iosback,R.drawable.andicon,"IOS","New Event Coming Up","Development of an App is underway","Meeting Scheduled on Tuesday"));
+        list1.add(new card1item(R.drawable.androidback,R.drawable.andicon,"MACHINE LEARNING","New Event Coming Up","Development of an App is underway","Meeting Scheduled on Wednesday"));
+        list2.add(new card2item("Core Meeting","06 Aug, 10PM"));
+        list2.add(new card2item("iOS Team Meeting","10 Aug, 09PM"));
+        list2.add(new card2item("Task-1 Deadline","12 Aug, 12PM"));
+        list2.add(new card2item("Event Poster ","12 Aug, 10PM"));
+        list2.add(new card2item("Android Meeting ","12 Nov, 7PM"));
     }
 }
