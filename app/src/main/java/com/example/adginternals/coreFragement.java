@@ -1,26 +1,22 @@
 package com.example.adginternals;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTabHost;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TabHost;
-import android.widget.TextView;
 
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class AlertsFragment extends Fragment {
-    ViewPager2 viewPager1;
-    TabLayout tabLayout1;
+public class coreFragement extends Fragment {
+
+    TabLayout tabLayout2;
+    ViewPager2 viewPager2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,23 +25,25 @@ public class AlertsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_core_fragement,container,false);
 
-        View view=inflater.inflate(R.layout.fragment_alerts, container, false);
+        tabLayout2=view.findViewById(R.id.tablayout2);
+        viewPager2=view.findViewById(R.id.viewPager2);
 
-        tabLayout1= view.findViewById(R.id.tabLayout);
-        viewPager1=view.findViewById(R.id.viewPager);
-
-        viewPager1.setAdapter(new AlertAdapter(getActivity()));
-
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout1, viewPager1, new TabLayoutMediator.TabConfigurationStrategy() {
+        viewPager2 .setAdapter(new coreadapter(getActivity()));
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout2, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position){
+                switch(position) {
                     case 0:
-                        tab.setText("Core");
+                        tab.setText("All");
                         break;
                     case 1:
-                        tab.setText("Team");
+                        tab.setText("Meetings");
+                        break;
+                    case 2:
+                        tab.setText("Duties");
                         break;
                 }
             }

@@ -1,51 +1,50 @@
 package com.example.adginternals;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTabHost;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TabHost;
-import android.widget.TextView;
 
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class AlertsFragment extends Fragment {
-    ViewPager2 viewPager1;
-    TabLayout tabLayout1;
+public class teamfragment extends Fragment {
+
+    TabLayout tabLayout2_1;
+    ViewPager2 viewPager2_1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view=inflater.inflate(R.layout.fragment_alerts, container, false);
+        View view= inflater.inflate(R.layout.fragment_teamfragment, container, false);
 
-        tabLayout1= view.findViewById(R.id.tabLayout);
-        viewPager1=view.findViewById(R.id.viewPager);
+        tabLayout2_1=view.findViewById(R.id.tablayout2_1);
+        viewPager2_1=view.findViewById(R.id.viewPager2_1);
 
-        viewPager1.setAdapter(new AlertAdapter(getActivity()));
-
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout1, viewPager1, new TabLayoutMediator.TabConfigurationStrategy() {
+        viewPager2_1.setAdapter(new teamadapter(getActivity()));
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout2_1, viewPager2_1, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position){
+                switch(position) {
                     case 0:
-                        tab.setText("Core");
+                        tab.setText("All");
                         break;
                     case 1:
-                        tab.setText("Team");
+                        tab.setText("Android");
+                        break;
+                    case 2:
+                        tab.setText("iOS");
                         break;
                 }
             }
