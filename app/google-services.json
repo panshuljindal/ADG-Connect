@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "754737704023",
+    "firebase_url": "https://internals-app-c0391.firebaseio.com",
+    "project_id": "internals-app-c0391",
+    "storage_bucket": "internals-app-c0391.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754737704023:android:074afd21d1243a8ea48712",
+        "android_client_info": {
+          "package_name": "com.example.adginternals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754737704023-7jbb39rvriffaj3pjbsfe2f016ck3cqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnt7o7RE-T4QOmBW2UPKVZfP0uTM_PY4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754737704023-7jbb39rvriffaj3pjbsfe2f016ck3cqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
