@@ -32,6 +32,7 @@ public class MomFragment extends Fragment {
 
     public MomFragment() {
         // Required empty public constructor
+
     }
 
     /**
@@ -48,6 +49,7 @@ public class MomFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,6 +74,7 @@ public class MomFragment extends Fragment {
         t = getResources().getStringArray(R.array.momTitleStrings);
         d = getResources().getStringArray(R.array.momDateStrings);
         MyAdapter myAdapter = new MyAdapter(getContext() , t , d);
+
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
