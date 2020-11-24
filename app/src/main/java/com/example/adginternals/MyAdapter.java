@@ -46,7 +46,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Toast.makeText(context, "item clicked" + position, Toast.LENGTH_SHORT).show();
+                    //inflate the custom dialog to display mom
+
                 }
             });
 
