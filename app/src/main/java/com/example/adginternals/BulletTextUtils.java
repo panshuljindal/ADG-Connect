@@ -7,6 +7,16 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.BulletSpan;
 
+
+//usage
+// --- this is for bulletin text view
+//    CharSequence bulletedList = BulletListUtil.makeBulletList("First line", "Second line", "Really long third line that will wrap and indent properly.");
+//    textView.setText(bulletedList);
+
+
+
+//--may or maynot work
+
 public class BulletTextUtils {
     public static CharSequence makeBulletListFromStringArrayResource(int leadingMargin, Context context, int stringArrayResId) {
         return makeBulletList(leadingMargin, context.getResources().getStringArray(stringArrayResId));
@@ -30,3 +40,4 @@ public class BulletTextUtils {
         return sb;
     }
 }
+

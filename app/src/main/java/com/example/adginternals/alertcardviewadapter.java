@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,6 +72,22 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                 Dialog reasondialog = new Dialog(mcontext,R.style.Theme_Dialog);
                 reasondialog.setContentView(R.layout.unavaiable_dailog);
                 reasondialog.show();
+                Button cancelreason = reasondialog.findViewById(R.id.buttonreasoncancel);
+                Button postreason = reasondialog.findViewById(R.id.buttonpostreason);
+                cancelreason.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mcontext, "Cancel", Toast.LENGTH_SHORT).show();
+                        reasondialog.dismiss();
+                    }
+                });
+                postreason.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mcontext, "Reason Posted", Toast.LENGTH_SHORT).show();
+                        reasondialog.dismiss();
+                    }
+                });
             }
         });
     }
