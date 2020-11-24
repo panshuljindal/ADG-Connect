@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     String data1[] , data2[];String day , month ;
-    Dialog d;
-    Button DialogOk;
+
+    Button DialogOk ; TextView DialogDetailList; // need to bind these views mom dialog
+
 
     Context context;
     public MyAdapter(Context ct , String t[] , String d[]) {
@@ -62,8 +64,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     Toast.makeText(context, "item clicked" + position, Toast.LENGTH_SHORT).show();
                     //inflate the custom dialog to display mom
                     //open new fragment
-                    Intent intent = new Intent(context,MOMdetails.class);
-                    context.startActivity(intent);
+                    Dialog momdialog = new Dialog(context,R.style.Theme_Dialog);
+                    momdialog.setContentView(R.layout.momdialog);
+                    momdialog.show();
+
+
+
 
                 }
 
