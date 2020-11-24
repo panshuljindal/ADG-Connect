@@ -1,5 +1,6 @@
 package com.example.adginternals;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +68,9 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                 holder.ack.setVisibility(View.INVISIBLE);
                 holder.un.setVisibility(View.INVISIBLE);
                 holder.postedun.setVisibility(View.VISIBLE);
+                Dialog reasondialog = new Dialog(mcontext,R.style.Theme_Dialog);
+                reasondialog.setContentView(R.layout.unavaiable_dailog);
+                reasondialog.show();
             }
         });
     }
