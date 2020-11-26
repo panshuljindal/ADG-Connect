@@ -13,21 +13,13 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class MainActivity extends AppCompatActivity {
     private SmoothBottomBar smoothBottomBar;
-//    String t[] , d[] ;
-   // RecyclerView recyclerView ;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       // recyclerView = findViewById(R.id.mom_recycler);
-//        t = getResources().getStringArray(R.array.momTitleStrings);
-//        d = getResources().getStringArray(R.array.momDateStrings);
-
-        //MyAdapter myAdapter = new MyAdapter(this , t , d);
-//        recyclerView.setAdapter(myAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);

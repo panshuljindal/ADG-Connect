@@ -20,14 +20,22 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    String data1[] , data2[];String day , month ;
+    ArrayList<String> data1 = new ArrayList<String>();
+    ArrayList<String> data2 = new ArrayList<String>();
+
+
+    //String data1[] , data2[];
+    String day , month ;
 
     Button DialogOk ; TextView DialogDetailList; // need to bind these views mom dialog
 
 
     Context context;
-    public MyAdapter(Context ct , String t[] , String d[]) {
+    public MyAdapter(Context ct , ArrayList<String> t, ArrayList<String> d) {
 
         context = ct;
         data1 = t;
@@ -43,16 +51,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public int getItemCount() { return data1.length;
+    public int getItemCount() { return data1.size();
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.myText1.setText(data1[position]);
-        holder.myText2.setText(data2[position]);
+        holder.myText1.setText(data1.get(position));
+        holder.myText2.setText(data2.get(position));
 
-        day = extractDay(data2[position]);
-        month = extractMonth(data2[position]);
+        day = extractDay(data2.get(position));
+        month = extractMonth(data2.get(position));
 
         holder.carddateText1.setText(day);
         holder.carddateText2.setText(month);
@@ -68,6 +76,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 momdialog.setContentView(R.layout.momdialog);
                 momdialog.show();
 
+                Button okDiag = momdialog.findViewById(R.id.momDialogOKBtn);
+
+
+                CharSequence bulletedList = BulletTextUtils.makeBulletList(5,"Everyone has to get atleast 5 participants from their end.",
+        "Valid reason has to be provided for not attending the meeting in the ADG Internals app.",
+        "Desk duties will be alloted and everyone is asked to report on time.");
+                TextView momPointsDiscussed = momdialog.findViewById(R.id.momDialogPointsDiscussed);
+                momPointsDiscussed.setText(bulletedList);
+                okDiag.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        momdialog.dismiss();
+                    }
+                });
+
 
 
 
@@ -75,6 +98,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         });
 
+    }
+    public void filterList(ArrayList<String> filteredList){
+        // need to make custom object for mom
+        
+        data1 = filteredList;
+        data2 = filteredList;
+        notifyDataSetChanged();
     }
 
 
@@ -110,3 +140,4 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 }
+

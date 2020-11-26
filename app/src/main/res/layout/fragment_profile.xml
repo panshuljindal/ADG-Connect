@@ -7,6 +7,23 @@
     android:background="@color/colorPrimary"
     tools:context=".ProfileFragment">
 
+    <TextView
+        android:id="@+id/actionBarName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/robotobold"
+        android:text="Profile"
+        android:textColor="#ffffff"
+        android:textSize="34dp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="176dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/profileCard"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profileCard"
@@ -18,7 +35,7 @@
         app:cardCornerRadius="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/actionBarName">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
