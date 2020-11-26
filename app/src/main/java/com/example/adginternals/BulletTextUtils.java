@@ -10,8 +10,11 @@ import android.text.style.BulletSpan;
 
 //usage
 // --- this is for bulletin text view
-//    CharSequence bulletedList = BulletListUtil.makeBulletList("First line", "Second line", "Really long third line that will wrap and indent properly.");
-//    textView.setText(bulletedList);
+//CharSequence bulletedList = BulletTextUtils.makeBulletList(5,"Everyone has to get atleast 5 participants from their end.",
+//        "Valid reason has to be provided for not attending the meeting in the ADG Internals app.",
+//        "Desk duties will be alloted and everyone is asked to report on time.");
+//        TextView t = findViewById(R.id.momDialogPointsDiscussed);
+//        t.setText(bulletedList);
 
 
 
