@@ -2,6 +2,8 @@ package com.example.adginternals;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -18,6 +27,8 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
 
     private Context mcontext;
     private ArrayList<alertcardviewitem> malertcardviewitem;
+    DatabaseReference myref;
+    String uid,id1;
 
     public alertcardviewadapter(Context mcontext, ArrayList<com.example.adginternals.alertcardviewitem> malertcardviewitem) {
         this.mcontext = mcontext;
@@ -52,6 +63,10 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
     public void onBindViewHolder(@NonNull alertcardviewadapter.MyViewHolder holder, int position) {
 
         alertcardviewitem item = malertcardviewitem.get(position);
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        myref = db.getReference("AlertAttendace");
+
         holder.text1.setText(item.getText1());
         holder.text2.setText(item.getText2());
         holder.text3.setText(item.getText3());
@@ -63,33 +78,32 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                 holder.ack.setVisibility(View.INVISIBLE);
                 holder.un.setVisibility(View.INVISIBLE);
                 holder.postedack.setVisibility(View.VISIBLE);
+                SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                uid = pref.getString("uid","");
+                myref.child(holder.id.getText().toString()).child(uid).setValue("available");
             }
         });
         holder.un.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 holder.ack.setVisibility(View.INVISIBLE);
                 holder.un.setVisibility(View.INVISIBLE);
                 holder.postedun.setVisibility(View.VISIBLE);
-                Dialog reasondialog = new Dialog(mcontext,R.style.Theme_Dialog);
-                reasondialog.setContentView(R.layout.unavaiable_dailog);
-                reasondialog.show();
-                Button cancelreason = reasondialog.findViewById(R.id.buttonreasoncancel);
-                Button postreason = reasondialog.findViewById(R.id.buttonpostreason);
-                cancelreason.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(mcontext, "Cancel", Toast.LENGTH_SHORT).show();
-                        reasondialog.dismiss();
-                    }
-                });
-                postreason.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(mcontext, "Reason Posted", Toast.LENGTH_SHORT).show();
-                        reasondialog.dismiss();
-                    }
-                });
+
+                String mid = holder.id.getText().toString();
+                SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.mid",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("mid",mid);
+                editor.apply();
+
+                Fragment unreason = new unavailable_reason();
+                FragmentManager fragmentManager = ((FragmentActivity) mcontext).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container,unreason);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
     }

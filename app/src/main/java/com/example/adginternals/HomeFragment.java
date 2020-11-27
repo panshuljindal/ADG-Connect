@@ -1,5 +1,7 @@
 package com.example.adginternals;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,10 @@ public class HomeFragment extends Fragment {
         list2 = new ArrayList<>();
         addData();
 
+        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("uid","panshul");
+        editor.apply();
         card1adapter adapter = new card1adapter(getContext(),list1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.HORIZONTAL);

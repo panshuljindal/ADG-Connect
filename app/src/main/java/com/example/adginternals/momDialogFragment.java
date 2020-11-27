@@ -47,7 +47,7 @@ public class momDialogFragment extends Fragment {
         }
 
 
-        
+
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -93,8 +93,5 @@ public class MomFragment extends Fragment {
         }
         myAdapter.filterList(filteredList);
 
-
-
 }}
-
 
