@@ -80,7 +80,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                 holder.postedack.setVisibility(View.VISIBLE);
                 SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                uid = pref.getString("name","");
+                uid = pref.getString("uid","");
                 myref.child(holder.id.getText().toString()).child(uid).setValue("available");
             }
         });

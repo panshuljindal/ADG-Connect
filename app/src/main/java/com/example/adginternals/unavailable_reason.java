@@ -46,7 +46,8 @@ public class unavailable_reason extends Fragment {
         uid=pref1.getString("uid","");
         FirebaseDatabase db=FirebaseDatabase.getInstance();
         myref = db.getReference("AlertAttendace");
-        reasons = reason.getText().toString();
+
+
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +58,8 @@ public class unavailable_reason extends Fragment {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                reasons = reason.getText().toString();
+                Log.i("reason",reasons);
                 myref.child(mid).child(uid).setValue(reasons);
             }
         });

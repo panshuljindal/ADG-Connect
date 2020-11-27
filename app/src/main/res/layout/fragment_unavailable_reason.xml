@@ -63,7 +63,8 @@
         android:ems="10"
         android:hint="Enter Reason for Unavailability"
         android:inputType="textPersonName"
-        android:textColorHint="#303030" />
+        android:textColorHint="#303030"
+        android:textColor="#ffffff"/>
 
     <Button
         android:id="@+id/buttonpostreason"
