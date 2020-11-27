@@ -22,7 +22,7 @@ public class unavailable_reason extends Fragment {
     DatabaseReference myref;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-    String mid,uid;
+    String mid,name;
     String reasons;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class unavailable_reason extends Fragment {
 
         SharedPreferences pref1 = view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor1 = pref1.edit();
-        uid=pref1.getString("uid","");
+        name=pref1.getString("name","");
         FirebaseDatabase db=FirebaseDatabase.getInstance();
         myref = db.getReference("AlertAttendace");
 
@@ -60,7 +60,7 @@ public class unavailable_reason extends Fragment {
             public void onClick(View v) {
                 reasons = reason.getText().toString();
                 Log.i("reason",reasons);
-                myref.child(mid).child(uid).setValue(reasons);
+                myref.child(mid).child(name).setValue(reasons);
             }
         });
         return view;

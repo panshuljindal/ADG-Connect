@@ -33,7 +33,7 @@ public class Landing extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Landing.this, "Loggedin", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent myIntent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(myIntent);
             }
         });

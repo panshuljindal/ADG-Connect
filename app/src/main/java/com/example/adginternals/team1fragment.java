@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class team1fragment extends Fragment {
         list1_1=new ArrayList<>();
         FirebaseDatabase db =FirebaseDatabase.getInstance();
         myref = db.getReference("Alerts").child("Team");
+
         addData();
 
         adapter();
@@ -56,6 +58,8 @@ public class team1fragment extends Fragment {
                     String location = ad.getLocation();
                     String link = ad.getLink();
                     String id =ad.getId();
+                    String type=ad.getType().toString();
+                    Log.i("Type",type);
                     list1_1.add(new alertcardviewitem(title,time,location,link,id));
                 }
                 adapter();

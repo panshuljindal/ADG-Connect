@@ -31,7 +31,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
     private Context mcontext;
     private ArrayList<alertcardviewitem> malertcardviewitem;
     DatabaseReference myref,myref1;
-    String uid,id1;
+    String name;
     String state="";
 
     public alertcardviewadapter(Context mcontext, ArrayList<com.example.adginternals.alertcardviewitem> malertcardviewitem) {
@@ -70,7 +70,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
 
         SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        uid = pref.getString("uid","");
+        name = pref.getString("name","");
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         myref = db.getReference("AlertAttendace");
@@ -102,7 +102,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                 holder.un.setVisibility(View.INVISIBLE);
                 holder.postedack.setVisibility(View.VISIBLE);
 
-                myref.child(holder.id.getText().toString()).child(uid).setValue("available");
+                myref.child(holder.id.getText().toString()).child(name).setValue("available");
             }
         });
         holder.un.setOnClickListener(new View.OnClickListener() {
