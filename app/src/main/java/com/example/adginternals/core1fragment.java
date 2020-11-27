@@ -28,7 +28,6 @@ public class core1fragment extends Fragment {
     ArrayList<alertcardviewitem> list1;
     FirebaseDatabase database;
     DatabaseReference myref;
-    ArrayList<String> id,link,location,title,type;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +38,14 @@ public class core1fragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_core1fragment, container, false);
         recyclerView=view.findViewById(R.id.recylerView1_1);
-        arraylist();
+        list1=new ArrayList<>();
         database =FirebaseDatabase.getInstance();
         myref =database.getReference("Alerts").child("Core");
         addData();
         return view;
     }
 
-    private void arraylist() {
-        list1=new ArrayList<>();
-    }
+
 
     public void addData(){
 
@@ -59,11 +56,10 @@ public class core1fragment extends Fragment {
                 for(DataSnapshot ds: datasnapshot.getChildren()){
                     alertdata ad = ds.getValue(alertdata.class);
                     String title = ad.getTitle();
-                    String time = ad.getTime().toString();
+                    String time = unixconvert(ad.getTime().toString());
                     String location = ad.getLocation();
                     String link = ad.getLink();
                     String id =ad.getId();
-                    Log.i("user",title+" "+time+" "+location+" "+link+" "+id );
                     list1.add(new alertcardviewitem(title,time,location,link,id));
                 }
                 alertcardviewadapter alertcardviewadapter = new alertcardviewadapter(getContext(),list1);
@@ -80,5 +76,11 @@ public class core1fragment extends Fragment {
         });
 
 
+    }
+    public String unixconvert(String time){
+        long dv = Long.valueOf(time)*1000;// its need to be in milisecond
+        Date df = new java.util.Date(dv);
+        String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
+        return vv;
     }
 }
