@@ -18,8 +18,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -27,8 +30,9 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
 
     private Context mcontext;
     private ArrayList<alertcardviewitem> malertcardviewitem;
-    DatabaseReference myref;
+    DatabaseReference myref,myref1;
     String uid,id1;
+    String state="";
 
     public alertcardviewadapter(Context mcontext, ArrayList<com.example.adginternals.alertcardviewitem> malertcardviewitem) {
         this.mcontext = mcontext;
@@ -64,23 +68,40 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
 
         alertcardviewitem item = malertcardviewitem.get(position);
 
+        SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        uid = pref.getString("uid","");
+
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         myref = db.getReference("AlertAttendace");
-
         holder.text1.setText(item.getText1());
         holder.text2.setText(item.getText2());
         holder.text3.setText(item.getText3());
         holder.text4.setText(item.getText4());
         holder.id.setText(item.getId());
+
+
+        myref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //for(DataSnapshot ds : snapshot.getChildren()){
+                    state = snapshot.getValue().toString();
+                    Log.i("state", state);
+                //}
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         holder.ack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 holder.ack.setVisibility(View.INVISIBLE);
                 holder.un.setVisibility(View.INVISIBLE);
                 holder.postedack.setVisibility(View.VISIBLE);
-                SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                uid = pref.getString("uid","");
+
                 myref.child(holder.id.getText().toString()).child(uid).setValue("available");
             }
         });
