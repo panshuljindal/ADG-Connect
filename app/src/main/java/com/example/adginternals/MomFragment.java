@@ -44,7 +44,7 @@ public class MomFragment extends Fragment {
 
         Resources res = getResources();
         //fetch from firebase and add here
-
+        momItems.clear();
         momItems.add(new momItem("24 October 2020","Core Meeting MOM",
                 "A meeting was called by the Board regarding work related to the upcoming event that is to be held on 20 Oct 2020.",
                 new String[]{"Everyone has to get atleast 5 participants from their end.",
