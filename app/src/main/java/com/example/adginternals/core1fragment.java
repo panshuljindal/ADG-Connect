@@ -42,6 +42,7 @@ public class core1fragment extends Fragment {
         database =FirebaseDatabase.getInstance();
         myref =database.getReference("Alerts").child("Core");
         addData();
+        adapter();
         return view;
     }
 
@@ -62,11 +63,7 @@ public class core1fragment extends Fragment {
                     String id =ad.getId();
                     list1.add(new alertcardviewitem(title,time,location,link,id));
                 }
-                alertcardviewadapter alertcardviewadapter = new alertcardviewadapter(getContext(),list1);
-                LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                manager.setOrientation(RecyclerView.VERTICAL);
-                recyclerView.setAdapter(alertcardviewadapter);
-                recyclerView.setLayoutManager(manager);
+                adapter();
             }
 
             @Override
@@ -74,13 +71,18 @@ public class core1fragment extends Fragment {
 
             }
         });
-
-
     }
     public String unixconvert(String time){
         long dv = Long.valueOf(time)*1000;// its need to be in milisecond
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
+    }
+    public void adapter(){
+        alertcardviewadapter alertcardviewadapter = new alertcardviewadapter(getContext(),list1);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setAdapter(alertcardviewadapter);
+        recyclerView.setLayoutManager(manager);
     }
 }
