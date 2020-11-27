@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,23 +25,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    ArrayList<String> data1 = new ArrayList<String>();
-    ArrayList<String> data2 = new ArrayList<String>();
 
+    private ArrayList<momItem> mItemsMom = new ArrayList<>();
 
-    //String data1[] , data2[];
     String day , month ;
 
-    Button DialogOk ; TextView DialogDetailList; // need to bind these views mom dialog
+
 
 
     Context context;
-    public MyAdapter(Context ct , ArrayList<String> t, ArrayList<String> d) {
+    public MyAdapter(Context ct , ArrayList<momItem> MomItem) {
 
-        context = ct;
-        data1 = t;
-        data2 = d;
+        mItemsMom = MomItem;
+          context = ct;
+
     }
 
     @NonNull
@@ -52,16 +53,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public int getItemCount() { return data1.size();
+    public int getItemCount() { return mItemsMom.size();
+
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.myText1.setText(data1.get(position));
-        holder.myText2.setText(data2.get(position));
 
-        day = extractDay(data2.get(position));
-        month = extractMonth(data2.get(position));
+        momItem currentmom = mItemsMom.get(position);
+
+        holder.myText1.setText(currentmom.getTitle());
+        holder.myText2.setText(currentmom.getDate());
+
+        //get the data for mini card
+        month = extractMonth(currentmom.getDate());
+        day = extractDay(currentmom.getDate());
 
         holder.carddateText1.setText(day);
         holder.carddateText2.setText(month);
@@ -72,17 +79,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                 Toast.makeText(context, "item clicked" + position, Toast.LENGTH_SHORT).show();
 
-                Fragment momDiagFrag = new momDialogFragment();
+                Fragment momDiagFrag = new momDialogFragment(currentmom);
                 FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container,momDiagFrag);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
-
-
-
-
 
             }
 
@@ -90,10 +92,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     }
     //searchbar filter
-    public void filterList(ArrayList<String> filteredList){
+    public void filterList(ArrayList<momItem> filteredList){
         // need to make custom object for mom
-        data1 = filteredList;
-        data2 = filteredList;
+        mItemsMom = filteredList;
         notifyDataSetChanged();
     }
 

@@ -22,10 +22,11 @@ import java.util.List;
 
 public class MomFragment extends Fragment {
     RecyclerView recyclerView;//String t[] , d[] ;
-    ArrayList<String> t = new ArrayList<String>();
-    ArrayList<String> d = new ArrayList<String>();
+
+    ArrayList<momItem> momItems = new ArrayList<>();
     EditText momSearchBar;
     MyAdapter myAdapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,12 +43,23 @@ public class MomFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.mom_recycler);
 
         Resources res = getResources();
-        Collections.addAll(t, res.getStringArray(R.array.momTitleStrings));
-        Collections.addAll(d, res.getStringArray(R.array.momDateStrings));
+        //fetch from firebase and add here
+
+        momItems.add(new momItem("24 October 2020","Core Meeting MOM",
+                "A meeting was called by the Board regarding work related to the upcoming event that is to be held on 20 Oct 2020.",
+                new String[]{"Everyone has to get atleast 5 participants from their end.",
+                        "Desk duties will be alloted and everyone is asked to report on time.",
+                "Valid reason has to be provided for not attending the meeting in the ADG Internals app."}));
+
+        momItems.add(new momItem("02 November 2020","Board Meeting MOM",
+                "A meeting was called by the Board regarding work related to the upcoming event that is to be held on 20 Oct 2020.",
+                new String[]{"Everyone has to get atleast 5 participants from their end.",
+                        "Desk duties will be alloted and everyone is asked to report on time.",
+                        "Valid reason has to be provided for not attending the meeting in the ADG Internals app."}));
 
 
-        myAdapter = new MyAdapter(getContext() , t , d);
 
+        myAdapter = new MyAdapter(getContext(),momItems);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -55,7 +67,6 @@ public class MomFragment extends Fragment {
         momSearchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -65,25 +76,22 @@ public class MomFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                filter(s.toString());
+                    filter(s.toString());
             }
         });
-
-
-
 
          return  view;
     }
 
     private void filter(String text) {
-        ArrayList<String> filteredList = new ArrayList<>();
+        ArrayList<momItem> filteredList = new ArrayList<>();
 
-        for(String item : d){
-            if(item.toLowerCase().contains(text.toLowerCase())) {
+        for(momItem item : momItems){
+            if(item.getDate().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(item);
             }
         }
         myAdapter.filterList(filteredList);
-}
-}
+
+}}
 
