@@ -39,6 +39,6 @@ public class team3fragment extends Fragment {
         return view;
     }
     public void addData(){
-        list1_3.add(new alertcardviewitem("iOS","10 Aug, 09PM","Google Meet","https://meet.google.com/ksb-cymm-gez"));
+        list1_3.add(new alertcardviewitem("iOS","10 Aug, 09PM","Google Meet","https://meet.google.com/ksb-cymm-gez",""));
     }
 }

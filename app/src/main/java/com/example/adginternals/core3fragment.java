@@ -41,6 +41,6 @@ public class core3fragment extends Fragment {
         return view;
     }
     public void addData(){
-        list3.add(new alertcardviewitem("Gravitas Work","06 Aug, 12PM","SMV Portico","Room 101"));
+        list3.add(new alertcardviewitem("Gravitas Work","06 Aug, 12PM","SMV Portico","Room 101",""));
     }
 }

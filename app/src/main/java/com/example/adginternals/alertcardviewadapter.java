@@ -25,7 +25,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView text1,text2,text3,text4;
+        TextView text1,text2,text3,text4,id;
         Button ack,un,postedack,postedun;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -33,6 +33,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
             text2=itemView.findViewById(R.id.alertcardtext2);
             text3=itemView.findViewById(R.id.alertcardtext3);
             text4=itemView.findViewById(R.id.alertcardtext4);
+            id=itemView.findViewById(R.id.alertcardid);
             ack=itemView.findViewById(R.id.buttonack);
             un=itemView.findViewById(R.id.buttonun);
             postedun=itemView.findViewById(R.id.buttonpostedun);
@@ -55,6 +56,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
         holder.text2.setText(item.getText2());
         holder.text3.setText(item.getText3());
         holder.text4.setText(item.getText4());
+        holder.id.setText(item.getId());
         holder.ack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

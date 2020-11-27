@@ -119,7 +119,12 @@
         android:layout_marginLeft="345dp"
         android:layout_marginTop="23dp"/>
 
-
+    <TextView
+        android:id="@+id/alertcardid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@android:color/transparent"/>
 
 
 </androidx.cardview.widget.CardView>

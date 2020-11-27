@@ -38,6 +38,6 @@ public class team2fragment extends Fragment {
         return view;
     }
     public void addData(){
-        list1_2.add(new alertcardviewitem("Android","12 Aug, 10PM","Google Meet","https://meet.google.com/ksb-cymm-gez"));
+        list1_2.add(new alertcardviewitem("Android","12 Aug, 10PM","Google Meet","https://meet.google.com/ksb-cymm-gez",""));
     }
 }

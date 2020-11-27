@@ -39,7 +39,7 @@ public class core2fragment extends Fragment {
         return view;
     }
     public void addData(){
-        list2.add(new alertcardviewitem("Gravitas Work","06 Aug, 12PM","SMV Portico","Room 101"));
-        list2.add(new alertcardviewitem("Core Meeting","06 Aug, 10PM","Google meet","https://meet.google.com/sso-cymm-gez"));
+        list2.add(new alertcardviewitem("Gravitas Work","06 Aug, 12PM","SMV Portico","Room 101",""));
+        list2.add(new alertcardviewitem("Core Meeting","06 Aug, 10PM","Google meet","https://meet.google.com/sso-cymm-gez",""));
     }
 }
