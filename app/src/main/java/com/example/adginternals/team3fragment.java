@@ -61,6 +61,7 @@ public class team3fragment extends Fragment {
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list1_3.clear();
                 for(DataSnapshot ds: snapshot.getChildren()){
                     alertdata ad = ds.getValue(alertdata.class);
                     String title = ad.getTitle();

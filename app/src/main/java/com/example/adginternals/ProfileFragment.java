@@ -2,6 +2,7 @@ package com.example.adginternals;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     Button logoutbtn;
@@ -20,6 +23,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     Button resetPw;
     Button Team;
+    FirebaseAuth mauth;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         Team = (Button) view.findViewById(R.id.knowMoreBtn);
         Team.setOnClickListener((View.OnClickListener) this);
 
+        mauth=FirebaseAuth.getInstance();
+
         return view;
         //return inflater.inflate(R.layout.fragment_profile, container, false);
     }
@@ -58,6 +64,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             logoutlogoutbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mauth.signOut();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                     Toast.makeText(getContext(), "Logged Out!", Toast.LENGTH_SHORT).show();
                     logoutDialog.dismiss();
                 }
