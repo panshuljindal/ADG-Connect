@@ -71,26 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             public void onClick(View v) {
 
                 Toast.makeText(context, "item clicked" + position, Toast.LENGTH_SHORT).show();
-                //inflate the custom dialog to display mom
-                //open new fragment
-//                Dialog momdialog = new Dialog(context,R.style.Theme_Dialog);
-//                momdialog.setContentView(R.layout.momdialog);
-//                momdialog.show();
-//
-//                Button okDiag = momdialog.findViewById(R.id.momDialogOKBtn);
-//
-//
-//                CharSequence bulletedList = BulletTextUtils.makeBulletList(5,"Everyone has to get atleast 5 participants from their end.",
-//        "Valid reason has to be provided for not attending the meeting in the ADG Internals app.",
-//        "Desk duties will be alloted and everyone is asked to report on time.");
-//                TextView momPointsDiscussed = momdialog.findViewById(R.id.momDialogPointsDiscussed);
-//                momPointsDiscussed.setText(bulletedList);
-//                okDiag.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        momdialog.dismiss();
-//                    }
-//                });
+
                 Fragment momDiagFrag = new momDialogFragment();
                 FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

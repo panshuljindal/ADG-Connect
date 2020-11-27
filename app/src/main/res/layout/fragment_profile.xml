@@ -19,7 +19,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="176dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/profileCard"
         app:layout_constraintTop_toTopOf="parent"

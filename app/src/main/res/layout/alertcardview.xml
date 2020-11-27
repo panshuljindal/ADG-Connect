@@ -1,130 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="375dp"
-    android:layout_height="190dp"
-    android:layout_marginBottom="13dp"
-    android:layout_marginLeft="20dp"
-    app:cardBackgroundColor="#121212"
-    app:cardCornerRadius="20dp">
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/buttonack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/ic_ack1"
-        android:fontFamily="@font/sfpro"
-        android:text="Acknowledge"
-        android:textColor="#2C5FE2"
-        android:textAllCaps="false"
-        android:textSize="14dp" />
-    <Button
-        android:id="@+id/buttonun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_un1"
-        android:layout_marginTop="150dp"
-        android:layout_marginLeft="188.2dp"
-        android:fontFamily="@font/sfpro"
-        android:text="Unavailable"
-        android:textColor="#A6033E"
-        android:textAllCaps="false"
-        android:textSize="14dp"/>
-    <Button
-        android:id="@+id/buttonpostedun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_posted"
-        android:layout_marginTop="150dp"
-        android:fontFamily="@font/sfpro"
-        android:text="Posted Unavailable"
-        android:textColor="#A6033E"
-        android:textAllCaps="false"
-        android:textSize="14dp"
-        android:visibility="invisible"/>
-    <Button
-        android:id="@+id/buttonpostedack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_posted"
-        android:layout_marginTop="150dp"
-        android:fontFamily="@font/sfpro"
-        android:text="Acknowledged"
-        android:textColor="#2C5FE2"
-        android:textAllCaps="false"
-        android:textSize="14dp"
-        android:visibility="invisible"/>
-    <ImageView
-        android:id="@+id/alertimageView"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="8dp"
-        app:srcCompat="@drawable/ic_calendar1" />
-    <ImageView
-        android:id="@+id/alertimageView1"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="8dp"
-        app:srcCompat="@drawable/ic_meeting" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="#121212"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/alertcardtext1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="10dp"
-        android:text="Core Meeting"
-        android:textColor="#ffffff"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/alertcardtext2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="43dp"
-        android:text="06 Aug, 10PM"
-        android:textColor="#ffffff"
-        android:textSize="18dp" />
-    <TextView
-        android:id="@+id/alertcardtext3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="80dp"
-        android:text="Google Meeting"
-        android:textColor="#ffffff"
-        android:textSize="21dp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/alertcardtext4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="110dp"
-        android:text="https://meet.google.com/sso-cymm-gez"
-        android:textColor="#00C2FF"
-        android:textSize="11dp" />
+        <Button
+            android:id="@+id/buttonack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/ic_ack1"
+            android:fontFamily="@font/sfpro"
+            android:text="Acknowledge"
+            android:textAllCaps="false"
+            android:textColor="#2C5FE2"
+            android:textSize="14dp" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="15dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/ic_ellipse1"
-        android:layout_marginLeft="345dp"
-        android:layout_marginTop="23dp"/>
+        <Button
+            android:id="@+id/buttonun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="188.2dp"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/ic_un1"
+            android:fontFamily="@font/sfpro"
+            android:text="Unavailable"
+            android:textAllCaps="false"
+            android:textColor="#A6033E"
+            android:textSize="14dp" />
 
-    <TextView
-        android:id="@+id/alertcardid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@android:color/transparent"/>
+        <Button
+            android:id="@+id/buttonpostedun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/ic_posted"
+            android:fontFamily="@font/sfpro"
+            android:text="Posted Unavailable"
+            android:textAllCaps="false"
+            android:textColor="#A6033E"
+            android:textSize="14dp"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/buttonpostedack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/ic_posted"
+            android:fontFamily="@font/sfpro"
+            android:text="Acknowledged"
+            android:textAllCaps="false"
+            android:textColor="#2C5FE2"
+            android:textSize="14dp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/alertimageView"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_calendar1" />
+
+        <ImageView
+            android:id="@+id/alertimageView1"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_meeting" />
+
+        <TextView
+            android:id="@+id/alertcardtext1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="72dp"
+            android:layout_marginTop="10dp"
+            android:text="Core Meeting"
+            android:textColor="#ffffff"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/alertcardtext2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="72dp"
+            android:layout_marginTop="43dp"
+            android:text="06 Aug, 10PM"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/alertcardtext3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="72dp"
+            android:layout_marginTop="80dp"
+            android:text="Google Meeting"
+            android:textColor="#ffffff"
+            android:textSize="21dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/alertcardtext4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="72dp"
+            android:layout_marginTop="110dp"
+            android:text="https://meet.google.com/sso-cymm-gez"
+            android:textColor="#00C2FF"
+            android:textSize="11dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="345dp"
+            android:layout_marginTop="23dp"
+            app:srcCompat="@drawable/ic_ellipse1" />
+
+        <TextView
+            android:id="@+id/alertcardid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/transparent" />
 
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
