@@ -91,6 +91,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                FirebaseUser user = mauth.getCurrentUser();
+                uid = user.getUid();
                 String emaili = snapshot.child(uid).child("email").getValue().toString();
                 editor.putString("emailid", emaili);
 
