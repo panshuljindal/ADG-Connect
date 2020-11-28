@@ -2,18 +2,18 @@ package com.example.adginternals;
 
 public class getMomdetails {
     String header;
-    String points;
     Integer time;
     String title;
+    String team;
 
     public getMomdetails() {
     }
 
-    public getMomdetails(String header, String points, Integer time, String title) {
+    public getMomdetails(String header, Integer time, String title,String team) {
         this.header = header;
-        this.points = points;
         this.time = time;
         this.title = title;
+        this.team = team;
     }
 
     public String getHeader() {
@@ -23,15 +23,6 @@ public class getMomdetails {
     public void setHeader(String header) {
         this.header = header;
     }
-
-    public String getPoints() {
-        return points;
-    }
-
-    public void setPoints(String points) {
-        this.points = points;
-    }
-
 
     public Integer getTime() {
         return time;
@@ -47,5 +38,13 @@ public class getMomdetails {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
     }
 }
