@@ -85,8 +85,8 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //for(DataSnapshot ds : snapshot.getChildren()){
-                    state = snapshot.getValue().toString();
-                    Log.i("state", state);
+                   // state = snapshot.getValue().toString();
+                    //Log.i("state", state);
                 //}
             }
             @Override

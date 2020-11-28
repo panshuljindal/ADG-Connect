@@ -8,31 +8,28 @@ public class momItem {
     String date;
     String title;
     String header;
-    String points[];
+    String points;
 
-    public momItem(String d,String t,String h,String p[]){
-        date = d;
-        title = t;
-        header = h;
-        points = p;
+    public momItem(String date, String title, String header, String points) {
+        this.date = date;
+        this.title = title;
+        this.header = header;
+        this.points = points;
     }
 
-    public String getDate(){
+    public String getDate() {
         return date;
     }
-    public String getTitle(){
+
+    public String getTitle() {
         return title;
     }
-    public String getHeader(){
+
+    public String getHeader() {
         return header;
     }
-    public String[] getPoints(){
+
+    public String getPoints() {
         return points;
     }
-
-    public void printDetails (){
-        Log.d(TAG, "printDetails: "+date+" "+title+" "+header+" ");
-    }
-
-
 }

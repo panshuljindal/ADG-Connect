@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,5 +60,7 @@ public class HomeFragment extends Fragment {
         list2.add(new card2item("Task-1 Deadline","12 Aug, 12PM"));
         list2.add(new card2item("Event Poster ","12 Aug, 10PM"));
         list2.add(new card2item("Android Meeting ","12 Nov, 7PM"));
+        Log.i("list1",list1.toString());
+        Log.i("list2",list2.toString());
     }
 }

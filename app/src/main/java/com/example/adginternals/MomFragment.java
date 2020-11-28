@@ -114,10 +114,16 @@ public class MomFragment extends Fragment {
                     String time = unixconvert(momdetails.getTime().toString());
                     String title = momdetails.getTitle();
                     String team = momdetails.getTeam();
+                    String mid = momdetails.getMid();
+
+                    String point = snapshot.child(mid).child("points").getValue().toString();
+                    String points1 = point.replace("[","");
+                    String points2 = points1.replace("]","");
+                    ArrayList<String> points= new ArrayList<>(Arrays.asList(points2.split(",")));
+
+
                     if (mylist.contains(team)) {
-                        momItems.add(new momItem(time, title, header, new String[]{"Everyone has to get atleast 5 participants from their end.",
-                                "Desk duties will be alloted and everyone is asked to report on time.",
-                                "Valid reason has to be provided for not attending the meeting in the ADG Internals app."}));
+                        momItems.add(new momItem(time, title, header,points2));
                     }
                 }
                 adapter();

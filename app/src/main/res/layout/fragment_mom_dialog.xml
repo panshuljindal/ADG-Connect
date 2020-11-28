@@ -76,40 +76,34 @@
         app:layout_constraintTop_toBottomOf="@+id/momDialogHeader"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/momDialogPointsDiscussed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:fontFamily="@font/robotoregular"
-        android:scrollbars="vertical"
-        android:singleLine="false"
-        android:text="sample"
-        android:textColor="#ffffff"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/momDialogPointsHead"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Button
         android:id="@+id/momDialogOKBtn"
         android:layout_width="57dp"
         android:layout_height="41dp"
+        android:layout_marginBottom="72dp"
         android:background="#0b0b0b"
         android:fontFamily="@font/robotobold"
         android:text="Ok"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="22dp"
-        android:layout_marginBottom="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/momDialogPointsDiscussed"
-        app:layout_constraintVertical_bias="0.961" />
+        app:layout_constraintTop_toBottomOf="@+id/pointView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pointView"
+        android:layout_width="412dp"
+        android:layout_height="331dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/momDialogPointsHead" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
