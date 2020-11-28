@@ -52,7 +52,7 @@ public class momDialogFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //go back
-                getActivity().onBackPressed();
+                getFragmentManager().popBackStackImmediate();
             }
         });
 

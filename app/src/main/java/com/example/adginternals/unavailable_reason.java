@@ -52,7 +52,7 @@ public class unavailable_reason extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                getFragmentManager().popBackStackImmediate();
             }
         });
         post.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +61,7 @@ public class unavailable_reason extends Fragment {
                 reasons = reason.getText().toString();
                 Log.i("reason",reasons);
                 myref.child(mid).child(name).setValue(reasons);
-                getActivity().onBackPressed();
+                getFragmentManager().popBackStackImmediate();
             }
         });
         return view;
