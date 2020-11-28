@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import me.ibrahimsn.lib.OnItemSelectedListener;
@@ -58,5 +61,29 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Home");
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
+    }
+    Boolean doubleback=false;
+    @Override
+    public void onBackPressed() {
+        if (doubleback) {
+            super.onBackPressed();
+            moveTaskToBack(true);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+            Log.i("doubleback", doubleback.toString());
+        } else {
+            doubleback = true;
+
+            Toast.makeText(this, "Please once again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleback = false;
+                    Log.i("doubleback", doubleback.toString());
+                }
+            }, 2000);
+            Log.i("doubleback", doubleback.toString());
+        }
     }
 }
