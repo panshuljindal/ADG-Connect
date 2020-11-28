@@ -6,7 +6,17 @@
     android:layout_height="match_parent"
     android:id="@+id/loginParent"
     tools:context=".LoginActivity"
-    android:background="@drawable/loginbg">
+    android:background="#000000">
+
+    <ImageView
+        android:id="@+id/landingimg"
+        android:layout_width="350dp"
+        android:layout_height="526dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/landingimage" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/loginCard"
@@ -16,6 +26,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="40dp"
         app:cardCornerRadius="15dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -134,6 +145,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/loginBtn1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/loginbtnbg"
+        android:fontFamily="@font/robotomedium"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Login"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/landingimg" />
 
 
 

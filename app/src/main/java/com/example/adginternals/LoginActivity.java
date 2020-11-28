@@ -9,11 +9,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,26 +34,41 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
 public class LoginActivity extends AppCompatActivity {
     EditText email,password;
-    Button login;
+    Button login, login1btn;
+    ImageView bgImg;
+
     String emailid,pass,uid;
     FirebaseAuth mauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        toggleFullscreen(true); // toggling fulllscreen of half
+
         Animation Anim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadein1);
+        Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.buttonup);
+        Animation imgAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadein);
+        Animation imgAnim2 = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadeout);
+
+
         CardView loginCard = findViewById(R.id.loginCard);
-        View parent = findViewById(R.id.parent);
+        login1btn = findViewById(R.id.loginBtn1);
+        bgImg = findViewById(R.id.landingimg);
 
 
+        bgImg.setAnimation(imgAnim);
+        login1btn.setAnimation(buttonAnim);
 
-        loginCard.setAnimation(Anim);
 
         email = findViewById(R.id.editTextEmail);
         password = findViewById(R.id.editTextPassword);
         login = findViewById(R.id.buttonLogin);
+
         mauth = FirebaseAuth.getInstance();
         if(mauth.getCurrentUser()!=null){
             FirebaseUser user = mauth.getCurrentUser();
@@ -61,10 +77,33 @@ public class LoginActivity extends AppCompatActivity {
             Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(myIntent);
         }
+
         clicklisteners();
+
+        login1btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleFullscreen(false);
+                loginCard.setAnimation(Anim);
+                bgImg.setAnimation(imgAnim2);
+                loginCard.setVisibility(View.VISIBLE);
+                login1btn.setVisibility(View.GONE);
+            }
+        });
     }
 
-
+    private void toggleFullscreen(boolean fullscreen) {
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        if (fullscreen)
+        {
+            attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        }
+        else
+        {
+            attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        }
+        getWindow().setAttributes(attrs);
+    }
 
 
     public void clicklisteners(){
