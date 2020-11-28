@@ -2,12 +2,16 @@ package com.example.adginternals;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -38,6 +42,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Animation Anim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadein1);
+        CardView loginCard = findViewById(R.id.loginCard);
+        View parent = findViewById(R.id.parent);
+
+
+
+        loginCard.setAnimation(Anim);
 
         email = findViewById(R.id.editTextEmail);
         password = findViewById(R.id.editTextPassword);
@@ -52,6 +63,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         clicklisteners();
     }
+
+
+
+
     public void clicklisteners(){
         login.setOnClickListener(new View.OnClickListener() {
             @Override
