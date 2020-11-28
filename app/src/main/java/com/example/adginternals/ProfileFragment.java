@@ -2,7 +2,9 @@ package com.example.adginternals;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +27,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     Button resetPw;
     Button Team;
     FirebaseAuth mauth;
+    String name,regNo,email,phone;
+    TextView profileName,regNoText,userEmail,userContact;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +51,24 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         Team = (Button) view.findViewById(R.id.knowMoreBtn);
         Team.setOnClickListener((View.OnClickListener) this);
 
+        profileName=view.findViewById(R.id.profileName);
+        regNoText = view.findViewById(R.id.regNo);
+        userEmail = view.findViewById(R.id.userEmail);
+        userContact = view.findViewById(R.id.userContact);
+
         mauth=FirebaseAuth.getInstance();
+
+        pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
+        editor = pref.edit();
+        name = pref.getString("name","");
+        regNo = pref.getString("regNo","");
+        email = pref.getString("emailid","");
+        phone = pref.getString("phone","");
+
+        profileName.setText(name);
+        regNoText.setText(regNo);
+        userEmail.setText(email);
+        userContact.setText(phone);
 
         return view;
         //return inflater.inflate(R.layout.fragment_profile, container, false);
