@@ -14,7 +14,7 @@
         android:layout_height="190dp"
         android:layout_margin="5dp"
         app:cardCornerRadius="7.5dp"
-        android:background="#121212"
+        android:background="@drawable/notificationback"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,12 +108,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="119dp"
                 android:text="Core Meeting"
                 android:textColor="#ffffff"
                 android:textSize="25dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toEndOf="@+id/alertimageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
