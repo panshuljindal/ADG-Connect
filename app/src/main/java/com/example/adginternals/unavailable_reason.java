@@ -61,6 +61,7 @@ public class unavailable_reason extends Fragment {
                 reasons = reason.getText().toString();
                 Log.i("reason",reasons);
                 myref.child(mid).child(name).setValue(reasons);
+                getActivity().onBackPressed();
             }
         });
         return view;

@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Landing extends AppCompatActivity {
 
     @Override
@@ -28,11 +30,14 @@ public class Landing extends AppCompatActivity {
         Animation fadeAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadein);
         landingImg.setAnimation(fadeAnim);
         loginBtn.setAnimation(buttonAnim);
-
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
+        if(mauth.getCurrentUser()!=null){
+            Intent myIntent = new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(myIntent);
+        }
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Landing.this, "Loggedin", Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(myIntent);
             }
