@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText email,password;
     Button login, login1btn;
     ImageView bgImg;
-
+    TextView forgettext;
     String emailid,pass,uid;
     FirebaseAuth mauth;
     @Override
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         CardView loginCard = findViewById(R.id.loginCard);
         login1btn = findViewById(R.id.loginBtn1);
         bgImg = findViewById(R.id.landingimg);
-
+        forgettext = findViewById(R.id.textViewForget);
 
         bgImg.setAnimation(imgAnim);
         login1btn.setAnimation(buttonAnim);
@@ -107,6 +108,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void clicklisteners(){
+        forgettext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this,forgotpassword.class);
+                startActivity(i);
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
