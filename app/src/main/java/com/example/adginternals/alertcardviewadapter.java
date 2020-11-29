@@ -134,11 +134,15 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
         holder.un.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 String mid = holder.id.getText().toString();
+                String title = holder.text1.getText().toString();
+                String time = holder.text2.getText().toString();
                 SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.mid",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("mid",mid);
+                editor.putString("title",title);
+                editor.putString("time",time);
                 editor.apply();
 
                 Fragment unreason = new unavailable_reason();
