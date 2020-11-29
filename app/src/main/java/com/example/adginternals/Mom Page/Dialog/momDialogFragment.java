@@ -50,7 +50,7 @@ public class momDialogFragment extends Fragment {
             date.setText(argItem.getDate());
             header.setText(argItem.getHeader());
             String points=argItem.getPoints();
-            pointlist= new ArrayList<>(Arrays.asList(points.split(",")));
+            pointlist= new ArrayList<>(Arrays.asList(points.split(", ")));
         }
         for (int i = 0; i < pointlist.size(); i++) {
             String po= pointlist.get(i);
