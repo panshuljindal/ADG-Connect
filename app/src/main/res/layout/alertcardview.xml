@@ -25,42 +25,46 @@
             android:layout_height="match_parent"
             android:background="@drawable/alertback">
 
-            <Button
-                android:id="@+id/buttonack"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:background="@drawable/ic_ack"
-                android:fontFamily="@font/sfpro"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="Acknowledge"
-                android:textAllCaps="false"
-                android:textColor="#2C5FE2"
-                android:textSize="14dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/buttonun"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
-                android:id="@+id/buttonun"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_un"
-                android:fontFamily="@font/sfpro"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="Unavailable"
-                android:textAllCaps="false"
-                android:textColor="#A6033E"
-                android:textSize="14dp"
-                android:visibility="invisible"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/buttonack" />
+                app:layout_constraintStart_toStartOf="parent">
 
+                <Button
+                    android:id="@+id/buttonack"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_ack"
+                    android:fontFamily="@font/sfpro"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="Acknowledge"
+                    android:textAllCaps="false"
+                    android:textColor="#2C5FE2"
+                    android:textSize="14dp"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/buttonun"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_un"
+                    android:fontFamily="@font/sfpro"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="Unavailable"
+                    android:textAllCaps="false"
+                    android:textColor="#A6033E"
+                    android:textSize="14dp"
+                    android:visibility="invisible" />
+            </LinearLayout>
             <Button
                 android:id="@+id/buttonpostedun"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:background="@drawable/ic_posted"
                 android:fontFamily="@font/sfpro"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -76,8 +80,8 @@
 
             <Button
                 android:id="@+id/buttonpostedack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:background="@drawable/ic_posted"
                 android:fontFamily="@font/sfpro"
                 android:foreground="?android:attr/selectableItemBackground"
