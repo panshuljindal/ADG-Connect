@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:background="#0b0b0b"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
@@ -12,9 +19,9 @@
         android:id="@+id/momDialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="40dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="15dp"
         android:fontFamily="@font/robotomedium"
         android:padding="3dp"
         android:text="Core Meeting MOM"
@@ -27,7 +34,7 @@
         android:id="@+id/momDialogDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
+        android:layout_marginStart="18dp"
         android:fontFamily="@font/robotolight"
         android:padding="3dp"
         android:text="12 October 2020, 08:30 PM"
@@ -38,17 +45,18 @@
 
     <TextView
         android:id="@+id/momDialogHeader"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="27dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:fontFamily="@font/robotoregular"
         android:inputType="textMultiLine"
         android:padding="10dp"
         android:text=" sample header"
         android:textColor="#ffffff"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/momDialogDate" />
 
@@ -56,13 +64,13 @@
         android:id="@+id/momDialogPointsHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="27dp"
         android:fontFamily="@font/robotomedium"
         android:padding="10dp"
         android:text="Points Discussed"
         android:textColor="#ffffff"
-        android:textSize="18sp"
+        android:textSize="19sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/momDialogHeader" />
 
@@ -70,9 +78,9 @@
         android:id="@+id/pointView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="3dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/momDialogPointsHead" />
@@ -96,3 +104,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
