@@ -19,10 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class unavailable_reason extends Fragment {
     EditText reason;
     Button post,cancel;
-    DatabaseReference myref;
+    DatabaseReference myref,myref1;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-    String mid,name;
+    String mid,name,uid;
     String reasons;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,9 +44,10 @@ public class unavailable_reason extends Fragment {
         SharedPreferences pref1 = view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor1 = pref1.edit();
         name=pref1.getString("name","");
+        uid=pref1.getString("uid","");
         FirebaseDatabase db=FirebaseDatabase.getInstance();
         myref = db.getReference("AlertAttendace");
-
+        myref1=db.getReference("Users");
 
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +60,8 @@ public class unavailable_reason extends Fragment {
             @Override
             public void onClick(View v) {
                 reasons = reason.getText().toString();
-                Log.i("reason",reasons);
                 myref.child(mid).child(name).setValue(reasons);
+                myref1.child(uid).child("Meetings").child(mid).setValue(reasons);
                 getFragmentManager().popBackStackImmediate();
             }
         });

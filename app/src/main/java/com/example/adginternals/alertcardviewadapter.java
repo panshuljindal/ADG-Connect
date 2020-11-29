@@ -31,7 +31,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
     private Context mcontext;
     private ArrayList<alertcardviewitem> malertcardviewitem;
     DatabaseReference myref,myref1;
-    String name;
+    String name,uid;
     String state="";
 
     public alertcardviewadapter(Context mcontext, ArrayList<com.example.adginternals.alertcardviewitem> malertcardviewitem) {
@@ -71,27 +71,53 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
         SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         name = pref.getString("name","");
+        uid = pref.getString("uid","");
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         myref = db.getReference("AlertAttendace");
+        myref1 = db.getReference("Users");
+
         holder.text1.setText(item.getText1());
         holder.text2.setText(item.getText2());
         holder.text3.setText(item.getText3());
         holder.text4.setText(item.getText4());
         holder.id.setText(item.getId());
 
-
-        myref.addValueEventListener(new ValueEventListener() {
+        myref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //for(DataSnapshot ds : snapshot.getChildren()){
-                   // state = snapshot.getValue().toString();
-                    //Log.i("state", state);
-                //}
+                try{
+                    state=snapshot.child(uid).child("Meetings").child(holder.id.getText().toString()).getValue().toString();
+                }
+                catch (NullPointerException exception){
+                    state=exception.toString();
+                }
+
+                if(state.equals("available")){
+                    holder.postedun.setVisibility(View.INVISIBLE);
+                    holder.ack.setVisibility(View.INVISIBLE);
+                    holder.un.setVisibility(View.INVISIBLE);
+                    holder.postedack.setVisibility(View.VISIBLE);
+                }
+                else if(state.equals("java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String java.lang.Object.toString()' on a null object reference")){
+
+                    holder.postedun.setVisibility(View.INVISIBLE);
+                    holder.ack.setVisibility(View.VISIBLE);
+                    holder.un.setVisibility(View.VISIBLE);
+                    holder.postedack.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    holder.postedun.setVisibility(View.VISIBLE);
+                    holder.ack.setVisibility(View.INVISIBLE);
+                    holder.un.setVisibility(View.INVISIBLE);
+                    holder.postedack.setVisibility(View.INVISIBLE);
+                }
+
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.i("Cancelled","Cancel");
             }
         });
 
@@ -101,18 +127,14 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                 holder.ack.setVisibility(View.INVISIBLE);
                 holder.un.setVisibility(View.INVISIBLE);
                 holder.postedack.setVisibility(View.VISIBLE);
-
+                myref1.child(uid).child("Meetings").child(holder.id.getText().toString()).setValue("available");
                 myref.child(holder.id.getText().toString()).child(name).setValue("available");
             }
         });
         holder.un.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                holder.ack.setVisibility(View.INVISIBLE);
-                holder.un.setVisibility(View.INVISIBLE);
-                holder.postedun.setVisibility(View.VISIBLE);
-
+                
                 String mid = holder.id.getText().toString();
                 SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.mid",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();

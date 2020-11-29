@@ -36,6 +36,7 @@
                 android:textAllCaps="false"
                 android:textColor="#2C5FE2"
                 android:textSize="14dp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/buttonun"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -51,6 +52,7 @@
                 android:textAllCaps="false"
                 android:textColor="#A6033E"
                 android:textSize="14dp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/buttonack" />
