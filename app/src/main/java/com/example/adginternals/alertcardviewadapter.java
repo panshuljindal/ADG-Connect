@@ -33,6 +33,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
     DatabaseReference myref,myref1;
     String name,uid;
     String state="";
+    SharedPreferences pref;
 
     public alertcardviewadapter(Context mcontext, ArrayList<com.example.adginternals.alertcardviewitem> malertcardviewitem) {
         this.mcontext = mcontext;
@@ -68,7 +69,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
 
         alertcardviewitem item = malertcardviewitem.get(position);
 
-        SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
+        pref = mcontext.getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         name = pref.getString("name","");
         uid = pref.getString("uid","");
@@ -127,6 +128,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                 holder.ack.setVisibility(View.INVISIBLE);
                 holder.un.setVisibility(View.INVISIBLE);
                 holder.postedack.setVisibility(View.VISIBLE);
+                
                 myref1.child(uid).child("Meetings").child(holder.id.getText().toString()).setValue("available");
                 myref.child(holder.id.getText().toString()).child(name).setValue("available");
             }

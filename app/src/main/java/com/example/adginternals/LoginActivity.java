@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
     public void datasave(){
         SharedPreferences pref = getApplicationContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString("uid",uid);
+
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference myref = db.getReference("Users");
         myref.addValueEventListener(new ValueEventListener() {
@@ -155,6 +155,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 FirebaseUser user = mauth.getCurrentUser();
                 uid = user.getUid();
+
+                editor.putString("uid",uid);
                 String emaili = snapshot.child(uid).child("email").getValue().toString();
                 editor.putString("emailid", emaili);
 
