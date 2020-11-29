@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:background="#0b0b0b"
     android:orientation="horizontal"
-    android:layout_margin="5dp">
+    android:layout_margin="3dp">
 
             <View
                 android:id="@+id/ellipse_11"
@@ -24,7 +24,6 @@
                 android:id="@+id/momPointList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/robotolight"
                 android:text="Everyone"

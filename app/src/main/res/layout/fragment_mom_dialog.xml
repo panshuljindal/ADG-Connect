@@ -12,75 +12,78 @@
         android:id="@+id/momDialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
         android:fontFamily="@font/robotomedium"
+        android:padding="3dp"
         android:text="Core Meeting MOM"
-        android:padding="10dp"
-        android:layout_marginTop="5dp"
         android:textColor="#ffffff"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/momDialogDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
         android:fontFamily="@font/robotolight"
-        android:padding="10dp"
+        android:padding="3dp"
         android:text="12 October 2020, 08:30 PM"
         android:textColor="#2c4fe2"
-        android:textSize="13dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/momDialogTitle"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/momDialogTitle" />
 
     <TextView
         android:id="@+id/momDialogHeader"
         android:layout_width="wrap_content"
-        android:padding="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginRight="20dp"
         android:fontFamily="@font/robotoregular"
         android:inputType="textMultiLine"
+        android:padding="10dp"
         android:text=" sample header"
         android:textColor="#ffffff"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/momDialogDate"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/momDialogDate" />
 
     <TextView
         android:id="@+id/momDialogPointsHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="27dp"
         android:fontFamily="@font/robotomedium"
+        android:padding="10dp"
         android:text="Points Discussed"
         android:textColor="#ffffff"
-        android:textSize="19dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/momDialogHeader"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/momDialogHeader" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pointView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/momDialogPointsHead" />
+
 
     <Button
         android:id="@+id/momDialogOKBtn"
         android:layout_width="57dp"
         android:layout_height="41dp"
         android:layout_marginBottom="72dp"
+        android:layout_marginEnd="20dp"
         android:background="#0b0b0b"
         android:fontFamily="@font/robotobold"
         android:text="Ok"
@@ -88,20 +91,7 @@
         android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pointView"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pointView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="72dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/momDialogPointsHead" />
+        app:layout_constraintTop_toBottomOf="@+id/pointView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
