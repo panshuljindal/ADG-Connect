@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,7 +112,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
 
         if (v.getId() == R.id.knowMoreBtn) {
-            Toast.makeText(getContext(), "know more", Toast.LENGTH_SHORT).show();
+            Fragment aboutus1 = new aboutus();
+            FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,aboutus1);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
 
         }
 
