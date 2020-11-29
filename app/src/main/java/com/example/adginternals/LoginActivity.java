@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        toggleFullscreen(true); // toggling fulllscreen of half
+        ///toggleFullscreen(true); // toggling fulllscreen of half
 
         Animation Anim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadein1);
         Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.buttonup);
@@ -83,9 +83,9 @@ public class LoginActivity extends AppCompatActivity {
         login1btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleFullscreen(false);
+                //toggleFullscreen(false);
                 loginCard.setAnimation(Anim);
-                bgImg.setAnimation(imgAnim2);
+                //bgImg.setAnimation(imgAnim2);
                 loginCard.setVisibility(View.VISIBLE);
                 login1btn.setVisibility(View.GONE);
             }
