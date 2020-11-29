@@ -1,5 +1,7 @@
 package com.example.adginternals;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +31,7 @@ public class core2fragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<alertcardviewitem> list2;
     DatabaseReference myref;
+    View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,13 +40,15 @@ public class core2fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_core2fragment, container, false);
+        view= inflater.inflate(R.layout.fragment_core2fragment, container, false);
 
         recyclerView=view.findViewById(R.id.recyclerView1_2);
         list2=new ArrayList<>();
+        loadData();
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         myref=db.getReference("Alerts").child("Core");
         addData();
+        adapter();
         return view;
     }
     public void addData(){
@@ -63,6 +71,7 @@ public class core2fragment extends Fragment {
                     }
 
                 }
+                savaData();
                 adapter();
             }
 
@@ -85,6 +94,24 @@ public class core2fragment extends Fragment {
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
+    }
+    public void savaData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list2);
+        editor.putString("core2",json);
+        editor.apply();
+    }
+    public void loadData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("core2","");
+        Type type = new TypeToken<ArrayList<alertcardviewitem>>() {}.getType();
+        list2 =gson.fromJson(json,type);
+        if(list2==null){
+            list2 =new ArrayList<>();
+        }
     }
 
 }

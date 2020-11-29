@@ -19,7 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +36,7 @@ public class team2fragment extends Fragment {
     DatabaseReference myref;
     String team;
     List<String> mylist;
+    View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,10 +46,11 @@ public class team2fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_team2fragment, container, false);
+        view=inflater.inflate(R.layout.fragment_team2fragment, container, false);
 
         recyclerView=view.findViewById(R.id.recyclerView2_3);
         list1_2=new ArrayList<>();
+        loadData();
         FirebaseDatabase db =FirebaseDatabase.getInstance();
         myref = db.getReference("Alerts").child("Team");
 
@@ -63,6 +68,7 @@ public class team2fragment extends Fragment {
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list1_2.clear();
                 for(DataSnapshot ds: snapshot.getChildren()){
                     alertdata ad = ds.getValue(alertdata.class);
                     String title = ad.getTitle();
@@ -78,6 +84,7 @@ public class team2fragment extends Fragment {
                         }
                     }
                 }
+                savaData();
                 adapter();
             }
 
@@ -99,5 +106,23 @@ public class team2fragment extends Fragment {
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
+    }
+    public void savaData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list1_2);
+        editor.putString("team2",json);
+        editor.apply();
+    }
+    public void loadData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("team2","");
+        Type type = new TypeToken<ArrayList<alertcardviewitem>>() {}.getType();
+        list1_2 =gson.fromJson(json,type);
+        if(list1_2==null){
+            list1_2 =new ArrayList<>();
+        }
     }
 }

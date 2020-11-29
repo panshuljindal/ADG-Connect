@@ -94,9 +94,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     mauth.signOut();
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    clearData();
                     Toast.makeText(getContext(), "Logged Out!", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
                     logoutDialog.dismiss();
+
                 }
             });
 
@@ -125,5 +127,23 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getContext(), "reset pw", Toast.LENGTH_SHORT).show();
 
         }
+    }
+    public void clearData(){
+        SharedPreferences userdata = getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
+        SharedPreferences.Editor  editoruser = userdata.edit();
+        editoruser.clear();
+        editoruser.apply();
+        SharedPreferences userdata1 = getContext().getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+        SharedPreferences.Editor  editoruser1 = userdata1.edit();
+        editoruser1.clear();
+        editoruser1.apply();
+        SharedPreferences userdata2 = getContext().getSharedPreferences("com.adgvit.com.mid",Context.MODE_PRIVATE);
+        SharedPreferences.Editor  editoruser2 = userdata2.edit();
+        editoruser2.clear();
+        editoruser2.apply();
+        SharedPreferences preferences = getContext().getSharedPreferences("com.adgvit.com.mom", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor3 = preferences.edit();
+        editor3.clear();
+        editor3.apply();
     }
 }

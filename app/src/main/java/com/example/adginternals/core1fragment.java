@@ -1,5 +1,7 @@
 package com.example.adginternals;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +33,7 @@ public class core1fragment extends Fragment {
     ArrayList<alertcardviewitem> list1;
     FirebaseDatabase database;
     DatabaseReference myref;
+    View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +42,10 @@ public class core1fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_core1fragment, container, false);
+        view = inflater.inflate(R.layout.fragment_core1fragment, container, false);
         recyclerView=view.findViewById(R.id.recylerView1_1);
         list1=new ArrayList<>();
+        loadData();
         database =FirebaseDatabase.getInstance();
         myref =database.getReference("Alerts").child("Core");
         addData();
@@ -63,6 +70,7 @@ public class core1fragment extends Fragment {
                     String id =ad.getId();
                     list1.add(new alertcardviewitem(title,time,location,link,id));
                 }
+                savaData();
                 adapter();
             }
 
@@ -84,5 +92,23 @@ public class core1fragment extends Fragment {
         manager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setAdapter(alertcardviewadapter);
         recyclerView.setLayoutManager(manager);
+    }
+    public void savaData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list1);
+        editor.putString("core1",json);
+        editor.apply();
+    }
+    public void loadData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("core1","");
+        Type type = new TypeToken<ArrayList<alertcardviewitem>>() {}.getType();
+        list1 =gson.fromJson(json,type);
+        if(list1==null){
+            list1 =new ArrayList<>();
+        }
     }
 }

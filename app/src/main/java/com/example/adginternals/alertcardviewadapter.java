@@ -83,7 +83,28 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
         holder.text3.setText(item.getText3());
         holder.text4.setText(item.getText4());
         holder.id.setText(item.getId());
+        SharedPreferences ps = mcontext.getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+        state = ps.getString(holder.id.getText().toString(),"");
+        Log.i("state",state);
+        if(state.equals("available")){
+            holder.postedun.setVisibility(View.INVISIBLE);
+            holder.ack.setVisibility(View.INVISIBLE);
+            holder.un.setVisibility(View.INVISIBLE);
+            holder.postedack.setVisibility(View.VISIBLE);
+        }
+        else if(state.equals("java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String java.lang.Object.toString()' on a null object reference")){
 
+            holder.postedun.setVisibility(View.INVISIBLE);
+            holder.ack.setVisibility(View.VISIBLE);
+            holder.un.setVisibility(View.VISIBLE);
+            holder.postedack.setVisibility(View.INVISIBLE);
+        }
+        else{
+            holder.postedun.setVisibility(View.VISIBLE);
+            holder.ack.setVisibility(View.INVISIBLE);
+            holder.un.setVisibility(View.INVISIBLE);
+            holder.postedack.setVisibility(View.INVISIBLE);
+        }
         myref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -113,8 +134,12 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                     holder.un.setVisibility(View.INVISIBLE);
                     holder.postedack.setVisibility(View.INVISIBLE);
                 }
-
+                SharedPreferences preferences = mcontext.getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editoralert = preferences.edit();
+                editoralert.putString(holder.id.getText().toString(),state);
+                editoralert.apply();
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

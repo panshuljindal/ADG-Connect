@@ -1,5 +1,7 @@
 package com.example.adginternals;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +32,7 @@ public class core3fragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<alertcardviewitem> list3;
     DatabaseReference myref;
+    View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +42,12 @@ public class core3fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_core3fragment, container, false);
+        view=inflater.inflate(R.layout.fragment_core3fragment, container, false);
 
         recyclerView=view.findViewById(R.id.recylcerView1_3);
 
         list3=new ArrayList<>();
+        loadData();
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         myref = db.getReference("Alerts").child("Core");
         addData();
@@ -67,6 +74,7 @@ public class core3fragment extends Fragment {
                     }
 
                 }
+                savaData();
                 adapter();
             }
 
@@ -88,5 +96,23 @@ public class core3fragment extends Fragment {
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
+    }
+    public void savaData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list3);
+        editor.putString("core3",json);
+        editor.apply();
+    }
+    public void loadData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("core3","");
+        Type type = new TypeToken<ArrayList<alertcardviewitem>>() {}.getType();
+        list3 =gson.fromJson(json,type);
+        if(list3==null){
+            list3 =new ArrayList<>();
+        }
     }
 }

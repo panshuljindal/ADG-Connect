@@ -18,7 +18,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +35,7 @@ public class team3fragment extends Fragment {
     DatabaseReference myref;
     String team;
     List<String> mylist;
+    View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +44,11 @@ public class team3fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_team3fragment, container, false);
+        view= inflater.inflate(R.layout.fragment_team3fragment, container, false);
 
         recyclerView=view.findViewById(R.id.recyclerView2_3);
         list1_3=new ArrayList<>();
+        loadData();
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         myref = db.getReference("Alerts").child("Team");
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
@@ -53,7 +58,6 @@ public class team3fragment extends Fragment {
         mylist= new ArrayList<>(Arrays.asList(team2.split(", ")));
 
         addData();
-
         adapter();
         return view;
     }
@@ -77,6 +81,7 @@ public class team3fragment extends Fragment {
                         }
                     }
                 }
+                savaData();
                 adapter();
             }
 
@@ -99,5 +104,23 @@ public class team3fragment extends Fragment {
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
+    }
+    public void savaData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list1_3);
+        editor.putString("team3",json);
+        editor.apply();
+    }
+    public void loadData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("team3","");
+        Type type = new TypeToken<ArrayList<alertcardviewitem>>() {}.getType();
+        list1_3 =gson.fromJson(json,type);
+        if(list1_3==null){
+            list1_3 =new ArrayList<>();
+        }
     }
 }

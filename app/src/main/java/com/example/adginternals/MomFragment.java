@@ -24,7 +24,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,12 +38,13 @@ import java.util.List;
 public class MomFragment extends Fragment {
     RecyclerView recyclerView;//String t[] , d[] ;
 
-    ArrayList<momItem> momItems = new ArrayList<>();
+    ArrayList<momItem> momItems;
     EditText momSearchBar;
     MyAdapter myAdapter;
     DatabaseReference myref;
     String team;
     ArrayList<String> mylist;
+    View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,10 +56,11 @@ public class MomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_mom, container, false);
+        view = inflater.inflate(R.layout.fragment_mom, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.mom_recycler);
-
+        momItems = new ArrayList<>();
+        loadData();
         Resources res = getResources();
         //fetch from firebase and add here
         FirebaseDatabase db =FirebaseDatabase.getInstance();
@@ -69,9 +74,6 @@ public class MomFragment extends Fragment {
         Log.i("team", String.valueOf(mylist));
         addData();
         adapter();
-
-
-
         momSearchBar = (EditText) view.findViewById(R.id.momSearch);
         momSearchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -119,13 +121,12 @@ public class MomFragment extends Fragment {
                     String point = snapshot.child(mid).child("points").getValue().toString();
                     String points1 = point.replace("[","");
                     String points2 = points1.replace("]","");
-                    ArrayList<String> points= new ArrayList<>(Arrays.asList(points2.split(",")));
-
 
                     if (mylist.contains(team)) {
                         momItems.add(new momItem(time, title, header,points2));
                     }
                 }
+                savaData();
                 adapter();
             }
 
@@ -145,6 +146,24 @@ public class MomFragment extends Fragment {
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM yyyy").format(df);
         return vv;
+    }
+    public void savaData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.mom", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(momItems);
+        editor.putString("mom",json);
+        editor.apply();
+    }
+    public void loadData(){
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.mom",Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("mom","");
+        Type type = new TypeToken<ArrayList<momItem>>() {}.getType();
+        momItems =gson.fromJson(json,type);
+        if(momItems==null){
+            momItems =new ArrayList<>();
+        }
     }
 }
 
