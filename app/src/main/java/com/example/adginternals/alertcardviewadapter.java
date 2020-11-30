@@ -3,6 +3,7 @@ package com.example.adginternals;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,10 +70,10 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
 
         alertcardviewitem item = malertcardviewitem.get(position);
 
-        pref = mcontext.getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
+        pref = mcontext.getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        name = pref.getString("name","");
-        uid = pref.getString("uid","");
+        name = pref.getString("name", "");
+        uid = pref.getString("uid", "");
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         myref = db.getReference("AlertAttendace");
@@ -83,23 +84,21 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
         holder.text3.setText(item.getText3());
         holder.text4.setText(item.getText4());
         holder.id.setText(item.getId());
-        SharedPreferences ps = mcontext.getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
-        state = ps.getString(holder.id.getText().toString(),"");
-        Log.i("state",state);
-        if(state.equals("available")){
+        SharedPreferences ps = mcontext.getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
+        state = ps.getString(holder.id.getText().toString(), "");
+        Log.i("state", state);
+        if (state.equals("available")) {
             holder.postedun.setVisibility(View.INVISIBLE);
             holder.ack.setVisibility(View.INVISIBLE);
             holder.un.setVisibility(View.INVISIBLE);
             holder.postedack.setVisibility(View.VISIBLE);
-        }
-        else if(state.equals("java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String java.lang.Object.toString()' on a null object reference")){
+        } else if (state.equals("java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String java.lang.Object.toString()' on a null object reference")) {
 
             holder.postedun.setVisibility(View.INVISIBLE);
             holder.ack.setVisibility(View.VISIBLE);
             holder.un.setVisibility(View.VISIBLE);
             holder.postedack.setVisibility(View.INVISIBLE);
-        }
-        else{
+        } else {
             holder.postedun.setVisibility(View.VISIBLE);
             holder.ack.setVisibility(View.INVISIBLE);
             holder.un.setVisibility(View.INVISIBLE);
@@ -108,83 +107,91 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
         myref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                try{
-                    state=snapshot.child(uid).child("Meetings").child(holder.id.getText().toString()).getValue().toString();
-                }
-                catch (NullPointerException exception){
-                    state=exception.toString();
+                try {
+                    state = snapshot.child(uid).child("Meetings").child(holder.id.getText().toString()).getValue().toString();
+                } catch (NullPointerException exception) {
+                    state = exception.toString();
                 }
 
-                if(state.equals("available")){
+                if (state.equals("available")) {
                     holder.postedun.setVisibility(View.INVISIBLE);
                     holder.ack.setVisibility(View.INVISIBLE);
                     holder.un.setVisibility(View.INVISIBLE);
                     holder.postedack.setVisibility(View.VISIBLE);
-                }
-                else if(state.equals("java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String java.lang.Object.toString()' on a null object reference")){
+                } else if (state.equals("java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String java.lang.Object.toString()' on a null object reference")) {
 
                     holder.postedun.setVisibility(View.INVISIBLE);
                     holder.ack.setVisibility(View.VISIBLE);
                     holder.un.setVisibility(View.VISIBLE);
                     holder.postedack.setVisibility(View.INVISIBLE);
-                }
-                else{
+                } else {
                     holder.postedun.setVisibility(View.VISIBLE);
                     holder.ack.setVisibility(View.INVISIBLE);
                     holder.un.setVisibility(View.INVISIBLE);
                     holder.postedack.setVisibility(View.INVISIBLE);
                 }
-                SharedPreferences preferences = mcontext.getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
+                SharedPreferences preferences = mcontext.getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editoralert = preferences.edit();
-                editoralert.putString(holder.id.getText().toString(),state);
+                editoralert.putString(holder.id.getText().toString(), state);
                 editoralert.apply();
             }
 
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("Cancelled","Cancel");
+                Log.i("Cancelled", "Cancel");
             }
         });
 
-        holder.ack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.ack.setVisibility(View.INVISIBLE);
-                holder.un.setVisibility(View.INVISIBLE);
-                holder.postedack.setVisibility(View.VISIBLE);
+            holder.ack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isNetworkAvailable(mcontext)) {
+                        holder.ack.setVisibility(View.INVISIBLE);
+                        holder.un.setVisibility(View.INVISIBLE);
+                        holder.postedack.setVisibility(View.VISIBLE);
 
-                myref1.child(uid).child("Meetings").child(holder.id.getText().toString()).setValue("available");
-                myref.child(holder.id.getText().toString()).child(name).setValue("available");
-            }
-        });
-        holder.un.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                        myref1.child(uid).child("Meetings").child(holder.id.getText().toString()).setValue("available");
+                        myref.child(holder.id.getText().toString()).child(name).setValue("available");
+                    }
+                    else {
+                        Toast.makeText(mcontext,"Please connect to the internet",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            holder.un.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                String mid = holder.id.getText().toString();
-                String title = holder.text1.getText().toString();
-                String time = holder.text2.getText().toString();
-                SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.mid",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("mid",mid);
-                editor.putString("title",title);
-                editor.putString("time",time);
-                editor.apply();
+                    String mid = holder.id.getText().toString();
+                    String title = holder.text1.getText().toString();
+                    String time = holder.text2.getText().toString();
+                    SharedPreferences pref = mcontext.getSharedPreferences("com.adgvit.com.mid", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("mid", mid);
+                    editor.putString("title", title);
+                    editor.putString("time", time);
+                    editor.apply();
 
-                Fragment unreason = new unavailable_reason();
-                FragmentManager fragmentManager = ((FragmentActivity) mcontext).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container,unreason);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+                    Fragment unreason = new unavailable_reason();
+                    FragmentManager fragmentManager = ((FragmentActivity) mcontext).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, unreason);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            });
+
     }
 
     @Override
     public int getItemCount() {
         return malertcardviewitem.size();
+    }
+
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
 }

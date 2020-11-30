@@ -2,6 +2,7 @@ package com.example.adginternals;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -68,14 +69,19 @@ public class unavailable_reason extends Fragment {
             @Override
             public void onClick(View v) {
                 if (checkempty()) {
-                    reasons = reason.getText().toString();
-                    myref.child(mid).child(name).setValue(reasons);
-                    myref1.child(uid).child("Meetings").child(mid).setValue(reasons);
-                    SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editoralert = preferences.edit();
-                    editoralert.putString(mid,reasons);
-                    editoralert.apply();
-                    getFragmentManager().popBackStackImmediate();
+                    if(isNetworkAvailable(view.getContext())) {
+                        reasons = reason.getText().toString();
+                        myref.child(mid).child(name).setValue(reasons);
+                        myref1.child(uid).child("Meetings").child(mid).setValue(reasons);
+                        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editoralert = preferences.edit();
+                        editoralert.putString(mid, reasons);
+                        editoralert.apply();
+                        getFragmentManager().popBackStackImmediate();
+                    }
+                    else{
+                        Toast.makeText(view.getContext(),"Please connect to the internet to post",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -87,5 +93,9 @@ public class unavailable_reason extends Fragment {
             return false;
         }
         return true;
+    }
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

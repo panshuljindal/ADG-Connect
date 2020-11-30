@@ -18,12 +18,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="86dp"
-            android:layout_marginEnd="187dp"
             android:fontFamily="@font/robotobold"
             android:text="iOS Meeting"
             android:textColor="#ffffff"
             android:textSize="35dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonreasoncancel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,12 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="144dp"
             android:fontFamily="@font/robotoregular"
             android:text="10 August 2020, 09:00 PM"
             android:textColor="#2C5FE2"
             android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alertcardtext1_1" />
 

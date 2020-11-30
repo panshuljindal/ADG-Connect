@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
@@ -30,10 +35,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     Button resetPw;
     Button Team;
     FirebaseAuth mauth;
-    String name,regNo,email,phone;
-    TextView profileName,regNoText,userEmail,userContact;
+    String name,regNo,email,phone,team,domain;
+    TextView profileName,regNoText,userEmail,userContact,textDomain;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+    List<String> teamlist;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +60,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         Team = (Button) view.findViewById(R.id.knowMoreBtn);
         Team.setOnClickListener((View.OnClickListener) this);
 
+
         profileName=view.findViewById(R.id.profileName);
         regNoText = view.findViewById(R.id.regNo);
         userEmail = view.findViewById(R.id.userEmail);
         userContact = view.findViewById(R.id.userContact);
+        textDomain = view.findViewById(R.id.domain);
 
         mauth=FirebaseAuth.getInstance();
 
@@ -67,14 +75,31 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         regNo = pref.getString("regNo","");
         email = pref.getString("emailid","");
         phone = pref.getString("phone","");
+        team = pref.getString("teams","");
 
+        String team1 = team.replace("[", "");
+        String team2 = team1.replace("]", "");
+        teamlist= new ArrayList<>(Arrays.asList(team2.split(", ")));
+        domain = teamlist.get(0);
+        Log.i("Domain",domain);
         profileName.setText(name);
         regNoText.setText(regNo);
         userEmail.setText(email);
         userContact.setText(phone);
+        if(domain.equals("0")){
+            textDomain.setText("Ios Development");
+        }
+        else if(domain.equals("1")){
+            textDomain.setText("Web Development");
+        }
+        else if(domain.equals("2")){
+            textDomain.setText("Android Development");
+        }
+        else if(domain.contains("3")){
+            textDomain.setText("Machine Learning ");
+        }
 
         return view;
-        //return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     @Override

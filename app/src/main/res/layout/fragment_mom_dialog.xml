@@ -96,6 +96,7 @@
         android:background="#0b0b0b"
         android:fontFamily="@font/robotobold"
         android:text="Ok"
+        android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"

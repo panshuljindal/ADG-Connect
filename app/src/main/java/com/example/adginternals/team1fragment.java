@@ -25,13 +25,17 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class team1fragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<alertcardviewitem> list1_1;
     DatabaseReference myref ;
     View view;
+    String team;
+    List<String> teamlist;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +52,13 @@ public class team1fragment extends Fragment {
         loadData();
         FirebaseDatabase db =FirebaseDatabase.getInstance();
         myref = db.getReference("Alerts").child("Team");
+
+        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
+        team = pref.getString("teams","");
+        String team1 = team.replace("[", "");
+        String team2 = team1.replace("]", "");
+        teamlist= new ArrayList<>(Arrays.asList(team2.split(", ")));
+
         addData();
         adapter();
         return view;
@@ -64,9 +75,11 @@ public class team1fragment extends Fragment {
                     String location = ad.getLocation();
                     String link = ad.getLink();
                     String id =ad.getId();
-                    String type=ad.getType().toString();
+                    String type=ad.getType();
                     Log.i("Type",type);
-                    list1_1.add(new alertcardviewitem(title,time,location,link,id));
+                    if(teamlist.contains(type)) {
+                        list1_1.add(new alertcardviewitem(title, time, location, link, id));
+                    }
                 }
                 savaData();
                 adapter();
