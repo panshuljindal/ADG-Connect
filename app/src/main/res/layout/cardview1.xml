@@ -31,7 +31,7 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="21dp"
                 android:layout_marginBottom="16dp"
-                android:fontFamily="@font/sfpro"
+                android:fontFamily="@font/robotobold"
                 android:text="ANDROID"
                 android:textColor="#FFFFFF"
                 android:textSize="24dp"
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
                 android:layout_marginBottom="6dp"
-                android:fontFamily="@font/sfpro"
+                android:fontFamily="@font/robotoregular"
                 android:text="New Event Coming Up"
                 android:textColor="#FFFFFF"
                 android:textSize="14dp" />
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
                 android:layout_marginBottom="6dp"
-                android:fontFamily="@font/sfpro"
+                android:fontFamily="@font/robotoregular"
                 android:text="Development of an App is underway"
                 android:textColor="#FFFFFF"
                 android:textSize="14dp" />
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
                 android:layout_marginBottom="6dp"
-                android:fontFamily="@font/sfpro"
+                android:fontFamily="@font/robotoregular"
                 android:text="Meeting Scheduled on Tuesday"
                 android:textColor="#FFFFFF"
                 android:textSize="14dp" />

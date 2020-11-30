@@ -30,9 +30,9 @@ public class aboutusAdapter extends RecyclerView.Adapter<aboutusAdapter.MyViewHo
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.textViewName);
-            ln = itemView.findViewById(R.id.imageLinkedin);
-            git = itemView.findViewById(R.id.imageGithub);
-            email = itemView.findViewById(R.id.imageEmail);
+            ln = itemView.findViewById(R.id.Linkedin);
+            git = itemView.findViewById(R.id.Github);
+            email = itemView.findViewById(R.id.Email);
         }
     }
     @NonNull

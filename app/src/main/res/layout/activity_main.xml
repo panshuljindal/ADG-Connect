@@ -23,6 +23,7 @@
         app:backgroundColor="@color/colorPrimary"
         app:iconSize="24dp"
         app:iconTint="#C8FFFFFF"
+        app:itemFontFamily="@font/robotoregular"
         app:iconTintActive="#FFFFFF"
         app:indicatorColor="@color/colorPrimaryDark"
         app:indicatorRadius="20dp"
