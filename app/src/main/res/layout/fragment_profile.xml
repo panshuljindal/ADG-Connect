@@ -28,11 +28,11 @@
         android:id="@+id/profileCard"
         android:layout_width="match_parent"
         android:layout_height="288.81dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="8dp"
+        android:layout_marginEnd="20dp"
         app:cardBackgroundColor="#121212"
+        app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/actionBarName">
@@ -113,9 +113,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:fontFamily="@font/robotoregular"
                 android:text="arupamkumar.saha2019@vitstudent.ac.in"
                 android:textColor="#ffffff"
-                android:fontFamily="@font/robotoregular"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/email" />
@@ -126,9 +126,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
+                android:fontFamily="@font/robotomedium"
                 android:text="Contact No."
                 android:textColor="#BEBEBE"
-                android:fontFamily="@font/robotomedium"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userEmail" />
@@ -217,13 +217,20 @@
 
     <Button
         android:id="@+id/resetpwBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/ic_resetpw"
+        android:fontFamily="@font/robotobold"
         android:foreground="?android:attr/selectableItemBackground"
+        android:text="Reset Password"
+        android:textAllCaps="false"
+        android:textColor="#2C5FE2"
+
+        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileButtonCard" />
 

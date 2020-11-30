@@ -26,8 +26,8 @@ public class aboutus extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_aboutus, container, false);
 
-        ios = view.findViewById(R.id.recyclerViewiOS);
-        android= view.findViewById(R.id.recyclerViewAndroid);
+        android = view.findViewById(R.id.recyclerViewiOS);
+        ios= view.findViewById(R.id.recyclerViewAndroid);
         listios = new ArrayList<>();
         listandroid = new ArrayList<>();
         addData();
