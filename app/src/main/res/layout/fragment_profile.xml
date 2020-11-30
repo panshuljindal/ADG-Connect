@@ -155,7 +155,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profileButtonCard"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -166,7 +166,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profileCard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="345dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/cardbtnbg">
 
@@ -174,32 +174,28 @@
                 android:id="@+id/team"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/robotobold"
                 android:text="The Team"
                 android:textColor="#ffffff"
                 android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.095"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.153" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/teamKnow"
                 android:layout_width="239dp"
                 android:layout_height="37dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="5dp"
                 android:fontFamily="@font/robotoregular"
                 android:text="Know about the team behind ADG Internals"
                 android:textColor="#ededed"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.217"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.837" />
+                app:layout_constraintTop_toBottomOf="@+id/team" />
 
             <Button
                 android:id="@+id/knowMoreBtn"
