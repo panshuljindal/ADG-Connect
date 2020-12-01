@@ -154,96 +154,55 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/profileButtonCard"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="23dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileCard">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:background="@drawable/cardbtnbg">
-
-            <TextView
-                android:id="@+id/team"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/robotobold"
-                android:text="The Team"
-                android:textColor="#ffffff"
-                android:textSize="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/teamKnow"
-                android:layout_width="239dp"
-                android:layout_height="37dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="@font/robotoregular"
-                android:text="Know about the team behind ADG Internals"
-                android:textColor="#ededed"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/team" />
-
-            <Button
-                android:id="@+id/knowMoreBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/ic_buttonknow"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
     <Button
-        android:id="@+id/resetpwBtn"
+        android:id="@+id/knowMoreBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="53dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/ic_resetpw"
         android:fontFamily="@font/robotobold"
         android:foreground="?android:attr/selectableItemBackground"
-        android:text="Reset Password"
+        android:text="About us"
         android:textAllCaps="false"
         android:textColor="#2C5FE2"
-
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileButtonCard" />
+        app:layout_constraintTop_toBottomOf="@+id/profileCard" />
 
     <Button
         android:id="@+id/logoutBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/ic_logoutbtn"
         android:foreground="?android:attr/selectableItemBackground"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resetpwBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/knowMoreBtn" />
+
+    <Button
+        android:id="@+id/resetpwBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/ic_aboutus"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Reset Password"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoutBtn"
+        app:layout_constraintTop_toBottomOf="@+id/knowMoreBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
