@@ -173,12 +173,8 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                     editor.putString("time", time);
                     editor.apply();
 
-                    Fragment unreason = new unavailable_reason();
-                    FragmentManager fragmentManager = ((FragmentActivity) mcontext).getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, unreason);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    dialogreasonFragment dialogreasonFragment = new dialogreasonFragment();
+                    dialogreasonFragment.show(((FragmentActivity) mcontext).getFragmentManager(),"Fragment");
                 }
             });
 

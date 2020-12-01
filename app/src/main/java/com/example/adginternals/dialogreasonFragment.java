@@ -1,12 +1,10 @@
 package com.example.adginternals;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +14,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class unavailable_reason extends Fragment {
+import javax.security.auth.callback.Callback;
+
+public class dialogreasonFragment extends DialogFragment {
     EditText reason;
     Button post,cancel;
     TextView text1,text2;
@@ -27,22 +33,18 @@ public class unavailable_reason extends Fragment {
     SharedPreferences pref,pref1;
     String mid,name,uid,title,time;
     String reasons;
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_dialogreasonfragment,container,false);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_unavailable_reason, container, false);
         post = view.findViewById(R.id.buttonpostreason);
         cancel = view.findViewById(R.id.buttonreasoncancel);
         reason = view.findViewById(R.id.editTextReason);
         text1 = view.findViewById(R.id.alertcardtext1_1);
         text2 = view.findViewById(R.id.alertcardtext2_1);
 
-        pref = view.getContext().getSharedPreferences("com.adgvit.com.mid",Context.MODE_PRIVATE);
+        pref = view.getContext().getSharedPreferences("com.adgvit.com.mid", Context.MODE_PRIVATE);
         mid=pref.getString("mid","");
         title=pref.getString("title","");
         time=pref.getString("time","");
@@ -62,7 +64,7 @@ public class unavailable_reason extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStackImmediate();
+                getDialog().dismiss();
             }
         });
         post.setOnClickListener(new View.OnClickListener() {
@@ -77,10 +79,11 @@ public class unavailable_reason extends Fragment {
                         SharedPreferences.Editor editoralert = preferences.edit();
                         editoralert.putString(mid, reasons);
                         editoralert.apply();
-                        getFragmentManager().popBackStackImmediate();
+                        Toast.makeText(view.getContext(),"Posted" , Toast.LENGTH_SHORT).show();
+                        getDialog().dismiss();
                     }
                     else{
-                        Toast.makeText(view.getContext(),"Please connect to the internet to post",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(view.getContext(),"Please connect to the internet",Toast.LENGTH_SHORT).show();
                     }
                 }
             }
