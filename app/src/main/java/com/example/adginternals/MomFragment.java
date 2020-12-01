@@ -71,7 +71,6 @@ public class MomFragment extends Fragment {
         String team1 = team.replace("[", "");
         String team2 = team1.replace("]", "");
         mylist= new ArrayList<>(Arrays.asList(team2.split(", ")));
-        Log.i("team", String.valueOf(mylist));
         addData();
         adapter();
         momSearchBar = (EditText) view.findViewById(R.id.momSearch);
@@ -116,12 +115,12 @@ public class MomFragment extends Fragment {
                     String time = unixconvert(momdetails.getTime().toString());
                     String title = momdetails.getTitle();
                     String team = momdetails.getTeam();
-                    String mid = momdetails.getMid();
+                    String mid = momdetails.getId();
 
                     String point = snapshot.child(mid).child("points").getValue().toString();
                     String points1 = point.replace("[","");
                     String points2 = points1.replace("]","");
-
+                    ArrayList<String> points= new ArrayList<>(Arrays.asList(points2.split(", ")));
                     if (mylist.contains(team)) {
                         momItems.add(new momItem(time, title, header,points2));
                     }

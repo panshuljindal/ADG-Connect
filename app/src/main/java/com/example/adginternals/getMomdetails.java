@@ -5,17 +5,17 @@ public class getMomdetails {
     Integer time;
     String title;
     String team;
-    String mid;
+    String id;
 
     public getMomdetails() {
     }
 
-    public getMomdetails(String header, Integer time, String title,String team,String mid) {
+    public getMomdetails(String header, Integer time, String title,String team,String id) {
         this.header = header;
         this.time = time;
         this.title = title;
         this.team = team;
-        this.mid=mid;
+        this.id=id;
     }
 
     public String getHeader() {
@@ -50,11 +50,11 @@ public class getMomdetails {
         this.team = team;
     }
 
-    public String getMid() {
-        return mid;
+    public String getId() {
+        return id;
     }
 
-    public void setMid(String mid) {
-        this.mid = mid;
+    public void setId(String id) {
+        this.id = id;
     }
 }
