@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +45,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView text1,text2,text3,text4,id;
-        Button ack,un,postedack,postedun;
+        Button ack,un,postedack,postedun, resetoptn;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             text1=itemView.findViewById(R.id.alertcardtext1);
@@ -53,6 +55,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
             id=itemView.findViewById(R.id.alertcardid);
             ack=itemView.findViewById(R.id.buttonack);
             un=itemView.findViewById(R.id.buttonun);
+            resetoptn = itemView.findViewById(R.id.resetOption);
             postedun=itemView.findViewById(R.id.buttonpostedun);
             postedack=itemView.findViewById(R.id.buttonpostedack);
         }
@@ -175,6 +178,22 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
 
                     dialogreasonFragment dialogreasonFragment = new dialogreasonFragment();
                     dialogreasonFragment.show(((FragmentActivity) mcontext).getFragmentManager(),"Fragment");
+                }
+            });
+            holder.resetoptn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu menupop = new PopupMenu(mcontext,holder.resetoptn);
+                    menupop.getMenuInflater().inflate(R.menu.alertcardmenu,menupop.getMenu());
+
+                    menupop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            Toast.makeText(mcontext,item.getTitle()+"clicked",Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                    });
+                    menupop.show();
                 }
             });
 
