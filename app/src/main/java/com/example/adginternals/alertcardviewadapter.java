@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -189,7 +190,18 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                     menupop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            Toast.makeText(mcontext,item.getTitle()+"clicked",Toast.LENGTH_SHORT).show();
+                            if (isNetworkAvailable(v.getContext())) {
+                                try {
+                                    myref.child(holder.id.getText().toString()).child(name).removeValue();
+                                    myref1.child(uid).child("Meetings").child(holder.id.getText().toString()).removeValue();
+                                } catch (Exception e) {
+                                    Toast.makeText(v.getContext(), "Error occurred. Please try againx`", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                            else{
+                                Toast.makeText(v.getContext(), "Please connect to the internet", Toast.LENGTH_SHORT).show();
+                            }
                             return true;
                         }
                     });

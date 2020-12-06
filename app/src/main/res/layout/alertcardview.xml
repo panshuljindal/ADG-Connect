@@ -109,7 +109,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="27dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/alertimageView"
                 app:srcCompat="@drawable/ic_meeting" />
@@ -131,7 +131,7 @@
                 android:id="@+id/alertcardtext2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="31dp"
+                android:layout_marginStart="30dp"
                 android:text="06 Aug, 10PM"
                 android:textColor="#ffffff"
                 android:textSize="18dp"
@@ -142,7 +142,7 @@
                 android:id="@+id/alertcardtext3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="31dp"
+                android:layout_marginStart="22dp"
                 android:layout_marginTop="1dp"
                 android:text="Google Meeting"
                 android:textColor="#ffffff"
@@ -155,12 +155,11 @@
                 android:id="@+id/alertcardtext4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="78dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginStart="30dp"
                 android:text="https://meet.google.com/sso-cymm-gez"
                 android:textColor="#00C2FF"
                 android:textSize="11dp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/alertimageView1"
                 app:layout_constraintTop_toBottomOf="@+id/alertcardtext3" />
 
             <Button
