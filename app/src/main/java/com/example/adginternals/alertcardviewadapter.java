@@ -37,7 +37,8 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
     DatabaseReference myref,myref1;
     String name,uid;
     String state="";
-    SharedPreferences pref;
+    SharedPreferences pref,preferences;
+    SharedPreferences.Editor editoralert;
 
     public alertcardviewadapter(Context mcontext, ArrayList<com.example.adginternals.alertcardviewitem> malertcardviewitem) {
         this.mcontext = mcontext;
@@ -90,13 +91,13 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
         holder.id.setText(item.getId());
         SharedPreferences ps = mcontext.getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
         state = ps.getString(holder.id.getText().toString(), "");
-        Log.i("state", state);
+        //Log.i("state", state);
         if (state.equals("available")) {
             holder.postedun.setVisibility(View.INVISIBLE);
             holder.ack.setVisibility(View.INVISIBLE);
             holder.un.setVisibility(View.INVISIBLE);
             holder.postedack.setVisibility(View.VISIBLE);
-        } else if (state.equals("java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String java.lang.Object.toString()' on a null object reference")) {
+        } else if (state.equals("null")) {
 
             holder.postedun.setVisibility(View.INVISIBLE);
             holder.ack.setVisibility(View.VISIBLE);
@@ -114,7 +115,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                 try {
                     state = snapshot.child(uid).child("Meetings").child(holder.id.getText().toString()).getValue().toString();
                 } catch (NullPointerException exception) {
-                    state = exception.toString();
+                    state = "null";
                 }
 
                 if (state.equals("available")) {
@@ -122,7 +123,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                     holder.ack.setVisibility(View.INVISIBLE);
                     holder.un.setVisibility(View.INVISIBLE);
                     holder.postedack.setVisibility(View.VISIBLE);
-                } else if (state.equals("java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String java.lang.Object.toString()' on a null object reference")) {
+                } else if (state.equals("null")) {
 
                     holder.postedun.setVisibility(View.INVISIBLE);
                     holder.ack.setVisibility(View.VISIBLE);
@@ -134,8 +135,8 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                     holder.un.setVisibility(View.INVISIBLE);
                     holder.postedack.setVisibility(View.INVISIBLE);
                 }
-                SharedPreferences preferences = mcontext.getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editoralert = preferences.edit();
+                preferences = mcontext.getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
+                editoralert = preferences.edit();
                 editoralert.putString(holder.id.getText().toString(), state);
                 editoralert.apply();
             }
@@ -194,8 +195,11 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                                 try {
                                     myref.child(holder.id.getText().toString()).child(name).removeValue();
                                     myref1.child(uid).child("Meetings").child(holder.id.getText().toString()).removeValue();
+                                    state = "null";
+                                    editoralert.putString(holder.id.getText().toString(),state);
+                                    editoralert.apply();
                                 } catch (Exception e) {
-                                    Toast.makeText(v.getContext(), "Error occurred. Please try againx`", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(v.getContext(), "Error occurred. Please try again", Toast.LENGTH_SHORT).show();
                                 }
 
                             }
