@@ -31,7 +31,6 @@
 
                     <gradient
                         android:type="linear"
-                        android:fillAlpha="0.5"
                         android:startX="79"
                         android:startY="114"
                         android:endX="237"
@@ -39,12 +38,12 @@
                         >
 
                         <item
-                            android:color="#71EEFF"
+                            android:color="#7190FF"
                             android:offset="0"
                             />
 
                         <item
-                            android:color="#0074B6"
+                            android:color="#005EB6"
                             android:offset="1"
                             />
 

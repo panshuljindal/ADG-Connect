@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -86,8 +87,8 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
 
         holder.text1.setText(item.getText1());
         holder.text2.setText(item.getText2());
+        holder.text4.setText(Html.fromHtml("<u>"+item.getText4()+"</u>"));
         holder.text3.setText(item.getText3());
-        holder.text4.setText(item.getText4());
         holder.id.setText(item.getId());
         SharedPreferences ps = mcontext.getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
         state = ps.getString(holder.id.getText().toString(), "");

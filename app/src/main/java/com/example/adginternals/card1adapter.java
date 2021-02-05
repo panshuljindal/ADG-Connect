@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,16 +27,15 @@ public class card1adapter extends RecyclerView.Adapter<card1adapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        ImageView image1,image2;
-        TextView text1,text2,text3,text4;
+        ImageView image2;
+        LinearLayout linear;
+        TextView text1,text2;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            image1=itemView.findViewById(R.id.card1image1);
+            linear = itemView.findViewById(R.id.linearlayout);
             image2=itemView.findViewById(R.id.card1image2);
             text1=itemView.findViewById(R.id.card1text1);
             text2=itemView.findViewById(R.id.card1text2);
-            text3=itemView.findViewById(R.id.card1text3);
-            text4=itemView.findViewById(R.id.card1text4);
         }
     }
     @NonNull
@@ -50,9 +51,7 @@ public class card1adapter extends RecyclerView.Adapter<card1adapter.MyViewHolder
         card1item item = mCard1item.get(position);
         holder.text1.setText(item.getText1());
         holder.text2.setText(item.getText2());
-        holder.text3.setText(item.getText3());
-        holder.text4.setText(item.getText4());
-        holder.image1.setImageResource(item.getImage1());
+        holder.linear.setBackground(ContextCompat.getDrawable(mContext,item.getImage1()));
         holder.image2.setImageResource(item.getImage2());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

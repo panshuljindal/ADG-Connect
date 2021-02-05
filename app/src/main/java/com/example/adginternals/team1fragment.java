@@ -76,7 +76,7 @@ public class team1fragment extends Fragment {
                     String link = ad.getLink();
                     String id =ad.getId();
                     String type=ad.getType();
-                    Log.i("Type",type);
+                    //Log.i("Type",type);
                     if(teamlist.contains(type)) {
                         list1_1.add(new alertcardviewitem(title, time, location, link, id));
                     }
@@ -95,7 +95,7 @@ public class team1fragment extends Fragment {
     public void adapter() {
         alertcardviewadapter alertcardviewadapter = new alertcardviewadapter(getContext(),list1_1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(RecyclerView.VERTICAL);
+        manager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setAdapter(alertcardviewadapter);
         recyclerView.setLayoutManager(manager);
     }

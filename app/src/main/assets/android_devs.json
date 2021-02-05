@@ -1,0 +1,18 @@
+{
+    "developers": [
+        {
+            "imageURL": "panshul.png",
+            "name": "Panshul Jindal",
+            "linkedIn": "https://www.linkedin.com/in/panshul-jindal-392746199",
+            "github": "https://github.com/panshuljindal",
+            "mail": "mailto:panshuljindal@gmail.com"
+        },
+        {
+            "imageURL": "arupan.png",
+            "name": "Arupam Saha",
+            "linkedIn": "https://www.linkedin.com/in/arupam-kumar-saha-310653191/",
+            "github": "https://github.com/arupam",
+            "mail": "sahaarupam37@gmail.com"
+        }
+    ]
+}

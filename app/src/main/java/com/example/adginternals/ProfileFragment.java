@@ -81,13 +81,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         String team2 = team1.replace("]", "");
         teamlist= new ArrayList<>(Arrays.asList(team2.split(", ")));
         domain = teamlist.get(0);
-        Log.i("Domain",domain);
+        //Log.i("Domain",domain);
         profileName.setText(name);
         regNoText.setText(regNo);
         userEmail.setText(email);
         userContact.setText(phone);
         if(domain.equals("0")){
-            textDomain.setText("Ios Development");
+            textDomain.setText("iOS Development");
         }
         else if(domain.equals("1")){
             textDomain.setText("Web Development");
@@ -97,6 +97,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
         else if(domain.contains("3")){
             textDomain.setText("Machine Learning ");
+        }
+        else if(domain.contains("4")){
+            textDomain.setText("Logistics");
+        }
+        else if(domain.contains("5")){
+            textDomain.setText("Sponsorship");
+        }
+        else if(domain.contains("6")){
+            textDomain.setText("Marketing");
+        }
+        else if(domain.contains("7")){
+            textDomain.setText("Design");
+        }
+        else if(domain.contains("8")){
+            textDomain.setText("Video Editing");
         }
 
         return view;
@@ -149,8 +164,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
 
         if (v.getId() == R.id.resetpwBtn) {
-            Toast.makeText(getContext(), "reset pw", Toast.LENGTH_SHORT).show();
-
+            startActivity(new Intent(v.getContext(),forgotpassword.class));
         }
     }
     public void clearData(){

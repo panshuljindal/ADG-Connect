@@ -1,0 +1,32 @@
+{
+    "developers": [
+        {
+            "imageURL": "riddhi.png",
+            "name": "Riddhi Gupta",
+            "linkedIn": "http://www.linkedin.com/in/riddhi-gupta-95858b1b3",
+            "github": "https://github.com/riddhi-30",
+            "mail": "riddhigupta01@gmail.com"
+        },
+        {
+            "imageURL": "utkarsh.png",
+            "name": "Utkarsh Dixit",
+            "linkedIn": "http://www.linkedin.com/in/fakeyudi",
+            "github": "http://github.com/fakeyudi",
+            "mail": "udixit419@gmail.com"
+        },
+        {
+            "imageURL": "aaryan.png",
+            "name": "Aaryan Kothari",
+            "linkedIn": "https://www.linkedin.com/in/aaryankotharii",
+            "github": "https://github.com/aaryankotharii",
+            "mail": "aaryan.kothari@gmail.com"
+        },
+        {
+            "imageURL": "harsh.png",
+            "name": "Harsh Londhekar",
+            "linkedIn": "https://www.linkedin.com/in/harshlondhekar",
+            "github": "https://github.com/Harsh4601",
+            "mail": "londhekarh4601@gmail.com"
+        }
+    ]
+}

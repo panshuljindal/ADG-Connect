@@ -180,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.apply();
 
 
-                Log.i("UserData", emaili + " " + fcm + " " + name + " " + phone + " " + regNo + " " + mylist);
+                //Log.i("UserData", emaili + " " + fcm + " " + name + " " + phone + " " + regNo + " " + mylist);
 
 
 

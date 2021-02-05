@@ -2,83 +2,60 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="316dp"
-    android:layout_height="wrap_content"
+    android:layout_height="228dp"
     android:layout_margin="12dp"
     app:cardCornerRadius="20.5dp">
 
-    <ImageView
-        android:id="@+id/card1image1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/androidback"/>
-
     <LinearLayout
+        android:id="@+id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/iosback"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="314dp"
-            android:layout_height="145dp"
-            android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/card1text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
+                android:layout_marginStart="22dp"
                 android:layout_marginTop="21dp"
-                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/robotobold"
                 android:text="ANDROID"
                 android:textColor="#FFFFFF"
                 android:textSize="24dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/card1text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/robotoregular"
                 android:text="New Event Coming Up"
                 android:textColor="#FFFFFF"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card1text1" />
 
-            <TextView
-                android:id="@+id/card1text3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginBottom="6dp"
-                android:fontFamily="@font/robotoregular"
-                android:text="Development of an App is underway"
-                android:textColor="#FFFFFF"
-                android:textSize="14dp" />
+            <ImageView
+                android:id="@+id/card1image2"
+                android:layout_width="120dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_ios" />
 
-            <TextView
-                android:id="@+id/card1text4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginBottom="6dp"
-                android:fontFamily="@font/robotoregular"
-                android:text="Meeting Scheduled on Tuesday"
-                android:textColor="#FFFFFF"
-                android:textSize="14dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/card1image2"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/andicon"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="185dp"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

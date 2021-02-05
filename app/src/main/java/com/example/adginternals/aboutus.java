@@ -61,22 +61,22 @@ public class aboutus extends Fragment {
         listandroid.add(new aboutusitem(R.drawable.mom_cardbg,"Arupam Saha",
                 "https://www.linkedin.com/in/arupam-kumar-saha-310653191/",
                 "https://github.com/arupam",
-                "panshuljindal@gmail.com"));
+                "sahaarupam37@gmail.com"));
         listios.add(new aboutusitem(R.drawable.mom_cardbg,"Riddhi Gupta",
-                "https://www.linkedin.com/in/harshlondhekar",
-                "https://github.com/Harsh4601",
-                "panshuljindal@gmail.com"));
+                "http://www.linkedin.com/in/riddhi-gupta-95858b1b3",
+                "https://github.com/riddhi-30",
+                "riddhigupta01@gmail.com"));
         listios.add(new aboutusitem(R.drawable.mom_cardbg,"Utkarsh Dixit",
-                "https://www.linkedin.com/in/harshlondhekar",
-                "https://github.com/Harsh4601",
-                "panshuljindal@gmail.com"));
+                "http://www.linkedin.com/in/fakeyudi",
+                "http://github.com/fakeyudi",
+                "udixit419@gmail.com"));
         listios.add(new aboutusitem(R.drawable.mom_cardbg,"Aryan Kothari",
-                "https://www.linkedin.com/in/harshlondhekar",
-                "https://github.com/Harsh4601",
-                "panshuljindal@gmail.com"));
+                "https://www.linkedin.com/in/aaryankotharii",
+                "https://github.com/aaryankotharii",
+                "aaryan.kothari@gmail.com"));
         listios.add(new aboutusitem(R.drawable.mom_cardbg,"Harsh Londhekar",
                 "https://www.linkedin.com/in/harshlondhekar",
                 "https://github.com/Harsh4601",
-                "panshuljindal@gmail.com"));
+                "londhekarh4601@gmail.com"));
     }
 }

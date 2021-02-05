@@ -69,8 +69,11 @@ public class aboutusAdapter extends RecyclerView.Adapter<aboutusAdapter.MyViewHo
         holder.email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(emails);
-                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_EMAIL,new String[] {emails});
+                intent.putExtra(Intent.EXTRA_SUBJECT,"");
+                intent.putExtra(Intent.EXTRA_TEXT,"");
+                intent.setType("message/rfc822");
                 mcontext.startActivity(intent);
             }
         });

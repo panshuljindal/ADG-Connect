@@ -40,12 +40,7 @@ public class card2adapter extends RecyclerView.Adapter<card2adapter.MyViewHolder
         card2item item = mcard2item.get(position);
         holder.text1.setText(item.getText1());
         holder.text2.setText(item.getText2());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    Toast.makeText(mContext, item.getText1()+" clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     @Override

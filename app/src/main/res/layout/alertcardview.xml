@@ -43,7 +43,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="Acknowledge"
                     android:textAllCaps="false"
-                    android:textColor="#2C5FE2"
+                    android:textColor="#4255FF"
                     android:textSize="14dp"
                     android:visibility="invisible" />
 
@@ -57,7 +57,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="Unavailable"
                     android:textAllCaps="false"
-                    android:textColor="#A6033E"
+                    android:textColor="#F65467"
                     android:textSize="14dp"
                     android:visibility="invisible" />
             </LinearLayout>
@@ -70,7 +70,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:text="Posted Unavailable"
                 android:textAllCaps="false"
-                android:textColor="#A6033E"
+                android:textColor="#F65467"
                 android:textSize="14dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -87,7 +87,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:text="Acknowledged"
                 android:textAllCaps="false"
-                android:textColor="#2C5FE2"
+                android:textColor="#4255FF"
                 android:textSize="14dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
