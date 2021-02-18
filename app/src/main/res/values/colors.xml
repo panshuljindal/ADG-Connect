@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="tab_background_unselected">#2635BD</color>
     <color name="tab_background_selected">#ffffff</color>
+    <color name="shimmercolour">#000000</color>
 </resources>

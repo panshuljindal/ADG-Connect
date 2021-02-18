@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:754737704023:android:074afd21d1243a8ea48712",
+        "mobilesdk_app_id": "1:754737704023:android:832b42dd70ccbac4a48712",
         "android_client_info": {
-          "package_name": "com.example.adginternals"
+          "package_name": "com.adgvit.internals"
         }
       },
       "oauth_client": [
@@ -30,6 +30,13 @@
             {
               "client_id": "754737704023-7jbb39rvriffaj3pjbsfe2f016ck3cqn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "754737704023-2p1shokkubr06om1ocpmh25dl1gtc6o4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ak.ADG-Internals"
+              }
             }
           ]
         }
