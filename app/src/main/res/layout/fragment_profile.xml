@@ -156,62 +156,66 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/knowMoreBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/ic_resetpw"
-        android:fontFamily="@font/robotobold"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:text="About us"
-        android:textAllCaps="false"
-        android:textColor="#2C5FE2"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileCard" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:padding="15dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="40dp"
-        android:orientation="horizontal"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/knowMoreBtn">
+        app:layout_constraintTop_toBottomOf="@+id/profileCard">
+
+        <Button
+            android:id="@+id/knowMoreBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/ic_resetpw"
+            android:fontFamily="@font/robotobold"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="About us"
+            android:textAllCaps="false"
+            android:textColor="#2C5FE2"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileCard" />
 
         <Button
             android:id="@+id/logoutBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="0dp"
             android:background="@drawable/ic_logoutbtn"
+            android:fontFamily="@font/robotobold"
             android:foreground="?android:attr/selectableItemBackground"
             android:text="Logout"
             android:textAllCaps="false"
             android:textColor="#ffffff"
-            android:textSize="16dp" />
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/resetpwBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
             android:background="@drawable/ic_aboutus"
             android:foreground="?android:attr/selectableItemBackground"
             android:text="Reset Password"
             android:textAllCaps="false"
             android:textColor="#ffffff"
-            android:textSize="16dp" />
+            android:textSize="20dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
