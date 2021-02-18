@@ -3,7 +3,6 @@
 
     <item
         android:id="@+id/resetOpt"
-        android:title="Reset"
-        />
+        android:title="Reset" />
 
 </menu>
