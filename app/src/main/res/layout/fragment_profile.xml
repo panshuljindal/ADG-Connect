@@ -65,7 +65,7 @@
                 android:fontFamily="@font/robotomedium"
                 android:text="Arupam Saha"
                 android:textColor="#ffffff"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/profilePic"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +93,7 @@
                 android:singleLine="false"
                 android:text="Android Development"
                 android:textColor="#bebebe"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/profilePic"
                 app:layout_constraintTop_toBottomOf="@+id/regNo" />
 
@@ -106,7 +106,7 @@
                 android:fontFamily="@font/robotomedium"
                 android:text="Email"
                 android:textColor="#bebebe"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profilePic" />
 
@@ -118,7 +118,7 @@
                 android:fontFamily="@font/robotoregular"
                 android:text="arupamkumar.saha2019@vitstudent.ac.in"
                 android:textColor="#ffffff"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/email" />
 
@@ -131,7 +131,7 @@
                 android:fontFamily="@font/robotomedium"
                 android:text="Contact No."
                 android:textColor="#BEBEBE"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
@@ -144,7 +144,7 @@
                 android:fontFamily="@font/robotoregular"
                 android:text="+91 8650997269"
                 android:textColor="#ffffff"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/contact"
