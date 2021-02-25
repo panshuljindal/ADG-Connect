@@ -21,7 +21,7 @@ public class forgotpassword extends AppCompatActivity {
     FirebaseAuth mauth;
     EditText email;
     String emailid;
-    Button forgot;
+    Button forgot,Cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +29,17 @@ public class forgotpassword extends AppCompatActivity {
         setContentView(R.layout.activity_forgotpassword);
 
         mauth=FirebaseAuth.getInstance();
+        Cancel=findViewById(R.id.buttonForgotCancel);
         email=findViewById(R.id.editTextForgot);
         forgot = findViewById(R.id.buttonForgot);
+
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
