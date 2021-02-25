@@ -3,6 +3,7 @@ package com.adgvit.internals;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -110,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
         forgettext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this,forgotpassword.class);
-                startActivity(i);
+                forgotpassword dialog = new forgotpassword();
+                dialog.show(getSupportFragmentManager(), "Reset Password");
             }
         });
         login.setOnClickListener(new View.OnClickListener() {

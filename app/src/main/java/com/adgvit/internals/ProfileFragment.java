@@ -162,7 +162,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
 
         if (v.getId() == R.id.resetpwBtn) {
-            startActivity(new Intent(v.getContext(),forgotpassword.class));
+            forgotpassword dialog = new forgotpassword();
+            dialog.show(getFragmentManager(), "Fragment");
         }
     }
     public void clearData(){

@@ -177,7 +177,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                         holder.postedack.setVisibility(View.VISIBLE);
 
                         myref1.child(uid).child("Meetings").child(holder.id.getText().toString()).setValue("available");
-                        myref.child(holder.id.getText().toString()).child(name).setValue("available");
+                        myref.child(holder.id.getText().toString()).child(uid).setValue("available");
                     } else {
                         Toast.makeText(mcontext, "Please connect to the internet", Toast.LENGTH_SHORT).show();
                     }

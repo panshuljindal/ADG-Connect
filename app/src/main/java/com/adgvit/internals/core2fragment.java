@@ -64,7 +64,7 @@ public class core2fragment extends Fragment {
                     String link = ad.getLink();
                     String id =ad.getId();
                     String type = ad.getType();
-                    String type1="meetings";
+                    String type1="Meetings";
                     if(type.equals(type1)){
                         Log.i("type",type);
                         list2.add(new alertcardviewitem(title,time,location,link,id));
