@@ -32,6 +32,7 @@ public class core2fragment extends Fragment {
     ArrayList<alertcardviewitem> list2;
     DatabaseReference myref;
     View view;
+    String uid;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,8 @@ public class core2fragment extends Fragment {
 
         recyclerView=view.findViewById(R.id.recyclerView1_2);
         list2=new ArrayList<>();
+        SharedPreferences pref= view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
+        uid = pref.getString("uid","");
         loadData();
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         myref=db.getReference("Alerts").child("Core");
@@ -57,6 +60,8 @@ public class core2fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list2.clear();
                 for(DataSnapshot ds: snapshot.getChildren()){
+                    String uids = ds.child("users").getValue().toString();
+                    if (uids.contains(uid)) {
                     alertdata ad = ds.getValue(alertdata.class);
                     String title = ad.getTitle();
                     String time = unixconvert(ad.getTime().toString());
@@ -66,8 +71,9 @@ public class core2fragment extends Fragment {
                     String type = ad.getType();
                     String type1="Meetings";
                     if(type.equals(type1)){
-                        Log.i("type",type);
+                        //Log.i("type",type);
                         list2.add(new alertcardviewitem(title,time,location,link,id));
+                    }
                     }
 
                 }

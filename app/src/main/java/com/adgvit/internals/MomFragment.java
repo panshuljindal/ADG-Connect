@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class MomFragment extends Fragment {
-    RecyclerView recyclerView;//String t[] , d[] ;
+    RecyclerView recyclerView;//String t[],d[];
 
     ArrayList<momItem> momItems;
     EditText momSearchBar;
@@ -41,6 +41,7 @@ public class MomFragment extends Fragment {
     String team;
     ArrayList<String> mylist;
     View view;
+    String uid;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class MomFragment extends Fragment {
 
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
         team = pref.getString("teams","");
+        uid = pref.getString("uid","");
         String team1 = team.replace("[", "");
         String team2 = team1.replace("]", "");
         mylist= new ArrayList<>(Arrays.asList(team2.split(", ")));
@@ -105,19 +107,22 @@ public class MomFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 momItems.clear();
                 for(DataSnapshot ds: snapshot.getChildren()) {
-                    getMomdetails momdetails = ds.getValue(getMomdetails.class);
-                    String header = momdetails.getHeader();
-                    String time = unixconvert(momdetails.getTime().toString());
-                    String title = momdetails.getTitle();
-                    String team = momdetails.getTeam();
-                    String mid = momdetails.getId();
+                    String uids = ds.child("users").getValue().toString();
+                    if(uids.contains(uid)){
+                        getMomdetails momdetails = ds.getValue(getMomdetails.class);
+                        String header = momdetails.getHeader();
+                        String time = unixconvert(momdetails.getTime().toString());
+                        String title = momdetails.getTitle();
+                        String team = momdetails.getTeam();
+                        String mid = momdetails.getId();
 
-                    String point = snapshot.child(mid).child("points").getValue().toString();
-                    String points1 = point.replace("[","");
-                    String points2 = points1.replace("]","");
-                    ArrayList<String> points= new ArrayList<>(Arrays.asList(points2.split(", ")));
-                    if (mylist.contains(team)) {
-                        momItems.add(new momItem(time, title, header,points2));
+                        String point = snapshot.child(mid).child("points").getValue().toString();
+                        String points1 = point.replace("[","");
+                        String points2 = points1.replace("]","");
+                        ArrayList<String> points= new ArrayList<>(Arrays.asList(points2.split(", ")));
+                        if (mylist.contains(team)) {
+                            momItems.add(new momItem(time, title, header,points2));
+                        }
                     }
                 }
                 savaData();

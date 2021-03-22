@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class core1fragment extends Fragment {
     FirebaseDatabase database;
     DatabaseReference myref;
     View view;
+    String uid;
     Boolean shimmer;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,10 @@ public class core1fragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_core1fragment, container, false);
         recyclerView=view.findViewById(R.id.recylerView1_1);
         list1=new ArrayList<>();
+        SharedPreferences pref= view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
+        uid = pref.getString("uid","");
+
+
         loadData();
         database =FirebaseDatabase.getInstance();
         myref =database.getReference("Alerts").child("Core");
@@ -62,13 +68,17 @@ public class core1fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 list1.clear();
                 for(DataSnapshot ds: datasnapshot.getChildren()){
-                    alertdata ad = ds.getValue(alertdata.class);
-                    String title = ad.getTitle();
-                    String time = unixconvert(ad.getTime().toString());
-                    String location = ad.getLocation();
-                    String link = ad.getLink();
-                    String id =ad.getId();
-                    list1.add(new alertcardviewitem(title,time,location,link,id));
+                    String uids = ds.child("users").getValue().toString();
+                    //Log.i("uids",uids);
+                    if(uids.contains(uid)){
+                        alertdata ad = ds.getValue(alertdata.class);
+                        String title = ad.getTitle();
+                        String time = unixconvert(ad.getTime().toString());
+                        String location = ad.getLocation();
+                        String link = ad.getLink();
+                        String id =ad.getId();
+                        list1.add(new alertcardviewitem(title,time,location,link,id));
+                    }
                 }
                 savaData();
                 adapter();

@@ -101,7 +101,7 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
             uid = pref.getString("uid", "");
 
             FirebaseDatabase db = FirebaseDatabase.getInstance();
-            myref = db.getReference("AlertAttendace");
+            myref = db.getReference("AlertAttendance");
             myref1 = db.getReference("Users");
 
             holder.text1.setText(item.getText1());

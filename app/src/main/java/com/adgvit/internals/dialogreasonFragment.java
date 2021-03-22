@@ -49,7 +49,7 @@ public class dialogreasonFragment extends DialogFragment {
         uid=pref1.getString("uid","");
 
         FirebaseDatabase db=FirebaseDatabase.getInstance();
-        myref = db.getReference("AlertAttendace");
+        myref = db.getReference("AlertAttendance");
         myref1=db.getReference("Users");
 
         text1.setText(title);

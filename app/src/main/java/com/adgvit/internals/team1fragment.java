@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,8 @@ public class team1fragment extends Fragment {
     DatabaseReference myref ;
     View view;
     String team;
-    List<String> teamlist;
+    List<String> teamlist,uidList;
+    String uid;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class team1fragment extends Fragment {
 
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
         team = pref.getString("teams","");
+        uid = pref.getString("uid","");
         String team1 = team.replace("[", "");
         String team2 = team1.replace("]", "");
         teamlist= new ArrayList<>(Arrays.asList(team2.split(", ")));
@@ -68,16 +71,17 @@ public class team1fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list1_1.clear();
                 for(DataSnapshot ds: snapshot.getChildren()){
-                    alertdata ad = ds.getValue(alertdata.class);
-                    String title = ad.getTitle();
-                    String time = unixconvert(ad.getTime().toString());
-                    String location = ad.getLocation();
-                    String link = ad.getLink();
-                    String id =ad.getId();
-                    String type=ad.getType();
-                    //Log.i("Type",type);
-                    if(teamlist.contains(type)) {
-                        list1_1.add(new alertcardviewitem(title, time, location, link, id));
+                    Log.i("ds",ds.getValue().toString());
+                    String uids = ds.child("users").getValue().toString();
+                    //Log.i("uids",uids);
+                    if(uids.contains(uid)){
+                        alertdata ad = ds.getValue(alertdata.class);
+                        String title = ad.getTitle();
+                        String time = unixconvert(ad.getTime().toString());
+                        String location = ad.getLocation();
+                        String link = ad.getLink();
+                        String id =ad.getId();
+                        list1_1.add(new alertcardviewitem(title,time,location,link,id));
                     }
                 }
                 savaData();
@@ -94,7 +98,7 @@ public class team1fragment extends Fragment {
     public void adapter() {
         alertcardviewadapter alertcardviewadapter = new alertcardviewadapter(getContext(),list1_1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(RecyclerView.HORIZONTAL);
+        manager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setAdapter(alertcardviewadapter);
         recyclerView.setLayoutManager(manager);
     }
