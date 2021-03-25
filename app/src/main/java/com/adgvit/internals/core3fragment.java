@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +26,9 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class core3fragment extends Fragment {
 
@@ -34,6 +37,7 @@ public class core3fragment extends Fragment {
     DatabaseReference myref;
     View view;
     String uid;
+    ConstraintLayout layout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +52,7 @@ public class core3fragment extends Fragment {
         recyclerView=view.findViewById(R.id.recylcerView1_3);
 
         list3=new ArrayList<>();
+        layout = view.findViewById(R.id.emptyDutiesLayout);
 
         SharedPreferences pref= view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         uid = pref.getString("uid","");
@@ -57,7 +62,18 @@ public class core3fragment extends Fragment {
         myref = db.getReference("Alerts").child("Core");
         addData();
         adapter();
+        checkData();
         return view;
+    }
+
+    public void checkData(){
+        if (list3.size()==0){
+            layout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        }else {
+            layout.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
     public void addData(){
         myref.addValueEventListener(new ValueEventListener() {
@@ -75,22 +91,45 @@ public class core3fragment extends Fragment {
                         String id =ad.getId();
                         String type = ad.getType();
                         String type1="Duties";
-                        if(type.equals(type1)){
-                            //Log.i("type",type);
-                            list3.add(new alertcardviewitem(title,time,location,link,id));
+                        String time1 = calculateDate(ad.getTime().toString());
+                        String current = nowDate();
+                        if (current.equals(time1)){
+
+                        }
+                        else {
+                            if(type.equals(type1)){
+                                //Log.i("type",type);
+                                list3.add(new alertcardviewitem(title,time,location,link,id));
+                            }
                         }
                     }
 
                 }
+                checkData();
                 savaData();
                 adapter();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                checkData();
             }
         });
+    }public String nowDate(){
+        Date c = Calendar.getInstance().getTime();
+        //System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+        //Log.i("Current Dat",formattedDate);
+        return formattedDate;
+    }
+    public String calculateDate(String time){
+        long dv = Long.valueOf(time)*1000+ 864000000L;// its need to be in milisecond
+        Date df = new java.util.Date(dv);
+        String vv = new SimpleDateFormat("dd-MMM-yyyy").format(df);
+        //Log.i("New Date",vv);
+        return vv;
     }
     public void adapter(){
         alertcardviewadapter alertcardviewadapter = new alertcardviewadapter(getContext(),list3);

@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     Button logoutbtn;
     Button logoutlogoutbtn;
     Button logoutcancelbtn;
-
+    TextView initials;
+    String initials1="";
     Button resetPw;
     Button Team;
     FirebaseAuth mauth;
@@ -51,6 +53,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         logoutbtn = (Button) view.findViewById(R.id.logoutBtn);
         logoutbtn.setOnClickListener((View.OnClickListener) this);
+        initials = view.findViewById(R.id.initialsText);
 
         resetPw = (Button) view.findViewById(R.id.resetpwBtn);
         resetPw.setOnClickListener((View.OnClickListener) this);
@@ -74,6 +77,24 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         email = pref.getString("emailid","");
         phone = pref.getString("phone","");
         team = pref.getString("teams","");
+
+        String name1 = name;
+        name1 = name1.trim();
+        String words[] = name1.split(" ");
+        for(String word : words) {
+            try {
+                //Log.i("Initial",Character.toUpperCase(word.charAt(0)) + " ");
+                initials1 = initials1 +Character.toUpperCase(word.charAt(0));
+            }
+            catch (StringIndexOutOfBoundsException e){
+                //Log.i("Exception","String Index Out of bounds");
+            }
+
+        }
+        initials.setText(initials1);
+
+
+
 
         String team1 = team.replace("[", "");
         String team2 = team1.replace("]", "");

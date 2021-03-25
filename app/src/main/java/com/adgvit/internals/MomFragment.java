@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +30,9 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MomFragment extends Fragment {
     RecyclerView recyclerView;//String t[],d[];
@@ -42,6 +45,7 @@ public class MomFragment extends Fragment {
     ArrayList<String> mylist;
     View view;
     String uid;
+    ConstraintLayout layout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class MomFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.mom_recycler);
         momItems = new ArrayList<>();
+        layout = view.findViewById(R.id.emptyMomLayout);
+
         loadData();
         Resources res = getResources();
         //fetch from firebase and add here
@@ -87,8 +93,17 @@ public class MomFragment extends Fragment {
                         filter(s.toString());
             }
         });
-
+        checkData();
          return  view;
+    }
+    public void checkData(){
+        if (momItems.size()==0){
+            layout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        }else {
+            layout.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void filter(String text) {
@@ -115,25 +130,49 @@ public class MomFragment extends Fragment {
                         String title = momdetails.getTitle();
                         String team = momdetails.getTeam();
                         String mid = momdetails.getId();
+                        String time1 = calculateDate(momdetails.getTime().toString());
+                        String current = nowDate();
 
                         String point = snapshot.child(mid).child("points").getValue().toString();
                         String points1 = point.replace("[","");
                         String points2 = points1.replace("]","");
                         ArrayList<String> points= new ArrayList<>(Arrays.asList(points2.split(", ")));
-                        if (mylist.contains(team)) {
-                            momItems.add(new momItem(time, title, header,points2));
+                        if (current.equals(time1)) {
+
+                        }
+                        else {
+                            if (mylist.contains(team)) {
+                                momItems.add(new momItem(time, title, header, points2));
+                            }
                         }
                     }
                 }
+                checkData();
                 savaData();
                 adapter();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                checkData();
             }
         });
+    }
+    public String nowDate(){
+        Date c = Calendar.getInstance().getTime();
+        //System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+        //Log.i("Current Dat",formattedDate);
+        return formattedDate;
+    }
+    public String calculateDate(String time){
+        long dv = Long.valueOf(time)*1000+ 864000000L;// its need to be in milisecond
+        Date df = new java.util.Date(dv);
+        String vv = new SimpleDateFormat("dd-MMM-yyyy").format(df);
+        //Log.i("New Date",vv);
+        return vv;
     }
     public void adapter(){
         myAdapter = new MyAdapter(getContext(),momItems);

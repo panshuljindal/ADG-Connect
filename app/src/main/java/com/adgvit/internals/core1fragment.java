@@ -2,9 +2,12 @@ package com.adgvit.internals;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,9 +27,17 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class core1fragment extends Fragment {
     RecyclerView recyclerView;
@@ -36,6 +47,7 @@ public class core1fragment extends Fragment {
     View view;
     String uid;
     Boolean shimmer;
+    ConstraintLayout layout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,15 +62,26 @@ public class core1fragment extends Fragment {
         SharedPreferences pref= view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         uid = pref.getString("uid","");
 
+        layout = view.findViewById(R.id.emptyAllLayout);
 
         loadData();
         database =FirebaseDatabase.getInstance();
         myref =database.getReference("Alerts").child("Core");
         addData();
         adapter();
+        checkData();
         return view;
     }
 
+    public void checkData(){
+        if (list1.size()==0){
+            layout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        }else {
+            layout.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+    }
 
 
     public void addData(){
@@ -76,19 +99,45 @@ public class core1fragment extends Fragment {
                         String time = unixconvert(ad.getTime().toString());
                         String location = ad.getLocation();
                         String link = ad.getLink();
+                        String time1 =calculateDate(ad.getTime().toString());
+                        String current =nowDate();
                         String id =ad.getId();
-                        list1.add(new alertcardviewitem(title,time,location,link,id));
+                        if (current.equals(time1)){
+                            //Log.i("Date","Date Matched");
+
+                        }
+                        else {
+                            //Log.i("Date","Date Not Matched");
+                            list1.add(new alertcardviewitem(title,time,location,link,id));
+                        }
                     }
                 }
+                checkData();
                 savaData();
                 adapter();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                checkData();
             }
         });
+    }
+    public String nowDate(){
+        Date c = Calendar.getInstance().getTime();
+        //System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+        //Log.i("Current Dat",formattedDate);
+        return formattedDate;
+    }
+    public String calculateDate(String time){
+        long dv = Long.valueOf(time)*1000+ 864000000L;// its need to be in milisecond
+        Date df = new java.util.Date(dv);
+        String vv = new SimpleDateFormat("dd-MMM-yyyy").format(df);
+        //Log.i("New Date",vv);
+        return vv;
     }
     public String unixconvert(String time){
         long dv = Long.valueOf(time)*1000;// its need to be in milisecond
