@@ -75,12 +75,12 @@ public class core3fragment extends Fragment {
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
-    public void addData(){
+    public void addData() {
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list3.clear();
-                for(DataSnapshot ds: snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String uids = ds.child("users").getValue().toString();
                     if (uids.contains(uid)) {
                         alertdata ad = ds.getValue(alertdata.class);
@@ -88,19 +88,19 @@ public class core3fragment extends Fragment {
                         String time = unixconvert(ad.getTime().toString());
                         String location = ad.getLocation();
                         String link = ad.getLink();
-                        String id =ad.getId();
+                        String id = ad.getId();
                         String type = ad.getType();
-                        String type1="Duties";
-                        String time1 = calculateDate(ad.getTime().toString());
-                        String current = nowDate();
-                        if (current.equals(time1)){
-
-                        }
-                        else {
-                            if(type.equals(type1)){
+                        String type1 = "Duties";
+                        Long current = System.currentTimeMillis();
+                        Long date = Long.valueOf(ad.getTime()) * 1000 + 864000000L;
+                        if (current >= date) {
+                            //Log.i("Date","Date Matched");
+                        } else {
+                            if (type.equals(type1)) {
                                 //Log.i("type",type);
-                                list3.add(new alertcardviewitem(title,time,location,link,id));
+                                list3.add(new alertcardviewitem(title, time, location, link, id));
                             }
+
                         }
                     }
 
@@ -115,21 +115,6 @@ public class core3fragment extends Fragment {
                 checkData();
             }
         });
-    }public String nowDate(){
-        Date c = Calendar.getInstance().getTime();
-        //System.out.println("Current time => " + c);
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
-        //Log.i("Current Dat",formattedDate);
-        return formattedDate;
-    }
-    public String calculateDate(String time){
-        long dv = Long.valueOf(time)*1000+ 864000000L;// its need to be in milisecond
-        Date df = new java.util.Date(dv);
-        String vv = new SimpleDateFormat("dd-MMM-yyyy").format(df);
-        //Log.i("New Date",vv);
-        return vv;
     }
     public void adapter(){
         alertcardviewadapter alertcardviewadapter = new alertcardviewadapter(getContext(),list3);

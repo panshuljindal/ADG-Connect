@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -19,6 +20,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -28,8 +31,8 @@ import java.util.List;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     Button logoutbtn;
-    Button logoutlogoutbtn;
-    Button logoutcancelbtn;
+    Button logoutlogoutbtn,logoutReset;
+    Button logoutcancelbtn,cancelReset;
     TextView initials;
     String initials1="";
     Button resetPw;
@@ -50,6 +53,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        initials1="";
 
         logoutbtn = (Button) view.findViewById(R.id.logoutBtn);
         logoutbtn.setOnClickListener((View.OnClickListener) this);
@@ -138,6 +142,60 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.resetpwBtn) {
+            Dialog resetDialog = new Dialog(getContext(),R.style.Theme_Dialog);
+            resetDialog.setContentView(R.layout.reset_password_dialog);
+            // add functions for button
+            logoutReset = resetDialog.findViewById(R.id.logoutResetBtn);
+            cancelReset = resetDialog.findViewById(R.id.cancelResetBtn);
+
+            resetDialog.show();
+
+            logoutReset.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   SharedPreferences pref = v.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
+                   String emailID = pref.getString("emailid","");
+                   mauth.sendPasswordResetEmail(emailID).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(v.getContext(), "Check email", Toast.LENGTH_LONG).show();
+                                resetDialog.dismiss();
+                                //startActivity(new Intent(v.getContext(),LoginActivity.class));
+                            }
+                            else{
+                                Toast.makeText(v.getContext(), "Please Try Again", Toast.LENGTH_SHORT).show();
+                                resetDialog.dismiss();
+
+                            }
+                        }
+                    });
+
+                }
+            });
+
+            cancelReset.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(getContext(), "Cancelled!", Toast.LENGTH_SHORT).show();
+                    resetDialog.dismiss();
+                }
+            });
+
+
+        }
+
+        if (v.getId() == R.id.knowMoreBtn) {
+            Fragment aboutus1 = new aboutus();
+            FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,aboutus1);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
+        }
+
         if (v.getId() == R.id.logoutBtn) {
             Dialog logoutDialog = new Dialog(getContext(),R.style.Theme_Dialog);
             logoutDialog.setContentView(R.layout.logout_dialog);
@@ -164,27 +222,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             logoutcancelbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Cancelled!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Cancelled!", Toast.LENGTH_SHORT).show();
                     logoutDialog.dismiss();
                 }
             });
-
-
-        }
-
-        if (v.getId() == R.id.knowMoreBtn) {
-            Fragment aboutus1 = new aboutus();
-            FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container,aboutus1);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-
-        }
-
-        if (v.getId() == R.id.resetpwBtn) {
-            forgotpassword dialog = new forgotpassword();
-            dialog.show(getFragmentManager(), "Fragment");
         }
     }
     public void clearData(){

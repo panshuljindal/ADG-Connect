@@ -99,16 +99,19 @@ public class core1fragment extends Fragment {
                         String time = unixconvert(ad.getTime().toString());
                         String location = ad.getLocation();
                         String link = ad.getLink();
-                        String time1 =calculateDate(ad.getTime().toString());
-                        String current =nowDate();
                         String id =ad.getId();
-                        if (current.equals(time1)){
-                            //Log.i("Date","Date Matched");
+                        Long current = System.currentTimeMillis();
+                        //Log.i("Current",String.valueOf(current));
+                        Long date = Long.valueOf(ad.getTime())*1000+ 864000000L;
+                        //Log.i("Date",String.valueOf(date));
 
+                        if (current>=date){
+                            //Log.i("Date","Date Matched");
                         }
                         else {
-                            //Log.i("Date","Date Not Matched");
                             list1.add(new alertcardviewitem(title,time,location,link,id));
+                            //Log.i("Date","Date Not Matched");
+
                         }
                     }
                 }
@@ -122,22 +125,6 @@ public class core1fragment extends Fragment {
                 checkData();
             }
         });
-    }
-    public String nowDate(){
-        Date c = Calendar.getInstance().getTime();
-        //System.out.println("Current time => " + c);
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
-        //Log.i("Current Dat",formattedDate);
-        return formattedDate;
-    }
-    public String calculateDate(String time){
-        long dv = Long.valueOf(time)*1000+ 864000000L;// its need to be in milisecond
-        Date df = new java.util.Date(dv);
-        String vv = new SimpleDateFormat("dd-MMM-yyyy").format(df);
-        //Log.i("New Date",vv);
-        return vv;
     }
     public String unixconvert(String time){
         long dv = Long.valueOf(time)*1000;// its need to be in milisecond

@@ -96,13 +96,12 @@ public class team1fragment extends Fragment {
                         String location = ad.getLocation();
                         String link = ad.getLink();
                         String id =ad.getId();
-                        String time1 = calculateDate(ad.getTime().toString());
-                        String current = nowDate();
-                        if (current.equals(time1)) {
-
-                        }
-                        else {
-                            list1_1.add(new alertcardviewitem(title, time, location, link, id));
+                        Long current = System.currentTimeMillis();
+                        Long date = Long.valueOf(ad.getTime()) * 1000 + 864000000L;
+                        if (current >= date) {
+                            //Log.i("Date","Date Matched");
+                        } else {
+                                list1_1.add(new alertcardviewitem(title, time, location, link, id));
                         }
                     }
                 }

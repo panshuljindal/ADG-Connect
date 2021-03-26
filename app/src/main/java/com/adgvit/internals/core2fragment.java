@@ -86,17 +86,20 @@ public class core2fragment extends Fragment {
                     String id =ad.getId();
                     String type = ad.getType();
                     String type1="Meetings";
-                    String time1 =calculateDate(ad.getTime().toString());
-                    String current = nowDate();
-                    if (current.equals(time1)){
-
-                    }
+                    Long current = System.currentTimeMillis();
+                    //Log.i("Current",String.valueOf(current));
+                    Long date = Long.valueOf(ad.getTime())*1000+ 864000000L;
+                    //Log.i("Date",String.valueOf(date));
+                    if (current>=date){
+                            //Log.i("Date","Date Matched");
+                        }
                     else {
                         if(type.equals(type1)){
                             //Log.i("type",type);
                             list2.add(new alertcardviewitem(title,time,location,link,id));
                         }
-                    }
+
+                        }
 
                     }
 
@@ -112,21 +115,6 @@ public class core2fragment extends Fragment {
             }
         });
 
-    }public String nowDate(){
-        Date c = Calendar.getInstance().getTime();
-        //System.out.println("Current time => " + c);
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
-       // Log.i("Current Dat",formattedDate);
-        return formattedDate;
-    }
-    public String calculateDate(String time){
-        long dv = Long.valueOf(time)*1000+ 864000000L;// its need to be in milisecond
-        Date df = new java.util.Date(dv);
-        String vv = new SimpleDateFormat("dd-MMM-yyyy").format(df);
-        //Log.i("New Date",vv);
-        return vv;
     }
     public void adapter(){
         alertcardviewadapter alertcardviewadapter = new alertcardviewadapter(getContext(),list2);

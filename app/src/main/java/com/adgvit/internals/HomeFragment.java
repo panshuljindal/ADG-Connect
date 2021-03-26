@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView1,recyclerViewNotification;
     View view;
     ArrayList<card1item> list1;
-    ArrayList<card2item> list2,list3;
+    ArrayList<card2item> list2,sortedArrayList;
     ArrayList<Integer> timeStamps;
     DatabaseReference myref,myref1,myref2;
     String team;
@@ -58,6 +58,7 @@ public class HomeFragment extends Fragment {
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
         timeStamps = new ArrayList<>();
+        sortedArrayList = new ArrayList<>();
 
         loadData();
 
@@ -75,22 +76,11 @@ public class HomeFragment extends Fragment {
 
         firebase();
 
-        adapter();
+        adapter1();
+        adapter2();
         return view;
     }
-    public void adapter(){
-        card1adapter adapter = new card1adapter(getContext(),list1);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView1.setAdapter(adapter);
-        recyclerView1.setLayoutManager(manager);
 
-        card2adapter adapter1= new card2adapter(getContext(),list2);
-        LinearLayoutManager manager1= new LinearLayoutManager(getContext());
-        manager1.setOrientation(RecyclerView.VERTICAL);
-        recyclerViewNotification.setAdapter(adapter1);
-        recyclerViewNotification.setLayoutManager(manager1);
-    }
     public void firebase(){
         myref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -119,7 +109,7 @@ public class HomeFragment extends Fragment {
 
                 }
                 savaData();
-                adapter();
+                adapter1();
             }
 
             @Override
@@ -131,6 +121,7 @@ public class HomeFragment extends Fragment {
         myref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sortedArrayList.clear();
                 list2.clear();
                 for (DataSnapshot ds: snapshot.getChildren()){
                     String uids = ds.child("users").getValue().toString();
@@ -139,13 +130,11 @@ public class HomeFragment extends Fragment {
                         alertdata ad = ds.getValue(alertdata.class);
                         String title = ad.getTitle();
                         String time = unixconvert(ad.getTime().toString());
-                        String time1 = calculateDate(ad.getTime().toString());
-                        String current = nowDate();
-
-                        if (current.equals(time1)){
-
-                        }
-                        else {
+                        Long current = System.currentTimeMillis();
+                        Long date = Long.valueOf(ad.getTime()) * 1000 + 864000000L;
+                        if (current >= date) {
+                            //Log.i("Date","Date Matched");
+                        } else {
                             timeStamps.add(ad.getTime());
                             list2.add(new card2item(title, time));
                         }
@@ -161,20 +150,25 @@ public class HomeFragment extends Fragment {
                                 alertdata ad = ds.getValue(alertdata.class);
                                 String title = ad.getTitle();
                                 String time = unixconvert(ad.getTime().toString());
-                                String time1 = calculateDate(ad.getTime().toString());
-                                String current = nowDate();
-                                if (current.equals(time1)){
-
-                                }
-                                else {
+                                Long current = System.currentTimeMillis();
+                                Long date = Long.valueOf(ad.getTime()) * 1000 + 864000000L;
+                                if (current >= date) {
+                                    //Log.i("Date","Date Matched");
+                                } else {
                                     timeStamps.add(ad.getTime());
                                     list2.add(new card2item(title, time));
                                 }
                             }
                         }
-                        //Collections.sort(timeStamps);
+                        Collections.sort(timeStamps);
+                        for (int i=0;i<timeStamps.size();i++){
+                            sortedArrayList.add(list2.get(timeStamps.indexOf(timeStamps.get(i))));
+                            if (i==3){
+                                break;
+                            }
+                        }
                         savaData();
-                        adapter();
+                        adapter2();
                     }
 
                     @Override
@@ -192,28 +186,25 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public String nowDate(){
-        Date c = Calendar.getInstance().getTime();
-        //System.out.println("Current time => " + c);
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
-        //Log.i("Current Dat",formattedDate);
-        return formattedDate;
-    }
-    public String calculateDate(String time){
-        long dv = Long.valueOf(time)*1000+ 864000000L;// its need to be in milisecond
-        Date df = new java.util.Date(dv);
-        String vv = new SimpleDateFormat("dd-MMM-yyyy").format(df);
-        //Log.i("New Date",vv);
-        return vv;
-    }
-
     public String unixconvert(String time){
         long dv = Long.valueOf(time)*1000;// its need to be in milisecond
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
+    }
+    public void adapter1(){
+        card1adapter adapter = new card1adapter(getContext(),list1);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerView1.setAdapter(adapter);
+        recyclerView1.setLayoutManager(manager);
+    }
+    public void adapter2(){
+        card2adapter adapter1= new card2adapter(getContext(),sortedArrayList);
+        LinearLayoutManager manager1= new LinearLayoutManager(getContext());
+        manager1.setOrientation(RecyclerView.VERTICAL);
+        recyclerViewNotification.setAdapter(adapter1);
+        recyclerViewNotification.setLayoutManager(manager1);
     }
     public void savaData(){
         SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.home", Context.MODE_PRIVATE);
@@ -223,8 +214,8 @@ public class HomeFragment extends Fragment {
         editor.putString("scrollbar",json);
         String json1 = gson.toJson(list2);
         editor.putString("notifications",json1);
-        String json2 = gson.toJson(timeStamps);
-        editor.putString("timeStamps",json2);
+        /*String json2 = gson.toJson(timeStamps);
+        editor.putString("timeStamps",json2);*/
         editor.apply();
     }
     public void loadData(){
@@ -244,9 +235,9 @@ public class HomeFragment extends Fragment {
         if(list2==null){
             list2 = new ArrayList<>();
         }
-        timeStamps = gson.fromJson(json2,type2);
+        /*timeStamps = gson.fromJson(json2,type2);
         if (timeStamps==null){
             timeStamps = new ArrayList<>();
-        }
+        }*/
     }
 }
