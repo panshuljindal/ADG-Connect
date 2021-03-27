@@ -143,7 +143,7 @@ public class MomFragment extends Fragment {
                         else {
                             if (mylist.contains(team)) {
                                 momItems.add(new momItem(time, title, header, points2));
-                                
+
                             }
                         }
                     }
