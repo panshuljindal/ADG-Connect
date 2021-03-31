@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:fontFamily="@font/robotolight"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:text="Everyone"
                 android:textColor="#ffffff"
                 android:textSize="15sp"

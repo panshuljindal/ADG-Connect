@@ -28,19 +28,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/robotobold"
-        android:text="About Us"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:textSize="36dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:text="About Us"
+            android:textColor="#fff"
+            android:textSize="34dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -70,8 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="69dp"
             android:layout_marginTop="27dp"
-            android:fontFamily="@font/robotomedium"
-            android:text="ADG-Internals"
+            android:fontFamily="@font/sf_pro_text_medium"
+            android:text="ADG-Connect"
             android:textColor="#fff"
             android:textSize="18dp" />
 
@@ -81,19 +81,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="75dp"
-            android:fontFamily="@font/robotomedium"
+            android:fontFamily="@font/sf_pro_text_medium"
             android:text="Idea:"
             android:textColor="#2C5FE2"
-            android:textSize="16dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="100dp"
-            android:fontFamily="@font/robotoregular"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:text="The Idea behind the app was to develop a solution to all internal workings of the Chapter."
             android:textColor="#fff"
             android:textSize="14dp" />
@@ -104,10 +104,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="155dp"
-            android:fontFamily="@font/robotomedium"
+            android:fontFamily="@font/sf_pro_text_medium"
             android:text="Project Lead:"
             android:textColor="#2C5FE2"
-            android:textSize="16dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/textView10"
@@ -116,10 +116,10 @@
             android:layout_marginLeft="190dp"
             android:layout_marginTop="155dp"
             android:layout_marginRight="10dp"
-            android:fontFamily="@font/robotomedium"
+            android:fontFamily="@font/sf_pro_text_medium"
             android:text="UI/UX Designer:"
             android:textColor="#2C5FE2"
-            android:textSize="16dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/textView11"
@@ -127,8 +127,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="180dp"
-            android:fontFamily="@font/robotoregular"
-            android:text="Ritik Suryavanshi"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="Ritik Suryawanshi"
             android:textColor="#fff"
             android:textSize="14dp" />
 
@@ -138,24 +138,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="190dp"
             android:layout_marginTop="180dp"
-            android:fontFamily="@font/robotoregular"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:text="Utkarsh Dixit"
             android:textColor="#fff"
             android:textSize="14dp" />
     </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/robotoregular"
-            android:text="Android Developers"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAndroid"
@@ -176,11 +163,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            tools:layout_editor_absoluteY="355dp" />
 
         <TextView
             android:id="@+id/textView15"
@@ -188,12 +174,35 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="7dp"
-            android:fontFamily="@font/robotoregular"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:text="iOS Developers"
             android:textColor="#fff"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewiOS" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewWeb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="Android Developers"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewWeb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="355dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

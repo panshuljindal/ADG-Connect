@@ -51,16 +51,14 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView1,recyclerViewNotification;
     View view;
     ArrayList<card1item> list1;
-    ArrayList<card2item> list2Core,list2Team,finalArrayF,sortedArrayF;
-    ArrayList<Integer> timeStampsCore,timeStampsTeam,sortedFTime,timeF;
+    ArrayList<card2item> list2Team,finalArrayF,sortedArrayF;
+    ArrayList<Integer> timeStampsTeam,sortedFTime,timeF;
     DatabaseReference myref,myref1,myref2;
     int count;
     String team;
     List<String> teamlist;
     String uid;
     ConstraintLayout ui1;
-    private static final String TAG = "NotificationService";
-    private static final String CHANNEL_ID = "PushNotifications";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +75,6 @@ public class HomeFragment extends Fragment {
 
         list1 = new ArrayList<>();
 
-        list2Core = new ArrayList<>();
-        timeStampsCore = new ArrayList<>();
 
         list2Team = new ArrayList<>();
         timeStampsTeam = new ArrayList<>();
@@ -92,8 +88,7 @@ public class HomeFragment extends Fragment {
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         myref = db.getReference("Home").child("Scroll");
-        myref1 = db.getReference("Alerts").child("Core");
-        myref2 = db.getReference("Alerts").child("Team");
+        myref2 = db.getReference("Home").child("Notification");
 
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", MODE_PRIVATE);
         team = pref.getString("teams","");
@@ -168,7 +163,7 @@ public class HomeFragment extends Fragment {
                     else if(type.equals("3")){
                         list1.add(new card1item(R.drawable.mlback,R.drawable.ic_ml,"Machine Language",title));
                     }
-                    else if(type.equals("7")){
+                    else if(type.equals("8")){
                         list1.add(new card1item(R.drawable.designback,R.drawable.ic_design,"Design",title));
                     }
 
@@ -183,14 +178,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        myref1.addValueEventListener(new ValueEventListener() {
+        myref2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                loadData();
-                timeStampsCore.clear();
-                list2Core.clear();
+                timeStampsTeam.clear();
+                list2Team.clear();
 
-                for (DataSnapshot ds: snapshot.getChildren()){
+                finalArrayF.clear();
+                sortedArrayF.clear();
+                sortedFTime.clear();
+                timeF.clear();
+                for (DataSnapshot ds : snapshot.getChildren()){
                     String uids = ds.child("users").getValue().toString();
                     //Log.i("uids",uids);
                     if(uids.contains(uid)){
@@ -202,88 +200,37 @@ public class HomeFragment extends Fragment {
                         if (current >= date) {
                             //Log.i("Date","Date Matched");
                         } else {
-                            timeStampsCore.add(ad.getTime());
-                            list2Core.add(new card2item(title, time));
+                            timeStampsTeam.add(ad.getTime());
+                            list2Team.add(new card2item(title, time));
                         }
                     }
-                    saveData();
                 }
-                myref2.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        loadData1();
-                        timeStampsTeam.clear();
-                        list2Team.clear();
-
-                        finalArrayF.clear();
-                        sortedArrayF.clear();
-                        sortedFTime.clear();
-                        timeF.clear();
-                        for (DataSnapshot ds : snapshot.getChildren()){
-                            String uids = ds.child("users").getValue().toString();
-                            //Log.i("uids",uids);
-                            if(uids.contains(uid)){
-                                alertdata ad = ds.getValue(alertdata.class);
-                                String title = ad.getTitle();
-                                String time = unixconvert(ad.getTime().toString());
-                                Long current = System.currentTimeMillis();
-                                Long date = Long.valueOf(ad.getTime()) * 1000 + 864000000L;
-                                if (current >= date) {
-                                    //Log.i("Date","Date Matched");
-                                } else {
-                                    timeStampsTeam.add(ad.getTime());
-                                    list2Team.add(new card2item(title, time));
-                                }
-                            }
+                finalArrayF.addAll(list2Team);
+                timeF.addAll(timeStampsTeam);
+                sortedFTime.addAll(timeF);
+                Collections.sort(sortedFTime);
+                count =0;
+                for (int i=0;i<timeF.size();i++){
+                    int index=timeF.indexOf(sortedFTime.get(i));
+                    timeF.set(index,0);
+                    try {
+                        sortedArrayF.add(finalArrayF.get(index));
+                        if (i==3){
+                            break;
                         }
-
-                        finalArrayF = list2Core;
-                        finalArrayF.addAll(list2Team);
-                        timeF = timeStampsCore;
-                        timeF.addAll(timeStampsTeam);
-                        sortedFTime.addAll(timeF);
-                        Collections.sort(sortedFTime);
-                        count =0;
-                        int start=0;
-                        for (int i=0;i<timeF.size();i++){
-
-                            int index=timeF.indexOf(sortedFTime.get(i));
-                            timeF.set(index,0);
-                            Log.i("Time",timeF.toString());
-                            Log.i("Sorted",sortedFTime.toString());
-                            try {
-                                sortedArrayF.add(finalArrayF.get(index));
-                                //Log.i("Count",String.valueOf(count));
-
-                                if (i==3){
-                                    break;
-                                }
-                            }
-                            catch (IndexOutOfBoundsException e){
-
-                            }
-
-
-                        }
-                        savaData();
-                        adapter2();
-                        checkData();
                     }
+                    catch (IndexOutOfBoundsException e){
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        checkData();
-
-                        adapter2();
                     }
-                });
-
+                }
+                savaData();
+                adapter2();
+                checkData();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
-                //savaData();
+                loadData();
                 checkData();
                 adapter2();
             }
@@ -291,19 +238,10 @@ public class HomeFragment extends Fragment {
     }
 
     public String unixconvert(String time){
-        long dv = Long.valueOf(time)*1000;// its need to be in milisecond
+        long dv = Long.valueOf(time)*1000;
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
-    }
-    public void saveData(){
-        Gson gson = new Gson();
-        String json = gson.toJson(timeStampsCore);
-        String json1 = gson.toJson(list2Core);
-        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.home", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("timeStampsCore",json);
-        editor.putString("list2Core",json1);
     }
     public void sendToken(){
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
@@ -315,26 +253,6 @@ public class HomeFragment extends Fragment {
             FirebaseDatabase db = FirebaseDatabase.getInstance();
             DatabaseReference myref = db.getReference("Users");
             myref.child(uid).child("fcm").setValue(token);
-        }
-    }
-    public void loadData1(){
-        if (list2Core.isEmpty()) {
-            SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.home", MODE_PRIVATE);
-            Gson gson = new Gson();
-            String json = preferences.getString("timeStampsCore", "");
-            String json1 = preferences.getString("list2Core", "");
-            Type type = new TypeToken<ArrayList<Integer>>() {
-            }.getType();
-            Type type1 = new TypeToken<ArrayList<card2item>>() {
-            }.getType();
-            list2Core = gson.fromJson(json1, type1);
-            if (list2Core == null) {
-                list2Core = new ArrayList<>();
-            }
-            timeStampsCore = gson.fromJson(json, type);
-            if (timeStampsCore == null) {
-                timeStampsCore = new ArrayList<>();
-            }
         }
     }
     public void adapter1(){
