@@ -3,10 +3,15 @@ package com.adgvit.internals;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import me.ibrahimsn.lib.SmoothBottomBar;
 
@@ -16,6 +21,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences pref = getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
+        String token = pref.getString("Token","");
+        String uid = pref.getString("uid","");
+        if (uid.equals("")){
+
+        }else {
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            DatabaseReference myref = db.getReference("Users");
+            myref.child(uid).child("fcm").setValue(token);
+        }
 
 
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);

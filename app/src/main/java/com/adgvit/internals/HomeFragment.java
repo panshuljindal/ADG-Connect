@@ -1,11 +1,21 @@
 package com.adgvit.internals;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +44,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 public class HomeFragment extends Fragment {
     RecyclerView recyclerView1,recyclerViewNotification;
     View view;
@@ -46,6 +59,8 @@ public class HomeFragment extends Fragment {
     List<String> teamlist;
     String uid;
     ConstraintLayout ui1;
+    private static final String TAG = "NotificationService";
+    private static final String CHANNEL_ID = "PushNotifications";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +95,10 @@ public class HomeFragment extends Fragment {
         myref1 = db.getReference("Alerts").child("Core");
         myref2 = db.getReference("Alerts").child("Team");
 
-        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
+        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", MODE_PRIVATE);
         team = pref.getString("teams","");
         uid = pref.getString("uid","");
+        checkData1();
         String team1 = team.replace("[", "");
         String team2 = team1.replace("]", "");
         teamlist= new ArrayList<>(Arrays.asList(team2.split(", ")));
@@ -92,17 +108,33 @@ public class HomeFragment extends Fragment {
         adapter1();
         adapter2();
         checkData();
+        sendToken();
         return view;
     }
 
-    public void checkData(){
-        Log.i("Sorted",String.valueOf(sortedArrayF.size()));
-        if (sortedArrayF.size()==0){
+    public void checkData1(){
+        if (uid.equals("")){
             ui1.setVisibility(View.VISIBLE);
             recyclerViewNotification.setVisibility(View.INVISIBLE);
-        }else {
+        }
+        else {
             ui1.setVisibility(View.INVISIBLE);
             recyclerViewNotification.setVisibility(View.VISIBLE);
+        }
+    }
+    public void checkData(){
+        if (uid.isEmpty()){
+
+        }
+        else {
+            Log.i("Sorted", String.valueOf(sortedArrayF.size()));
+            if (sortedArrayF.size() == 0) {
+                ui1.setVisibility(View.VISIBLE);
+                recyclerViewNotification.setVisibility(View.INVISIBLE);
+            } else {
+                ui1.setVisibility(View.INVISIBLE);
+                recyclerViewNotification.setVisibility(View.VISIBLE);
+            }
         }
     }
     public void addData(){
@@ -154,8 +186,10 @@ public class HomeFragment extends Fragment {
         myref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                loadData();
                 timeStampsCore.clear();
                 list2Core.clear();
+
                 for (DataSnapshot ds: snapshot.getChildren()){
                     String uids = ds.child("users").getValue().toString();
                     //Log.i("uids",uids);
@@ -172,10 +206,12 @@ public class HomeFragment extends Fragment {
                             list2Core.add(new card2item(title, time));
                         }
                     }
+                    saveData();
                 }
                 myref2.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        loadData1();
                         timeStampsTeam.clear();
                         list2Team.clear();
 
@@ -207,14 +243,14 @@ public class HomeFragment extends Fragment {
                         timeF.addAll(timeStampsTeam);
                         sortedFTime.addAll(timeF);
                         Collections.sort(sortedFTime);
-                        Log.i("Time",timeF.toString());
-                        Log.i("Sorted",sortedFTime.toString());
                         count =0;
                         int start=0;
                         for (int i=0;i<timeF.size();i++){
 
                             int index=timeF.indexOf(sortedFTime.get(i));
-
+                            timeF.set(index,0);
+                            Log.i("Time",timeF.toString());
+                            Log.i("Sorted",sortedFTime.toString());
                             try {
                                 sortedArrayF.add(finalArrayF.get(index));
                                 //Log.i("Count",String.valueOf(count));
@@ -260,6 +296,47 @@ public class HomeFragment extends Fragment {
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
     }
+    public void saveData(){
+        Gson gson = new Gson();
+        String json = gson.toJson(timeStampsCore);
+        String json1 = gson.toJson(list2Core);
+        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.home", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("timeStampsCore",json);
+        editor.putString("list2Core",json1);
+    }
+    public void sendToken(){
+        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
+        String token = pref.getString("Token","");
+        String uid = pref.getString("uid","");
+        if (uid.equals("")){
+
+        }else {
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            DatabaseReference myref = db.getReference("Users");
+            myref.child(uid).child("fcm").setValue(token);
+        }
+    }
+    public void loadData1(){
+        if (list2Core.isEmpty()) {
+            SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.home", MODE_PRIVATE);
+            Gson gson = new Gson();
+            String json = preferences.getString("timeStampsCore", "");
+            String json1 = preferences.getString("list2Core", "");
+            Type type = new TypeToken<ArrayList<Integer>>() {
+            }.getType();
+            Type type1 = new TypeToken<ArrayList<card2item>>() {
+            }.getType();
+            list2Core = gson.fromJson(json1, type1);
+            if (list2Core == null) {
+                list2Core = new ArrayList<>();
+            }
+            timeStampsCore = gson.fromJson(json, type);
+            if (timeStampsCore == null) {
+                timeStampsCore = new ArrayList<>();
+            }
+        }
+    }
     public void adapter1(){
         card1adapter adapter = new card1adapter(getContext(),list1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -276,7 +353,7 @@ public class HomeFragment extends Fragment {
         recyclerViewNotification.setLayoutManager(manager1);
     }
     public void savaData(){
-        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.home", Context.MODE_PRIVATE);
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.home", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(list1);
@@ -287,7 +364,7 @@ public class HomeFragment extends Fragment {
 
     }
     public void loadData(){
-        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.home",Context.MODE_PRIVATE);
+        SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.home", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = preferences.getString("scrollbar","");
         String json1 = preferences.getString("notifications","");
@@ -302,4 +379,5 @@ public class HomeFragment extends Fragment {
             sortedArrayF = new ArrayList<>();
         }
     }
+
 }

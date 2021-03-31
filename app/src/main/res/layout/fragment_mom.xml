@@ -22,31 +22,41 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/emptyMomLayout"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="85dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="160dp"
                 android:layout_marginEnd="85dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/momSearch">
 
-                <TextView
-                    android:id="@+id/textView2"
+                <ImageView
+                    android:id="@+id/imageView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="48dp"
+                    android:src="@drawable/ic_nomom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
                     android:fontFamily="@font/robotoregular"
-                    android:text="Looks like you don't have any Minutes of the meetings."
+                    android:text="All MOMs will be visible here as soon as they’re Available"
                     android:textAlignment="center"
                     android:textColor="#ABABAB"
                     android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    app:layout_constraintTop_toBottomOf="@id/imageView9" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
