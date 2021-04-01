@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".core2fragment">
+    tools:context=".Fragments.AlertsFragment.Core.core2fragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emptyMeetingsLayout"
@@ -34,7 +34,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
-            android:fontFamily="@font/robotoregular"
+            android:fontFamily="@font/sf_pro_text_regular"
             android:text="No New meetings or Duties  at the moment"
             android:textAlignment="center"
             android:textColor="#ABABAB"

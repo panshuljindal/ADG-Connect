@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#0B0B0B"
-    tools:context=".teamfragment">
+    tools:context=".Fragments.AlertsFragment.Team.teamfragment">
     <com.google.android.material.tabs.TabLayout
         android:layout_width="220dp"
         android:layout_marginLeft="20dp"

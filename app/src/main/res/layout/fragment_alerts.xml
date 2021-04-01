@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0b0b0b"
-    tools:context=".AlertsFragment">
+    tools:context=".Fragments.AlertsFragment.Misc.AlertsFragment">
 
     <TextView
         android:id="@+id/textView3"
@@ -14,11 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
-        android:fontFamily="@font/robotoregular"
+        android:fontFamily="@font/sf_pro_text_bold"
         android:text="Alerts"
         android:textColor="#ffffff"
         android:textSize="34dp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

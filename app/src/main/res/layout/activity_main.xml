@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -23,7 +23,7 @@
         app:backgroundColor="@color/colorPrimary"
         app:iconSize="24dp"
         app:iconTint="#C8FFFFFF"
-        app:itemFontFamily="@font/robotoregular"
+        app:itemFontFamily="@font/sf_pro_text_regular"
         app:iconTintActive="#FFFFFF"
         app:indicatorColor="@color/colorPrimaryDark"
         app:indicatorRadius="20dp"
