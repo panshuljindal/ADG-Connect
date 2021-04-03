@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 public class aboutus extends Fragment {
-    RecyclerView ios,android;
-    ArrayList<aboutusitem> listios,listandroid;
+    RecyclerView ios,android,web;
+    ArrayList<aboutusitem> listios,listandroid,listweb;
     View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,12 @@ public class aboutus extends Fragment {
         view= inflater.inflate(R.layout.fragment_aboutus, container, false);
         bestOfLuck();
 
-        android = view.findViewById(R.id.recyclerViewiOS);
-        ios= view.findViewById(R.id.recyclerViewAndroid);
+        android = view.findViewById(R.id.recyclerViewAndroid);
+        ios= view.findViewById(R.id.recyclerViewiOS);
+        web = view.findViewById(R.id.recyclerViewWeb);
         listios = new ArrayList<>();
         listandroid = new ArrayList<>();
+        listweb = new ArrayList<>();
         addData();
 
         aboutusAdapter adapter = new aboutusAdapter(getContext(),listios);
@@ -62,6 +64,12 @@ public class aboutus extends Fragment {
         manager1.setOrientation(RecyclerView.HORIZONTAL);
         android.setAdapter(adapter1);
         android.setLayoutManager(manager1);
+
+        aboutusAdapter adapter2 = new aboutusAdapter(getContext(),listweb);
+        LinearLayoutManager manager2 = new LinearLayoutManager(getContext());
+        manager2.setOrientation(RecyclerView.HORIZONTAL);
+        web.setAdapter(adapter2);
+        web.setLayoutManager(manager2);
 
         Button back = view.findViewById(R.id.buttonaboutusback);
         back.setOnClickListener(new View.OnClickListener() {
@@ -85,16 +93,20 @@ public class aboutus extends Fragment {
         myref3.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String bestluck = snapshot.child(uid1).child("bestFuture").getValue().toString();
-                if (bestluck.equals("false")){
-                    Log.i("User","isMember");
+                if (uid1.isEmpty()){
+                    Log.i("uid","Empty");
                 }
-                else if(bestluck.equals("true")){
-                    mauth.signOut();
-                    Intent intent = new Intent(view.getContext(), BestOfLuck.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    //intent.putExtra("EXIT", true);
-                    startActivity(intent);
+                else {
+                    String bestluck = snapshot.child(uid1).child("bestFuture").getValue().toString();
+                    if (bestluck.equals("false")) {
+                        Log.i("User", "isMember");
+                    } else if (bestluck.equals("true")) {
+                        mauth.signOut();
+                        Intent intent = new Intent(view.getContext(), BestOfLuck.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        //intent.putExtra("EXIT", true);
+                        startActivity(intent);
+                    }
                 }
             }
 
@@ -129,5 +141,16 @@ public class aboutus extends Fragment {
                 "https://www.linkedin.com/in/harshlondhekar",
                 "https://github.com/Harsh4601",
                 "londhekarh4601@gmail.com"));
+        listweb.add(new aboutusitem(R.drawable.mom_cardbg,"Anmol Bansal"
+        ,"https://www.linkedin.com/in/anmolbansal7","https://github.com/anmolbansal7",
+                "abanmolbansal5@gmail.com"));
+        listweb.add(new aboutusitem(R.drawable.mom_cardbg,"Dev Sharma"
+                ,"https://www.linkedin.com/in/cryptus-neoxys/",
+                "https://github.com/cryptus-neoxys",
+                "sharma.dev4242@gmail.com"));
+        listweb.add(new aboutusitem(R.drawable.mom_cardbg,"Vidushi Gupta"
+                ,"https://www.linkedin.com/in/vidushiguptaa/",
+                "https://github.com/vidushig08",
+                "vidushigupta08@gmail.com"));
     }
 }

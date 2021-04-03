@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,25 +9,31 @@
     android:orientation="horizontal"
     android:layout_margin="3dp">
 
-            <View
-                android:id="@+id/ellipse_11"
-                android:layout_width="13dp"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:padding="5dp"
-                android:layout_height="13dp"
-                android:layout_marginBottom="44dp"
-                android:background="@drawable/pointback"
-               />
+    <TextView
+        android:id="@+id/momPointList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="3dp"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:text="Everyone"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ellipse_11"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/momPointList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:text="Everyone"
-                android:textColor="#ffffff"
-                android:textSize="15sp"
-                 />
-        </LinearLayout>
+    <View
+        android:id="@+id/ellipse_11"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/pointback"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

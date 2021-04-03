@@ -39,7 +39,7 @@ public class momDialogFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mom_dialog, container, false);
 
         //connecting all the views
-        Button okBtn = view.findViewById(R.id.momDialogOKBtn);
+        Button okBtn = view.findViewById(R.id.momDialogOkBtn);
         pointRecycler = view.findViewById(R.id.pointView);
         TextView title = view.findViewById(R.id.momDialogTitle);
         TextView date = view.findViewById(R.id.momDialogDate);

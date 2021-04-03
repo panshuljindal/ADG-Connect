@@ -15,6 +15,19 @@
     android:scrollbars="vertical"
     android:background="#0b0b0b">
 
+    <Button
+        android:id="@+id/momDialogOkBtn"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/aboutusback"
+        android:text="Back"
+        android:textAllCaps="false"
+        android:textColor="#2C5FE2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/momDialogTitle"
         android:layout_width="wrap_content"
@@ -25,7 +38,7 @@
         android:padding="3dp"
         android:text="Core Meeting MOM"
         android:textColor="#ffffff"
-        android:textSize="28sp"
+        android:textSize="26dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +51,7 @@
         android:padding="3dp"
         android:text="12 October 2020, 08:30 PM"
         android:textColor="#2c4fe2"
-        android:textSize="17dp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/momDialogTitle" />
 
@@ -54,7 +67,7 @@
         android:padding="10dp"
         android:text=" sample header"
         android:textColor="#ffffff"
-        android:textSize="16sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/momDialogDate" />
@@ -80,27 +93,11 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/momDialogPointsHead" />
-
-
-    <Button
-        android:id="@+id/momDialogOKBtn"
-        android:layout_width="57dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="72dp"
-        android:background="#0b0b0b"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:text="Ok"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="22dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pointView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -122,22 +122,6 @@ public class team1fragment extends Fragment {
 
     }
 
-    public String nowDate(){
-        Date c = Calendar.getInstance().getTime();
-        //System.out.println("Current time => " + c);
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
-        //Log.i("Current Dat",formattedDate);
-        return formattedDate;
-    }
-    public String calculateDate(String time){
-        long dv = Long.valueOf(time)*1000+ 864000000L;// its need to be in milisecond
-        Date df = new java.util.Date(dv);
-        String vv = new SimpleDateFormat("dd-MMM-yyyy").format(df);
-        //Log.i("New Date",vv);
-        return vv;
-    }
     public void adapter() {
         alertcardviewadapter alertcardviewadapter = new alertcardviewadapter(getContext(),list1_1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());

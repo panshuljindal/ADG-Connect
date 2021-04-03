@@ -90,16 +90,20 @@ public class AlertsFragment extends Fragment {
         myref3.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String bestluck = snapshot.child(uid1).child("bestFuture").getValue().toString();
-                if (bestluck.equals("false")){
-                    Log.i("User","isMember");
+                if (uid1.isEmpty()){
+                    Log.i("uid","Empty");
                 }
-                else if(bestluck.equals("true")){
-                    mauth.signOut();
-                    Intent intent = new Intent(view.getContext(), BestOfLuck.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    //intent.putExtra("EXIT", true);
-                    startActivity(intent);
+                else {
+                    String bestluck = snapshot.child(uid1).child("bestFuture").getValue().toString();
+                    if (bestluck.equals("false")) {
+                        Log.i("User", "isMember");
+                    } else if (bestluck.equals("true")) {
+                        mauth.signOut();
+                        Intent intent = new Intent(view.getContext(), BestOfLuck.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        //intent.putExtra("EXIT", true);
+                        startActivity(intent);
+                    }
                 }
             }
 

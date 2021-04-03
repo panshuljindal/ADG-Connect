@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +15,6 @@ import com.adgvit.internals.Fragments.HomeFragment.HomeFragment;
 import com.adgvit.internals.Fragments.MomPage.MomFragment;
 import com.adgvit.internals.Fragments.ProfilePage.ProfileFragment;
 import com.adgvit.internals.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +26,6 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 public class MainActivity extends AppCompatActivity {
     private SmoothBottomBar smoothBottomBar;
     DatabaseReference myref;
-    FirebaseAuth mauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         String token = pref.getString("Token","");
         String uid = pref.getString("uid","");
-        mauth = FirebaseAuth.getInstance();
         if (uid.equals("")){
 
         }else {
@@ -45,27 +41,6 @@ public class MainActivity extends AppCompatActivity {
              myref= db.getReference("Users");
             myref.child(uid).child("fcm").setValue(token);
         }
-        myref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String bestluck = snapshot.child(uid).child("bestFuture").getValue().toString();
-                if (bestluck.equals("false")){
-                    Log.i("User","isMember");
-                }
-                else if(bestluck.equals("true")){
-                    mauth.signOut();
-                    Intent intent = new Intent(MainActivity.this, BestOfLuck.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    //intent.putExtra("EXIT", true);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
 
@@ -114,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             moveTaskToBack(true);
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);
-            Log.i("doubleback", doubleback.toString());
+            //Log.i("doubleback", doubleback.toString());
         } else {
             doubleback = true;
 
@@ -124,10 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     doubleback = false;
-                    Log.i("doubleback", doubleback.toString());
+                    //Log.i("doubleback", doubleback.toString());
                 }
             }, 2000);
-            Log.i("doubleback", doubleback.toString());
+            //Log.i("doubleback", doubleback.toString());
         }
     }
 }
