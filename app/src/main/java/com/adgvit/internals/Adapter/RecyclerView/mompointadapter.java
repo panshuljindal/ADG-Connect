@@ -42,9 +42,7 @@ public class mompointadapter extends RecyclerView.Adapter<mompointadapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         mompoint point = mMompoint.get(position);
-        Log.i("mMompoint",mMompoint.toString());
         holder.point1.setText(point.getText1());
-        Log.i("holder",point.getText1());
     }
 
     @Override

@@ -29,13 +29,14 @@ public class aboutusAdapter extends RecyclerView.Adapter<aboutusAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name;
-        ImageView ln,git,email;
+        ImageView ln,git,email,image;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.textViewName);
             ln = itemView.findViewById(R.id.Linkedin);
             git = itemView.findViewById(R.id.Github);
             email = itemView.findViewById(R.id.Email);
+            image = itemView.findViewById(R.id.imageView4);
         }
     }
     @NonNull
@@ -53,6 +54,7 @@ public class aboutusAdapter extends RecyclerView.Adapter<aboutusAdapter.MyViewHo
         linkdein = at.getLinkedin();
         github = at.getGithub();
         emails = at.getEmail();
+        holder.image.setImageResource(at.getImage());
         holder.ln.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

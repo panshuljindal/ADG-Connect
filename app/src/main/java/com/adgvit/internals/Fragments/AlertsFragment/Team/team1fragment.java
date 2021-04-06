@@ -42,7 +42,7 @@ public class team1fragment extends Fragment {
     DatabaseReference myref ;
     View view;
     String team;
-    List<String> teamlist,uidList;
+    List<String> teamlist;
     String uid;
     ConstraintLayout layout;
     @Override
@@ -90,23 +90,26 @@ public class team1fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list1_1.clear();
                 for(DataSnapshot ds: snapshot.getChildren()){
-                    Log.i("ds",ds.getValue().toString());
-                    String uids = ds.child("users").getValue().toString();
-                    //Log.i("uids",uids);
-                    if(uids.contains(uid)){
-                        alertdata ad = ds.getValue(alertdata.class);
-                        String title = ad.getTitle();
-                        String time = unixconvert(ad.getTime().toString());
-                        String location = ad.getLocation();
-                        String link = ad.getLink();
-                        String id =ad.getId();
-                        Long current = System.currentTimeMillis();
-                        Long date = Long.valueOf(ad.getTime()) * 1000 + 864000000L;
-                        if (current >= date) {
-                            //Log.i("Date","Date Matched");
-                        } else {
+                    try {
+                        String uids = ds.child("users").getValue().toString();
+                        if(uids.contains(uid)){
+                            alertdata ad = ds.getValue(alertdata.class);
+                            String title = ad.getTitle();
+                            String time = unixconvert(ad.getTime().toString());
+                            String location = ad.getLocation();
+                            String link = ad.getLink();
+                            String id =ad.getId();
+                            Long current = System.currentTimeMillis();
+                            Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L;
+                            if (current >= date) {
+
+                            } else {
                                 list1_1.add(new alertcardviewitem(title, time, location, link, id));
+                            }
                         }
+                    }
+                    catch (Exception e){
+
                     }
                 }
                 checkData();

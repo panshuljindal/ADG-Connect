@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.adgvit.internals.Activity.BestOfLuck;
+import com.adgvit.internals.Model.alertcardviewitem;
 import com.adgvit.internals.Model.getMomdetails;
 import com.adgvit.internals.Adapter.RecyclerView.MyAdapter;
 import com.adgvit.internals.R;
@@ -120,21 +121,25 @@ public class MomFragment extends Fragment {
         myref3.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (uid.isEmpty()){
-                    Log.i("uid","Empty");
-                }
-                else {
-                    String bestluck = snapshot.child(uid).child("bestFuture").getValue().toString();
-                    if (bestluck.equals("false")) {
-                        Log.i("User", "isMember");
-                    } else if (bestluck.equals("true")) {
-                        mauth.signOut();
-                        Intent intent = new Intent(view.getContext(), BestOfLuck.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        //intent.putExtra("EXIT", true);
-                        startActivity(intent);
-                    }
-                }
+               try {
+                   if (uid.isEmpty()){
+                       Log.i("uid","Empty");
+                   }
+                   else {
+                       String bestluck = snapshot.child(uid).child("bestFuture").getValue().toString();
+                       if (bestluck.equals("false")) {
+                           Log.i("User", "isMember");
+                       } else if (bestluck.equals("true")) {
+                           mauth.signOut();
+                           Intent intent = new Intent(view.getContext(), BestOfLuck.class);
+                           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                           //intent.putExtra("EXIT", true);
+                           startActivity(intent);
+                       }
+                   }
+               }catch (Exception e){
+
+               }
             }
 
             @Override
@@ -169,30 +174,34 @@ public class MomFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 momItems.clear();
                 for(DataSnapshot ds: snapshot.getChildren()) {
-                    String uids = ds.child("users").getValue().toString();
-                    if(uids.contains(uid)){
-                        getMomdetails momdetails = ds.getValue(getMomdetails.class);
-                        String header = momdetails.getHeader();
-                        String time = unixconvert(momdetails.getTime().toString());
-                        String title = momdetails.getTitle();
-                        String team = momdetails.getTeam();
-                        String mid = momdetails.getId();
-                        String time1 = calculateDate(momdetails.getTime().toString());
-                        String current = nowDate();
+                    try {
+                        String uids = ds.child("users").getValue().toString();
+                        if(uids.contains(uid)){
+                            getMomdetails momdetails = ds.getValue(getMomdetails.class);
+                            String header = momdetails.getHeader();
+                            String time = unixconvert(momdetails.getTime().toString());
+                            String title = momdetails.getTitle();
+                            String team = momdetails.getTeam();
+                            String mid = momdetails.getId();
+                            Long current = System.currentTimeMillis();
+                            Long date = Long.valueOf(momdetails.getTime()) * 1000 + 86400000L;
 
-                        String point = snapshot.child(mid).child("points").getValue().toString();
-                        String points1 = point.replace("[","");
-                        String points2 = points1.replace("]","");
-                        ArrayList<String> points= new ArrayList<>(Arrays.asList(points2.split(", ")));
-                        if (current.equals(time1)) {
+                            String point = snapshot.child(mid).child("points").getValue().toString();
+                            String points1 = point.replace("[","");
+                            String points2 = points1.replace("]","");
+                            ArrayList<String> points= new ArrayList<>(Arrays.asList(points2.split(", ")));
+                            if (current >= date) {
 
-                        }
-                        else {
-                            if (mylist.contains(team)) {
+                            } else {
+                                if (mylist.contains(team)) {
+
+                                }
                                 momItems.add(new momItem(time, title, header, points2));
-
                             }
                         }
+                    }
+                    catch (Exception e){
+
                     }
                 }
                 checkData();
@@ -205,22 +214,6 @@ public class MomFragment extends Fragment {
                 checkData();
             }
         });
-    }
-    public String nowDate(){
-        Date c = Calendar.getInstance().getTime();
-        //System.out.println("Current time => " + c);
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
-        //Log.i("Current Dat",formattedDate);
-        return formattedDate;
-    }
-    public String calculateDate(String time){
-        long dv = Long.valueOf(time)*1000+ 864000000L;// its need to be in milisecond
-        Date df = new java.util.Date(dv);
-        String vv = new SimpleDateFormat("dd-MMM-yyyy").format(df);
-        //Log.i("New Date",vv);
-        return vv;
     }
     public void adapter(){
         myAdapter = new MyAdapter(getContext(),momItems);

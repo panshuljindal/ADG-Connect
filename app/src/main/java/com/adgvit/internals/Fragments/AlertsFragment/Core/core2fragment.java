@@ -77,33 +77,30 @@ public class core2fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list2.clear();
                 for(DataSnapshot ds: snapshot.getChildren()){
-                    String uids = ds.child("users").getValue().toString();
-                    if (uids.contains(uid)) {
-                    alertdata ad = ds.getValue(alertdata.class);
-                    String title = ad.getTitle();
-                    String time = unixconvert(ad.getTime().toString());
-                    String location = ad.getLocation();
-                    String link = ad.getLink();
-                    String id =ad.getId();
-                    String type = ad.getType();
-                    String type1="Meetings";
-                    Long current = System.currentTimeMillis();
-                    //Log.i("Current",String.valueOf(current));
-                    Long date = Long.valueOf(ad.getTime())*1000+ 864000000L;
-                    //Log.i("Date",String.valueOf(date));
-                    if (current>=date){
-                            //Log.i("Date","Date Matched");
+                    try {
+                        String uids = ds.child("users").getValue().toString();
+                        if (uids.contains(uid)) {
+                            alertdata ad = ds.getValue(alertdata.class);
+                            String title = ad.getTitle();
+                            String time = unixconvert(ad.getTime().toString());
+                            String location = ad.getLocation();
+                            String link = ad.getLink();
+                            String id =ad.getId();
+                            String type = ad.getType();
+                            String type1="Meetings";
+                            Long current = System.currentTimeMillis();
+                            Long date = Long.valueOf(ad.getTime())*1000+ 86400000L;
+                            if (current>=date){
+                            }
+                            else {
+                                if(type.equals(type1)){
+                                    list2.add(new alertcardviewitem(title,time,location,link,id));
+                                }
+                            }
                         }
-                    else {
-                        if(type.equals(type1)){
-                            //Log.i("type",type);
-                            list2.add(new alertcardviewitem(title,time,location,link,id));
-                        }
-
-                        }
+                    }catch (Exception e){
 
                     }
-
                 }
                 checkData();
                 savaData();

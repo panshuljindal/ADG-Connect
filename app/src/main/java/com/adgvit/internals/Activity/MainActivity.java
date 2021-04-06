@@ -15,22 +15,30 @@ import com.adgvit.internals.Fragments.HomeFragment.HomeFragment;
 import com.adgvit.internals.Fragments.MomPage.MomFragment;
 import com.adgvit.internals.Fragments.ProfilePage.ProfileFragment;
 import com.adgvit.internals.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class MainActivity extends AppCompatActivity {
     private SmoothBottomBar smoothBottomBar;
     DatabaseReference myref;
+    FirebaseAuth mauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mauth = FirebaseAuth.getInstance();
         SharedPreferences pref = getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         String token = pref.getString("Token","");
         String uid = pref.getString("uid","");
@@ -79,7 +87,59 @@ public class MainActivity extends AppCompatActivity {
         });
         setTitle("Home");
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+        datasave();
 
+    }
+    public void datasave(){
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference myref = db.getReference("Users");
+        myref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    FirebaseUser user = mauth.getCurrentUser();
+                    String uid = user.getUid();
+
+                    editor.putString("uid",uid);
+                    String emaili = snapshot.child(uid).child("email").getValue().toString();
+                    editor.putString("emailid", emaili);
+
+                    String fcm = snapshot.child(uid).child("fcm").getValue().toString();
+                    editor.putString("fcm", fcm);
+
+                    String name = snapshot.child(uid).child("name").getValue().toString();
+                    editor.putString("name", name);
+
+                    String phone = snapshot.child(uid).child("phone").getValue().toString();
+                    editor.putString("phone", phone);
+
+                    String regNo = snapshot.child(uid).child("regNo").getValue().toString();
+                    editor.putString("regNo", regNo);
+
+                    String bestLuck = snapshot.child(uid).child("bestFuture").getValue().toString();
+                    editor.putString("bestLuck",bestLuck);
+
+                    String team = snapshot.child(uid).child("teams").getValue().toString();
+                    String team1 = team.replace("[", "");
+                    String team2 = team1.replace("]", "");
+                    List<String> mylist = new ArrayList<>(Arrays.asList(team2.split(", ")));
+                    editor.putString("teams",team);
+                    editor.apply();
+
+                }
+                catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     Boolean doubleback=false;
     @Override
@@ -93,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             doubleback = true;
 
-            Toast.makeText(this, "Please once again to exit", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please once again BACK to exit", Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
                 @Override

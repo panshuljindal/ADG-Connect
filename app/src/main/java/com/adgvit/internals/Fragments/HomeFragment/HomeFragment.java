@@ -119,7 +119,6 @@ public class HomeFragment extends Fragment {
 
         }
         else {
-            Log.i("Sorted", String.valueOf(sortedArrayF.size()));
             if (sortedArrayF.size() == 0) {
                 ui1.setVisibility(View.VISIBLE);
                 recyclerViewNotification.setVisibility(View.INVISIBLE);
@@ -139,20 +138,24 @@ public class HomeFragment extends Fragment {
         myref3.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (uid.isEmpty()){
-                    //Log.i("uid","Empty");
-                }
-                else {
-                    String bestluck = snapshot.child(uid).child("bestFuture").getValue().toString();
-                    if (bestluck.equals("false")) {
-                        Log.i("User", "isMember");
-                    } else if (bestluck.equals("true")) {
-                        mauth.signOut();
-                        Intent intent = new Intent(view.getContext(), BestOfLuck.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        //intent.putExtra("EXIT", true);
-                        startActivity(intent);
+                try {
+                    if (uid.isEmpty()){
+                        //Log.i("uid","Empty");
                     }
+                    else {
+                        String bestluck = snapshot.child(uid).child("bestFuture").getValue().toString();
+                        if (bestluck.equals("false")) {
+                            // Log.i("User", "isMember");
+                        } else if (bestluck.equals("true")) {
+                            mauth.signOut();
+                            Intent intent = new Intent(view.getContext(), BestOfLuck.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            //intent.putExtra("EXIT", true);
+                            startActivity(intent);
+                        }
+                    }
+                }catch (Exception e){
+
                 }
             }
 
@@ -177,24 +180,28 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list1.clear();
                 for(DataSnapshot ds: snapshot.getChildren()){
-                    scrollClass sc = ds.getValue(scrollClass.class);
-                    String id= sc.getId();
-                    String title = sc.getTitle();
-                    String type = sc.getType();
-                    if(type.equals("0")){
-                        list1.add(new card1item(R.drawable.iosback,R.drawable.ic_ios,"iOS",title));
-                    }
-                    else if(type.equals("1")){
-                        list1.add(new card1item(R.drawable.webback,R.drawable.ic_web,"Web Dev",title));
-                    }
-                    else if(type.equals("2")){
-                        list1.add(new card1item(R.drawable.androidback,R.drawable.ic_android,"ANDROID",title));
-                    }
-                    else if(type.equals("3")){
-                        list1.add(new card1item(R.drawable.mlback,R.drawable.ic_ml,"Machine Language",title));
-                    }
-                    else if(type.equals("8")){
-                        list1.add(new card1item(R.drawable.designback,R.drawable.ic_design,"Design",title));
+                    try {
+                        scrollClass sc = ds.getValue(scrollClass.class);
+                        String id= sc.getId();
+                        String title = sc.getTitle();
+                        String type = sc.getType();
+                        if(type.equals("0")){
+                            list1.add(new card1item(R.drawable.iosback,R.drawable.ic_ios,"iOS",title));
+                        }
+                        else if(type.equals("1")){
+                            list1.add(new card1item(R.drawable.webback,R.drawable.ic_web,"Web Dev",title));
+                        }
+                        else if(type.equals("2")){
+                            list1.add(new card1item(R.drawable.androidback,R.drawable.ic_android,"ANDROID",title));
+                        }
+                        else if(type.equals("3")){
+                            list1.add(new card1item(R.drawable.mlback,R.drawable.ic_ml,"Machine Language",title));
+                        }
+                        else if(type.equals("8")){
+                            list1.add(new card1item(R.drawable.designback,R.drawable.ic_design,"Design",title));
+                        }
+                    }catch (Exception e){
+
                     }
 
                 }
@@ -219,20 +226,24 @@ public class HomeFragment extends Fragment {
                 sortedFTime.clear();
                 timeF.clear();
                 for (DataSnapshot ds : snapshot.getChildren()){
-                    String uids = ds.child("users").getValue().toString();
-                    //Log.i("uids",uids);
-                    if(uids.contains(uid)){
-                        alertdata ad = ds.getValue(alertdata.class);
-                        String title = ad.getTitle();
-                        String time = unixconvert(ad.getTime().toString());
-                        Long current = System.currentTimeMillis();
-                        Long date = Long.valueOf(ad.getTime()) * 1000 + 864000000L;
-                        if (current >= date) {
-                            //Log.i("Date","Date Matched");
-                        } else {
-                            timeStampsTeam.add(ad.getTime());
-                            list2Team.add(new card2item(title, time));
+                    try {
+                        String uids = ds.child("users").getValue().toString();
+                        //Log.i("uids",uids);
+                        if(uids.contains(uid)){
+                            alertdata ad = ds.getValue(alertdata.class);
+                            String title = ad.getTitle();
+                            String time = unixconvert(ad.getTime().toString());
+                            Long current = System.currentTimeMillis();
+                            Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L;
+                            if (current >= date) {
+                                //Log.i("Date","Date Matched");
+                            } else {
+                                timeStampsTeam.add(ad.getTime());
+                                list2Team.add(new card2item(title, time));
+                            }
                         }
+                    }catch (Exception e){
+
                     }
                 }
                 finalArrayF.addAll(list2Team);
@@ -277,12 +288,17 @@ public class HomeFragment extends Fragment {
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         String token = pref.getString("Token","");
         String uid = pref.getString("uid","");
-        if (uid.equals("")){
+        try {
+            if (uid.equals("")){
 
-        }else {
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
-            DatabaseReference myref = db.getReference("Users");
-            myref.child(uid).child("fcm").setValue(token);
+            }else {
+                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                DatabaseReference myref = db.getReference("Users");
+                myref.child(uid).child("fcm").setValue(token);
+            }
+        }
+        catch (Exception e){
+
         }
     }
     public void adapter1(){

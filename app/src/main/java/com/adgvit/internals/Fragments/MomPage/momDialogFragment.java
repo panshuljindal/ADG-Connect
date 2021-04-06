@@ -56,11 +56,9 @@ public class momDialogFragment extends Fragment {
         }
         for (int i = 0; i < pointlist.size(); i++) {
             String po= pointlist.get(i);
-            Log.i("Point",po);
             list1.add(new mompoint(po));
         }
 
-        Log.i("list1",list1.toString());
         mompointadapter adapter = new mompointadapter(getContext(),list1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);

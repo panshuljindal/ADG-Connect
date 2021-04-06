@@ -36,8 +36,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-
 public class LoginActivity extends AppCompatActivity {
     EditText email,password;
     Button login, login1btn;
@@ -50,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        ///toggleFullscreen(true); // toggling fulllscreen of half
+        //toggleFullscreen(true); // toggling fulllscreen of half
 
         Animation Anim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadein1);
         Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.buttonup);
@@ -121,18 +119,21 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(checkempty()){
                     if(checkemail()){
+                        login.setEnabled(false);
                         emailid = email.getText().toString();
                         pass = password.getText().toString();
                         mauth.signInWithEmailAndPassword(emailid,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
+                                    login.setEnabled(true);
                                     Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
                                     startActivity(myIntent);
                                     datasave();
                                     Toast.makeText(LoginActivity.this, "Login Succesfull", Toast.LENGTH_SHORT).show();
                                 }
                                 else if(!task.isSuccessful()){
+                                    login.setEnabled(true);
                                     email.setText("");
                                     password.setText("");
                                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
@@ -153,40 +154,41 @@ public class LoginActivity extends AppCompatActivity {
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
 
-                FirebaseUser user = mauth.getCurrentUser();
-                uid = user.getUid();
+                    FirebaseUser user = mauth.getCurrentUser();
+                    uid = user.getUid();
 
-                editor.putString("uid",uid);
-                String emaili = snapshot.child(uid).child("email").getValue().toString();
-                editor.putString("emailid", emaili);
+                    editor.putString("uid",uid);
+                    String emaili = snapshot.child(uid).child("email").getValue().toString();
+                    editor.putString("emailid", emaili);
 
-                String fcm = snapshot.child(uid).child("fcm").getValue().toString();
-                editor.putString("fcm", fcm);
+                    String fcm = snapshot.child(uid).child("fcm").getValue().toString();
+                    editor.putString("fcm", fcm);
 
-                String name = snapshot.child(uid).child("name").getValue().toString();
-                editor.putString("name", name);
+                    String name = snapshot.child(uid).child("name").getValue().toString();
+                    editor.putString("name", name);
 
-                String phone = snapshot.child(uid).child("phone").getValue().toString();
-                editor.putString("phone", phone);
+                    String phone = snapshot.child(uid).child("phone").getValue().toString();
+                    editor.putString("phone", phone);
 
-                String regNo = snapshot.child(uid).child("regNo").getValue().toString();
-                editor.putString("regNo", regNo);
+                    String regNo = snapshot.child(uid).child("regNo").getValue().toString();
+                    editor.putString("regNo", regNo);
 
-                String bestLuck = snapshot.child(uid).child("bestFuture").getValue().toString();
-                editor.putString("bestLuck",bestLuck);
+                    String bestLuck = snapshot.child(uid).child("bestFuture").getValue().toString();
+                    editor.putString("bestLuck",bestLuck);
 
-                String team = snapshot.child(uid).child("teams").getValue().toString();
-                String team1 = team.replace("[", "");
-                String team2 = team1.replace("]", "");
-                List<String> mylist = new ArrayList<>(Arrays.asList(team2.split(", ")));
-                editor.putString("teams",team);
-                editor.apply();
+                    String team = snapshot.child(uid).child("teams").getValue().toString();
+                    String team1 = team.replace("[", "");
+                    String team2 = team1.replace("]", "");
+                    List<String> mylist = new ArrayList<>(Arrays.asList(team2.split(", ")));
+                    editor.putString("teams",team);
+                    editor.apply();
 
-
-                //Log.i("UserData", emaili + " " + fcm + " " + name + " " + phone + " " + regNo + " " + mylist);
-
-
+                }
+                catch (Exception e){
+                    Toast.makeText(LoginActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -198,12 +200,12 @@ public class LoginActivity extends AppCompatActivity {
     }
     public boolean checkempty(){
         if(email.getText().length()==0){
-            email.setError("Please enter an email id");
+            Toast.makeText(this, "Please Enter a Email ID", Toast.LENGTH_SHORT).show();
             return false;
 
         }
         else if(password.getText().length()==0){
-            password.setError("Please enter and password");
+            Toast.makeText(this, "Please Enter a Password", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -216,7 +218,7 @@ public class LoginActivity extends AppCompatActivity {
         if(emailMatcher.matches()){
             return true;
         }
-        email.setError("Please enter a valid email id");
+        Toast.makeText(this, "Please Enter a Valid Email ID", Toast.LENGTH_SHORT).show();
         email.requestFocus();
         return false;
     }

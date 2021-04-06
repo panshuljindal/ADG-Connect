@@ -93,20 +93,24 @@ public class aboutus extends Fragment {
         myref3.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (uid1.isEmpty()){
-                    Log.i("uid","Empty");
-                }
-                else {
-                    String bestluck = snapshot.child(uid1).child("bestFuture").getValue().toString();
-                    if (bestluck.equals("false")) {
-                        Log.i("User", "isMember");
-                    } else if (bestluck.equals("true")) {
-                        mauth.signOut();
-                        Intent intent = new Intent(view.getContext(), BestOfLuck.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        //intent.putExtra("EXIT", true);
-                        startActivity(intent);
+                try {
+                    if (uid1.isEmpty()){
+                        Log.i("uid","Empty");
                     }
+                    else {
+                        String bestluck = snapshot.child(uid1).child("bestFuture").getValue().toString();
+                        if (bestluck.equals("false")) {
+                            Log.i("User", "isMember");
+                        } else if (bestluck.equals("true")) {
+                            mauth.signOut();
+                            Intent intent = new Intent(view.getContext(), BestOfLuck.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            //intent.putExtra("EXIT", true);
+                            startActivity(intent);
+                        }
+                    }
+                }catch (Exception e){
+
                 }
             }
 
@@ -117,40 +121,41 @@ public class aboutus extends Fragment {
         });
     }
     public void addData(){
-        listandroid.add(new aboutusitem(R.drawable.mom_cardbg,"Panshul Jindal",
+        listandroid.add(new aboutusitem("Panshul Jindal",
                 "https://www.linkedin.com/in/panshul-jindal-392746199",
                 "https://github.com/panshuljindal",
-                "panshuljindal@gmail.com"));
-        listandroid.add(new aboutusitem(R.drawable.mom_cardbg,"Arupam Saha",
+                "panshuljindal@gmail.com",R.drawable.panshul));
+        listandroid.add(new aboutusitem("Arupam Saha",
                 "https://www.linkedin.com/in/arupam-kumar-saha-310653191/",
                 "https://github.com/arupam",
-                "sahaarupam37@gmail.com"));
-        listios.add(new aboutusitem(R.drawable.mom_cardbg,"Riddhi Gupta",
+                "sahaarupam37@gmail.com",R.drawable.arupam));
+        listios.add(new aboutusitem("Riddhi Gupta",
                 "http://www.linkedin.com/in/riddhi-gupta-95858b1b3",
                 "https://github.com/riddhi-30",
-                "riddhigupta01@gmail.com"));
-        listios.add(new aboutusitem(R.drawable.mom_cardbg,"Utkarsh Dixit",
+                "riddhigupta01@gmail.com",R.drawable.riddhi));
+        listios.add(new aboutusitem("Utkarsh Dixit",
                 "http://www.linkedin.com/in/fakeyudi",
                 "http://github.com/fakeyudi",
-                "udixit419@gmail.com"));
-        listios.add(new aboutusitem(R.drawable.mom_cardbg,"Aryan Kothari",
+                "udixit419@gmail.com",R.drawable.utkarsh));
+        listios.add(new aboutusitem("Aryan Kothari",
                 "https://www.linkedin.com/in/aaryankotharii",
                 "https://github.com/aaryankotharii",
-                "aaryan.kothari@gmail.com"));
-        listios.add(new aboutusitem(R.drawable.mom_cardbg,"Harsh Londhekar",
+                "aaryan.kothari@gmail.com",R.drawable.aaryan));
+        listios.add(new aboutusitem("Harsh Londhekar",
                 "https://www.linkedin.com/in/harshlondhekar",
                 "https://github.com/Harsh4601",
-                "londhekarh4601@gmail.com"));
-        listweb.add(new aboutusitem(R.drawable.mom_cardbg,"Anmol Bansal"
+                "londhekarh4601@gmail.com",R.drawable.harsh));
+        listweb.add(new aboutusitem("Anmol Bansal"
         ,"https://www.linkedin.com/in/anmolbansal7","https://github.com/anmolbansal7",
-                "abanmolbansal5@gmail.com"));
-        listweb.add(new aboutusitem(R.drawable.mom_cardbg,"Dev Sharma"
-                ,"https://www.linkedin.com/in/cryptus-neoxys/",
-                "https://github.com/cryptus-neoxys",
-                "sharma.dev4242@gmail.com"));
-        listweb.add(new aboutusitem(R.drawable.mom_cardbg,"Vidushi Gupta"
+                "abanmolbansal5@gmail.com",R.drawable.anmol));
+        listweb.add(new aboutusitem("Vidushi Gupta"
                 ,"https://www.linkedin.com/in/vidushiguptaa/",
                 "https://github.com/vidushig08",
-                "vidushigupta08@gmail.com"));
+                "vidushigupta08@gmail.com",R.drawable.vidushi));
+        listweb.add(new aboutusitem("Dev Sharma"
+                ,"https://www.linkedin.com/in/cryptus-neoxys/",
+                "https://github.com/cryptus-neoxys",
+                "sharma.dev4242@gmail.com",R.drawable.dev));
+
     }
 }

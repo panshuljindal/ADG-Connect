@@ -68,8 +68,13 @@ public class dialogreasonFragment extends DialogFragment {
                 if (checkempty()) {
                     if(isNetworkAvailable(view.getContext())) {
                         reasons = reason.getText().toString();
-                        myref.child(mid).child(uid).setValue(reasons);
-                        myref1.child(uid).child("Meetings").child(mid).setValue(reasons);
+                        try {
+                            myref.child(mid).child(uid).setValue(reasons);
+                            myref1.child(uid).child("Meetings").child(mid).setValue(reasons);
+                        }catch (Exception e){
+                            reason.setText("");
+                            Toast.makeText(v.getContext(), "Please Try Again.", Toast.LENGTH_SHORT).show();
+                        }
                         SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editoralert = preferences.edit();
                         editoralert.putString(mid, reasons);

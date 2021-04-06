@@ -83,28 +83,28 @@ public class core1fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 list1.clear();
                 for(DataSnapshot ds: datasnapshot.getChildren()){
-                    String uids = ds.child("users").getValue().toString();
-                    //Log.i("uids",uids);
-                    if(uids.contains(uid)){
-                        alertdata ad = ds.getValue(alertdata.class);
-                        String title = ad.getTitle();
-                        String time = unixconvert(ad.getTime().toString());
-                        String location = ad.getLocation();
-                        String link = ad.getLink();
-                        String id =ad.getId();
-                        Long current = System.currentTimeMillis();
-                        //Log.i("Current",String.valueOf(current));
-                        Long date = Long.valueOf(ad.getTime())*1000+ 864000000L;
-                        //Log.i("Date",String.valueOf(date));
+                    try {
+                        String uids = ds.child("users").getValue().toString();
+                        if(uids.contains(uid)){
+                            alertdata ad = ds.getValue(alertdata.class);
+                            String title = ad.getTitle();
+                            String time = unixconvert(ad.getTime().toString());
+                            String location = ad.getLocation();
+                            String link = ad.getLink();
+                            String id =ad.getId();
+                            Long current = System.currentTimeMillis();
+                            Long date = Long.valueOf(ad.getTime())*1000+ 86400000L;
 
-                        if (current>=date){
-                            //Log.i("Date","Date Matched");
-                        }
-                        else {
-                            list1.add(new alertcardviewitem(title,time,location,link,id));
-                            //Log.i("Date","Date Not Matched");
+                            if (current>=date){
+                            }
+                            else {
+                                list1.add(new alertcardviewitem(title,time,location,link,id));
 
+                            }
                         }
+                    }
+                    catch (Exception e){
+
                     }
                 }
                 checkData();

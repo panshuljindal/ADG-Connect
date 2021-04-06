@@ -54,12 +54,6 @@ public class card1adapter extends RecyclerView.Adapter<card1adapter.MyViewHolder
         holder.text2.setText(item.getText2());
         holder.linear.setBackground(ContextCompat.getDrawable(mContext,item.getImage1()));
         holder.image2.setImageResource(item.getImage2());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
     }
     @Override

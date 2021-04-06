@@ -29,7 +29,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         mItemsMom = MomItem;
           context = ct;
-
     }
 
     @NonNull
@@ -41,9 +40,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public int getItemCount() { return mItemsMom.size();
-
-
+    public int getItemCount() {
+        return mItemsMom.size();
     }
 
     @Override

@@ -47,7 +47,6 @@ public class core3fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_core3fragment, container, false);
 
         recyclerView=view.findViewById(R.id.recylcerView1_3);
@@ -82,29 +81,31 @@ public class core3fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list3.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String uids = ds.child("users").getValue().toString();
-                    if (uids.contains(uid)) {
-                        alertdata ad = ds.getValue(alertdata.class);
-                        String title = ad.getTitle();
-                        String time = unixconvert(ad.getTime().toString());
-                        String location = ad.getLocation();
-                        String link = ad.getLink();
-                        String id = ad.getId();
-                        String type = ad.getType();
-                        String type1 = "Duties";
-                        Long current = System.currentTimeMillis();
-                        Long date = Long.valueOf(ad.getTime()) * 1000 + 864000000L;
-                        if (current >= date) {
-                            //Log.i("Date","Date Matched");
-                        } else {
-                            if (type.equals(type1)) {
-                                //Log.i("type",type);
-                                list3.add(new alertcardviewitem(title, time, location, link, id));
+                    try {
+                        String uids = ds.child("users").getValue().toString();
+                        if (uids.contains(uid)) {
+                            alertdata ad = ds.getValue(alertdata.class);
+                            String title = ad.getTitle();
+                            String time = unixconvert(ad.getTime().toString());
+                            String location = ad.getLocation();
+                            String link = ad.getLink();
+                            String id = ad.getId();
+                            String type = ad.getType();
+                            String type1 = "Duties";
+                            Long current = System.currentTimeMillis();
+                            Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L;
+                            if (current >= date) {
+
+                            } else {
+                                if (type.equals(type1)) {
+                                    list3.add(new alertcardviewitem(title, time, location, link, id));
+                                }
+
                             }
-
                         }
-                    }
+                    }catch (Exception e){
 
+                    }
                 }
                 checkData();
                 savaData();

@@ -1,8 +1,10 @@
 package com.adgvit.internals.Adapter.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -110,6 +112,14 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
             holder.text4.setText(Html.fromHtml("<u>" + item.getText4() + "</u>"));
             holder.text3.setText(item.getText3());
             holder.id.setText(item.getId());
+            holder.text4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri = Uri.parse(item.getText4());
+                    Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                    v.getContext().startActivity(intent);
+                }
+            });
             SharedPreferences ps = mcontext.getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
             state = ps.getString(holder.id.getText().toString(), "");
             //Log.i("state", state);
@@ -176,9 +186,13 @@ public class alertcardviewadapter extends RecyclerView.Adapter<alertcardviewadap
                         holder.ack.setVisibility(View.INVISIBLE);
                         holder.un.setVisibility(View.INVISIBLE);
                         holder.postedack.setVisibility(View.VISIBLE);
-
-                        myref1.child(uid).child("Meetings").child(holder.id.getText().toString()).setValue("available");
-                        myref.child(holder.id.getText().toString()).child(uid).setValue("available");
+                        try {
+                            myref1.child(uid).child("Meetings").child(holder.id.getText().toString()).setValue("available");
+                            myref.child(holder.id.getText().toString()).child(uid).setValue("available");
+                        }
+                        catch (Exception e){
+                            Toast.makeText(mcontext, "Please Try Again!", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(mcontext, "Please connect to the internet", Toast.LENGTH_SHORT).show();
                     }
