@@ -25,7 +25,7 @@ public class mompointadapter extends RecyclerView.Adapter<mompointadapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView point1;
+        private TextView point1;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             point1 = itemView.findViewById(R.id.momPointList);

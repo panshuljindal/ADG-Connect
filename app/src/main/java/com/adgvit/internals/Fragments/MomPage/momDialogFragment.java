@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import com.adgvit.internals.Model.mompoint;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class momDialogFragment extends Fragment {
+public class momDialogFragment extends Fragment{
 
     private momItem argItem = null;
     RecyclerView pointRecycler;

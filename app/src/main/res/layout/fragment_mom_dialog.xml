@@ -17,8 +17,9 @@
 
     <Button
         android:id="@+id/momDialogOkBtn"
-        android:layout_width="70dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/aboutusback"
@@ -26,6 +27,7 @@
         android:textAllCaps="false"
         android:textColor="#2C5FE2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/momDialogTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -38,20 +40,22 @@
         android:padding="3dp"
         android:text="Core Meeting MOM"
         android:textColor="#ffffff"
-        android:textSize="26dp"
+        android:textSize="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/momDialogDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/sf_pro_text_regular"
         android:padding="3dp"
         android:text="12 October 2020, 08:30 PM"
         android:textColor="#2c4fe2"
         android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/momDialogTitle" />
 

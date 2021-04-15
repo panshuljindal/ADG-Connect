@@ -2,6 +2,7 @@ package com.adgvit.internals.Fragments.ProfilePage;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adgvit.internals.Activity.BestOfLuck;
 import com.adgvit.internals.R;
@@ -26,14 +29,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class aboutus extends Fragment {
+public class aboutus extends Fragment  {
+    TextView adg,ritik;
     RecyclerView ios,android,web;
     ArrayList<aboutusitem> listios,listandroid,listweb;
     View view;
+    String adg1="admin";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +55,8 @@ public class aboutus extends Fragment {
         android = view.findViewById(R.id.recyclerViewAndroid);
         ios= view.findViewById(R.id.recyclerViewiOS);
         web = view.findViewById(R.id.recyclerViewWeb);
+        adg = view.findViewById(R.id.adgTextView);
+        ritik = view.findViewById(R.id.ritikTextView);
         listios = new ArrayList<>();
         listandroid = new ArrayList<>();
         listweb = new ArrayList<>();
@@ -78,7 +87,24 @@ public class aboutus extends Fragment {
                 getFragmentManager().popBackStackImmediate();
             }
         });
+
+        adg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(view.getContext(), "Is Admin", Toast.LENGTH_SHORT).show();
+//                Uri uri = Uri.parse(adg1);
+//                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+//                view.getContext().startActivity(intent);
+            }
+        });
+        ritik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return view;
+
     }
     public void bestOfLuck(){
 
@@ -158,4 +184,5 @@ public class aboutus extends Fragment {
                 "sharma.dev4242@gmail.com",R.drawable.dev));
 
     }
+
 }

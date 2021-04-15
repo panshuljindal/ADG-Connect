@@ -28,9 +28,9 @@ public class card1adapter extends RecyclerView.Adapter<card1adapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        ImageView image2;
-        LinearLayout linear;
-        TextView text1,text2;
+        private ImageView image2;
+        private LinearLayout linear;
+        private TextView text1,text2;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             linear = itemView.findViewById(R.id.linearlayout);

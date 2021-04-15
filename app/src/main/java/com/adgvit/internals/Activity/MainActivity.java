@@ -3,6 +3,9 @@ package com.adgvit.internals.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,7 +16,9 @@ import android.widget.Toast;
 import com.adgvit.internals.Fragments.AlertsFragment.Misc.AlertsFragment;
 import com.adgvit.internals.Fragments.HomeFragment.HomeFragment;
 import com.adgvit.internals.Fragments.MomPage.MomFragment;
+import com.adgvit.internals.Fragments.MomPage.momDialogFragment;
 import com.adgvit.internals.Fragments.ProfilePage.ProfileFragment;
+import com.adgvit.internals.Fragments.ProfilePage.aboutus;
 import com.adgvit.internals.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         datasave();
 
     }
-    public void datasave(){
+    private void datasave(){
         SharedPreferences pref = getApplicationContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
@@ -144,7 +149,45 @@ public class MainActivity extends AppCompatActivity {
     Boolean doubleback=false;
     @Override
     public void onBackPressed() {
-        if (doubleback) {
+
+        tellFragments();
+    }
+    private void tellFragments(){
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for(Fragment f : fragments){
+            if(f != null && f instanceof aboutus)
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ProfileFragment()).commit();
+            else if (f!=null && f instanceof momDialogFragment)
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MomFragment()).commit();
+            else if (f!=null && f instanceof MomFragment){
+                HomeFragment home = new HomeFragment();
+                FragmentManager fragmentManager = ((FragmentActivity) this).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container,home);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                smoothBottomBar.setItemActiveIndex(0);
+            }
+            else if (f!=null && f instanceof ProfileFragment){
+                HomeFragment home = new HomeFragment();
+                FragmentManager fragmentManager = ((FragmentActivity) this).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container,home);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                smoothBottomBar.setItemActiveIndex(0);
+            }
+            else if (f!=null && f instanceof AlertsFragment){
+                HomeFragment home = new HomeFragment();
+                FragmentManager fragmentManager = ((FragmentActivity) this).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container,home);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                smoothBottomBar.setItemActiveIndex(0);
+            }
+            else if (f!=null && f instanceof HomeFragment){
+                if (doubleback) {
             //super.onBackPressed();
             moveTaskToBack(true);
             android.os.Process.killProcess(android.os.Process.myPid());
@@ -163,6 +206,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, 2000);
             //Log.i("doubleback", doubleback.toString());
+        }
+            }
         }
     }
 }

@@ -37,12 +37,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText email,password;
-    Button login, login1btn;
-    ImageView bgImg;
-    TextView forgettext;
-    String emailid,pass,uid;
-    FirebaseAuth mauth;
+    private EditText email,password;
+    private Button login, login1btn;
+    private ImageView bgImg;
+    private TextView forgettext;
+    private String emailid,pass,uid;
+    private FirebaseAuth mauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,22 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void toggleFullscreen(boolean fullscreen) {
-        WindowManager.LayoutParams attrs = getWindow().getAttributes();
-        if (fullscreen)
-        {
-            attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        }
-        else
-        {
-            attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        }
-        getWindow().setAttributes(attrs);
-    }
-
-
-    public void clicklisteners(){
+    private void clicklisteners(){
         forgettext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    public void datasave(){
+    private void datasave(){
         SharedPreferences pref = getApplicationContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
@@ -198,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    public boolean checkempty(){
+    private boolean checkempty(){
         if(email.getText().length()==0){
             Toast.makeText(this, "Please Enter a Email ID", Toast.LENGTH_SHORT).show();
             return false;
@@ -211,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
 
     }
-    public boolean checkemail(){
+    private boolean checkemail(){
         String tempemail=email.getText().toString().trim();
         Pattern emailpattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
         Matcher emailMatcher= emailpattern.matcher(tempemail);

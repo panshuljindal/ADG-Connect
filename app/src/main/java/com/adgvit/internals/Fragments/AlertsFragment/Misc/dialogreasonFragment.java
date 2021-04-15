@@ -28,10 +28,11 @@ public class dialogreasonFragment extends DialogFragment {
     SharedPreferences pref,pref1;
     String mid,name,uid,title,time;
     String reasons;
+    View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dialogreasonfragment,container,false);
+        view = inflater.inflate(R.layout.fragment_dialogreasonfragment,container,false);
 
         post = view.findViewById(R.id.buttonpostreason);
         cancel = view.findViewById(R.id.buttonreasoncancel);
@@ -101,4 +102,5 @@ public class dialogreasonFragment extends DialogFragment {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
+
 }

@@ -116,4 +116,5 @@ public class AlertsFragment extends Fragment {
             }
         });
     }
+
 }

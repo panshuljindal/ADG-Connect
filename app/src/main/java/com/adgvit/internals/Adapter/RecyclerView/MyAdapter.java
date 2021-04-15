@@ -22,9 +22,9 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private ArrayList<momItem> mItemsMom = new ArrayList<>();
-    String day , month ;
+    private String day , month ;
 
-    Context context;
+    private  Context context;
     public MyAdapter(Context ct , ArrayList<momItem> MomItem) {
 
         mItemsMom = MomItem;
@@ -96,10 +96,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
     public  class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView myText1 , myText2  , points;
-        TextView carddateText1 , carddateText2;
-
-
+        private TextView myText1 , myText2  , points;
+        private TextView carddateText1 , carddateText2;
         public MyViewHolder(@NonNull View itemView)
         {
             super(itemView);

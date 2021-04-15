@@ -23,7 +23,7 @@ public class card2adapter extends RecyclerView.Adapter<card2adapter.MyViewHolder
         this.mcard2item = mcard2item;
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView text1,text2;
+        private TextView text1,text2;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             text1=itemView.findViewById(R.id.card2text1);

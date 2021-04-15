@@ -21,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.adgvit.internals.Activity.BestOfLuck;
-import com.adgvit.internals.Model.alertcardviewitem;
 import com.adgvit.internals.Model.getMomdetails;
 import com.adgvit.internals.Adapter.RecyclerView.MyAdapter;
 import com.adgvit.internals.R;
@@ -39,9 +38,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 

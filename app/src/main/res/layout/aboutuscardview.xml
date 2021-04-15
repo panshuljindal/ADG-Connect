@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="160dp"
+    android:layout_width="150dp"
     android:layout_height="160dp"
-    android:padding="10dp"
     android:layout_margin="10dp"
+    android:padding="10dp"
     app:cardBackgroundColor="#121212"
     app:cardCornerRadius="15dp"
     app:layout_constraintEnd_toEndOf="parent"
@@ -19,8 +18,8 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,11 +28,12 @@
 
         <TextView
             android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/sf_pro_text_medium"
             android:text="Panshul Jindal"
+            android:textAlignment="center"
             android:textColor="#fff"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"

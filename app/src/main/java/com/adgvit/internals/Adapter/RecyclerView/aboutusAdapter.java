@@ -18,9 +18,9 @@ import com.adgvit.internals.Model.aboutusitem;
 import java.util.ArrayList;
 
 public class aboutusAdapter extends RecyclerView.Adapter<aboutusAdapter.MyViewHolder> {
-    Context mcontext;
-    ArrayList<aboutusitem> maboutusitem;
-    String linkdein,github,emails;
+    private Context mcontext;
+    private ArrayList<aboutusitem> maboutusitem;
+    private String linkdein,github,emails;
 
     public aboutusAdapter(Context mcontext, ArrayList<aboutusitem> maboutusitem) {
         this.mcontext = mcontext;
@@ -28,8 +28,8 @@ public class aboutusAdapter extends RecyclerView.Adapter<aboutusAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
-        ImageView ln,git,email,image;
+        private TextView name;
+        private ImageView ln,git,email,image;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.textViewName);
