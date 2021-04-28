@@ -198,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private boolean checkemail(){
         String tempemail=email.getText().toString().trim();
-        Pattern emailpattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
+        Pattern emailpattern = Pattern.compile("^[a-z]+.[a-z]*[0-9]?20[0-9][0-9]@vitstudent.ac.in$");
         Matcher emailMatcher= emailpattern.matcher(tempemail);
         if(emailMatcher.matches()){
             return true;

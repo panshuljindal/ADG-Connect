@@ -181,7 +181,7 @@ public class MomFragment extends Fragment {
                             String team = momdetails.getTeam();
                             String mid = momdetails.getId();
                             Long current = System.currentTimeMillis();
-                            Long date = Long.valueOf(momdetails.getTime()) * 1000 + 86400000L;
+                            Long date = Long.valueOf(momdetails.getTime()) * 1000 + 86400000L*30;
 
                             String point = snapshot.child(mid).child("points").getValue().toString();
                             String points1 = point.replace("[","");
