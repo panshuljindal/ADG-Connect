@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.adgvit.internals.Fragments.AlertsFragment.Core.coreFragement;
-import com.adgvit.internals.Fragments.AlertsFragment.Team.team1fragment;
+import com.adgvit.internals.Fragments.AlertsFragment.Core.CoreFragment;
+import com.adgvit.internals.Fragments.AlertsFragment.Team.Team1fragment;
 
 public class AlertAdapter extends FragmentStateAdapter{
 
@@ -18,10 +18,10 @@ public class AlertAdapter extends FragmentStateAdapter{
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new coreFragement();
+                return new CoreFragment();
 
             default:
-                return new team1fragment();
+                return new Team1fragment();
         }
     }
 

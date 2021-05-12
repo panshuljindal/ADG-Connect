@@ -10,15 +10,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.adgvit.internals.Fragments.AlertsFragment.Misc.AlertsFragment;
 import com.adgvit.internals.Fragments.HomeFragment.HomeFragment;
 import com.adgvit.internals.Fragments.MomPage.MomFragment;
-import com.adgvit.internals.Fragments.MomPage.momDialogFragment;
+import com.adgvit.internals.Fragments.MomPage.MomDialogFragment;
 import com.adgvit.internals.Fragments.ProfilePage.ProfileFragment;
-import com.adgvit.internals.Fragments.ProfilePage.aboutus;
+import com.adgvit.internals.Fragments.ProfilePage.AboutUs;
 import com.adgvit.internals.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -155,9 +154,9 @@ public class MainActivity extends AppCompatActivity {
     private void tellFragments(){
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         for(Fragment f : fragments){
-            if(f != null && f instanceof aboutus)
+            if(f != null && f instanceof AboutUs)
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ProfileFragment()).commit();
-            else if (f!=null && f instanceof momDialogFragment)
+            else if (f!=null && f instanceof MomDialogFragment)
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MomFragment()).commit();
             else if (f!=null && f instanceof MomFragment){
                 HomeFragment home = new HomeFragment();

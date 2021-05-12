@@ -13,19 +13,19 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.adgvit.internals.Fragments.MomPage.momDialogFragment;
-import com.adgvit.internals.Model.momItem;
+import com.adgvit.internals.Fragments.MomPage.MomDialogFragment;
+import com.adgvit.internals.Model.MomItem;
 import com.adgvit.internals.R;
 
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    private ArrayList<momItem> mItemsMom = new ArrayList<>();
+    private ArrayList<MomItem> mItemsMom = new ArrayList<>();
     private String day , month ;
 
     private  Context context;
-    public MyAdapter(Context ct , ArrayList<momItem> MomItem) {
+    public MyAdapter(Context ct , ArrayList<MomItem> MomItem) {
 
         mItemsMom = MomItem;
           context = ct;
@@ -47,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        momItem currentmom = mItemsMom.get(position);
+        MomItem currentmom = mItemsMom.get(position);
 
         holder.myText1.setText(currentmom.getTitle());
         holder.myText2.setText(currentmom.getDate());
@@ -63,7 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment momDiagFrag = new momDialogFragment(currentmom);
+                Fragment momDiagFrag = new MomDialogFragment(currentmom);
                 FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container,momDiagFrag);
@@ -76,7 +76,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     }
     //searchbar filter
-    public void filterList(ArrayList<momItem> filteredList){
+    public void filterList(ArrayList<MomItem> filteredList){
         // need to make custom object for mom
         mItemsMom = filteredList;
         notifyDataSetChanged();

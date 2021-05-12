@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.adgvit.internals.Activity.BestOfLuck;
 import com.adgvit.internals.Activity.LoginActivity;
-import com.adgvit.internals.Fragments.ProfilePage.aboutus;
 import com.adgvit.internals.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -237,7 +236,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
 
         if (v.getId() == R.id.knowMoreBtn) {
-            Fragment aboutus1 = new aboutus();
+            Fragment aboutus1 = new AboutUs();
             FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,aboutus1);

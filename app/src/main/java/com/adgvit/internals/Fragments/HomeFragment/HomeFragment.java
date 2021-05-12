@@ -10,20 +10,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.adgvit.internals.Activity.BestOfLuck;
-import com.adgvit.internals.Activity.MainActivity;
-import com.adgvit.internals.Adapter.RecyclerView.card1adapter;
-import com.adgvit.internals.Adapter.RecyclerView.card2adapter;
-import com.adgvit.internals.Model.alertdata;
-import com.adgvit.internals.Model.card1item;
-import com.adgvit.internals.Model.card2item;
+import com.adgvit.internals.Adapter.RecyclerView.Card1Adapter;
+import com.adgvit.internals.Adapter.RecyclerView.Card2Adapter;
+import com.adgvit.internals.Model.Alertdata;
+import com.adgvit.internals.Model.Card1Item;
+import com.adgvit.internals.Model.Card2Item;
 import com.adgvit.internals.R;
-import com.adgvit.internals.Model.scrollClass;
+import com.adgvit.internals.Model.ScrollClass;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,8 +44,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class HomeFragment extends Fragment {
     RecyclerView recyclerView1,recyclerViewNotification;
     View view;
-    ArrayList<card1item> list1;
-    ArrayList<card2item> list2Team,finalArrayF,sortedArrayF;
+    ArrayList<Card1Item> list1;
+    ArrayList<Card2Item> list2Team,finalArrayF,sortedArrayF;
     ArrayList<Integer> timeStampsTeam,sortedFTime,timeF;
     DatabaseReference myref,myref1,myref2;
     int count;
@@ -167,11 +165,11 @@ public class HomeFragment extends Fragment {
     }
     public void addData(){
         String title="";
-        list1.add(new card1item(R.drawable.androidback,R.drawable.ic_android,"ANDROID",title));
-        list1.add(new card1item(R.drawable.mlback,R.drawable.ic_ml,"Machine Language",title));
-        list1.add(new card1item(R.drawable.designback,R.drawable.ic_design,"Design",title));
-        list1.add(new card1item(R.drawable.iosback,R.drawable.ic_ios,"iOS",title));
-        list1.add(new card1item(R.drawable.webback,R.drawable.ic_web,"Web Dev",title));
+        list1.add(new Card1Item(R.drawable.androidback,R.drawable.ic_android,"ANDROID",title));
+        list1.add(new Card1Item(R.drawable.mlback,R.drawable.ic_ml,"Machine Language",title));
+        list1.add(new Card1Item(R.drawable.designback,R.drawable.ic_design,"Design",title));
+        list1.add(new Card1Item(R.drawable.iosback,R.drawable.ic_ios,"iOS",title));
+        list1.add(new Card1Item(R.drawable.webback,R.drawable.ic_web,"Web Dev",title));
         adapter1();
     }
     public void firebase(){
@@ -181,24 +179,24 @@ public class HomeFragment extends Fragment {
                 list1.clear();
                 for(DataSnapshot ds: snapshot.getChildren()){
                     try {
-                        scrollClass sc = ds.getValue(scrollClass.class);
+                        ScrollClass sc = ds.getValue(ScrollClass.class);
                         String id= sc.getId();
                         String title = sc.getTitle();
                         String type = sc.getType();
                         if(type.equals("0")){
-                            list1.add(new card1item(R.drawable.iosback,R.drawable.ic_ios,"iOS",title));
+                            list1.add(new Card1Item(R.drawable.iosback,R.drawable.ic_ios,"iOS",title));
                         }
                         else if(type.equals("1")){
-                            list1.add(new card1item(R.drawable.webback,R.drawable.ic_web,"Web Dev",title));
+                            list1.add(new Card1Item(R.drawable.webback,R.drawable.ic_web,"Web Dev",title));
                         }
                         else if(type.equals("2")){
-                            list1.add(new card1item(R.drawable.androidback,R.drawable.ic_android,"ANDROID",title));
+                            list1.add(new Card1Item(R.drawable.androidback,R.drawable.ic_android,"ANDROID",title));
                         }
                         else if(type.equals("3")){
-                            list1.add(new card1item(R.drawable.mlback,R.drawable.ic_ml,"Machine Language",title));
+                            list1.add(new Card1Item(R.drawable.mlback,R.drawable.ic_ml,"Machine Language",title));
                         }
                         else if(type.equals("8")){
-                            list1.add(new card1item(R.drawable.designback,R.drawable.ic_design,"Design",title));
+                            list1.add(new Card1Item(R.drawable.designback,R.drawable.ic_design,"Design",title));
                         }
                     }catch (Exception e){
 
@@ -230,7 +228,7 @@ public class HomeFragment extends Fragment {
                         String uids = ds.child("users").getValue().toString();
                         //Log.i("uids",uids);
                         if(uids.contains(uid)){
-                            alertdata ad = ds.getValue(alertdata.class);
+                            Alertdata ad = ds.getValue(Alertdata.class);
                             String title = ad.getTitle();
                             String time = unixconvert(ad.getTime().toString());
                             Long current = System.currentTimeMillis();
@@ -239,7 +237,7 @@ public class HomeFragment extends Fragment {
                                 //Log.i("Date","Date Matched");
                             } else {
                                 timeStampsTeam.add(ad.getTime());
-                                list2Team.add(new card2item(title, time));
+                                list2Team.add(new Card2Item(title, time));
                             }
                         }
                     }catch (Exception e){
@@ -302,7 +300,7 @@ public class HomeFragment extends Fragment {
         }
     }
     public void adapter1(){
-        card1adapter adapter = new card1adapter(getContext(),list1);
+        Card1Adapter adapter = new Card1Adapter(getContext(),list1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView1.setAdapter(adapter);
@@ -310,7 +308,7 @@ public class HomeFragment extends Fragment {
     }
     public void adapter2(){
         checkData();
-        card2adapter adapter1= new card2adapter(getContext(),sortedArrayF);
+        Card2Adapter adapter1= new Card2Adapter(getContext(),sortedArrayF);
         LinearLayoutManager manager1= new LinearLayoutManager(getContext());
         manager1.setOrientation(RecyclerView.VERTICAL);
         recyclerViewNotification.setAdapter(adapter1);
@@ -332,8 +330,8 @@ public class HomeFragment extends Fragment {
         Gson gson = new Gson();
         String json = preferences.getString("scrollbar","");
         String json1 = preferences.getString("notifications","");
-        Type type = new TypeToken<ArrayList<card1item>>() {}.getType();
-        Type type1 = new TypeToken<ArrayList<card2item>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Card1Item>>() {}.getType();
+        Type type1 = new TypeToken<ArrayList<Card2Item>>() {}.getType();
         list1 =gson.fromJson(json,type);
         if(list1==null){
             list1 =new ArrayList<>();

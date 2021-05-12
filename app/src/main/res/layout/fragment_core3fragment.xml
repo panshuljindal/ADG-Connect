@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.AlertsFragment.Core.core3fragment">
+    tools:context=".Fragments.AlertsFragment.Core.Core3Fragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emptyDutiesLayout"

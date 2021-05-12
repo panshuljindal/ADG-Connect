@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -17,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adgvit.internals.Fragments.ProfilePage.forgotpassword;
+import com.adgvit.internals.Fragments.ProfilePage.ForgotPassword;
 import com.adgvit.internals.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -95,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         forgettext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                forgotpassword dialog = new forgotpassword();
+                ForgotPassword dialog = new ForgotPassword();
                 dialog.show(getSupportFragmentManager(), "Reset Password");
             }
         });

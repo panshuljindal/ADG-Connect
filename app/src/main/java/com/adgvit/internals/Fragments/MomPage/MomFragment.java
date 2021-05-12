@@ -21,10 +21,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.adgvit.internals.Activity.BestOfLuck;
-import com.adgvit.internals.Model.getMomdetails;
+import com.adgvit.internals.Model.MomDetails;
 import com.adgvit.internals.Adapter.RecyclerView.MyAdapter;
 import com.adgvit.internals.R;
-import com.adgvit.internals.Model.momItem;
+import com.adgvit.internals.Model.MomItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,7 +45,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class MomFragment extends Fragment {
     RecyclerView recyclerView;//String t[],d[];
 
-    ArrayList<momItem> momItems;
+    ArrayList<MomItem> momItems;
     EditText momSearchBar;
     MyAdapter myAdapter;
     DatabaseReference myref;
@@ -156,8 +156,8 @@ public class MomFragment extends Fragment {
     }
 
     private void filter(String text) {
-        ArrayList<momItem> filteredList = new ArrayList<>();
-        for(momItem item : momItems){
+        ArrayList<MomItem> filteredList = new ArrayList<>();
+        for(MomItem item : momItems){
             if(item.getDate().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(item);
             }
@@ -174,7 +174,7 @@ public class MomFragment extends Fragment {
                     try {
                         String uids = ds.child("users").getValue().toString();
                         if(uids.contains(uid)){
-                            getMomdetails momdetails = ds.getValue(getMomdetails.class);
+                            MomDetails momdetails = ds.getValue(MomDetails.class);
                             String header = momdetails.getHeader();
                             String time = unixconvert(momdetails.getTime().toString());
                             String title = momdetails.getTitle();
@@ -193,7 +193,7 @@ public class MomFragment extends Fragment {
                                 if (mylist.contains(team)) {
 
                                 }
-                                momItems.add(new momItem(time, title, header, points2));
+                                momItems.add(new MomItem(time, title, header, points2));
                             }
                         }
                     }
@@ -235,7 +235,7 @@ public class MomFragment extends Fragment {
         SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.mom",Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = preferences.getString("mom","");
-        Type type = new TypeToken<ArrayList<momItem>>() {}.getType();
+        Type type = new TypeToken<ArrayList<MomItem>>() {}.getType();
         momItems =gson.fromJson(json,type);
         if(momItems==null){
             momItems =new ArrayList<>();
