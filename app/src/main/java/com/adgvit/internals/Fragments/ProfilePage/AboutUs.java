@@ -1,7 +1,10 @@
 package com.adgvit.internals.Fragments.ProfilePage;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +41,8 @@ public class AboutUs extends Fragment  {
     RecyclerView ios,android,web;
     ArrayList<AboutUsItem> listios,listandroid,listweb;
     View view;
-    String adg1="admin";
+    SharedPreferences pref;
+    String admin="";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +53,8 @@ public class AboutUs extends Fragment  {
                              Bundle savedInstanceState) {
         view= inflater.inflate(R.layout.fragment_aboutus, container, false);
         bestOfLuck();
-
+        pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
+        admin=pref.getString("isAdmin","");
         android = view.findViewById(R.id.recyclerViewAndroid);
         ios= view.findViewById(R.id.recyclerViewiOS);
         web = view.findViewById(R.id.recyclerViewWeb);
@@ -88,16 +94,60 @@ public class AboutUs extends Fragment  {
         adg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(view.getContext(), "Is Admin", Toast.LENGTH_SHORT).show();
-//                Uri uri = Uri.parse(adg1);
-//                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-//                view.getContext().startActivity(intent);
+                if (admin.equals("true")){
+                    Uri uri = Uri.parse("http://adminconnect.adgvit.com/");
+                    Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                    view.getContext().startActivity(intent);
+                }
+                else {
+
+                }
             }
         });
         ritik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Dialog dialog = new Dialog(view.getContext(),R.style.Theme_Dialog);
+                dialog.setContentView(R.layout.ritik_dialog);
+                dialog.show();
+                ImageView link,git,email,cancel;
+                cancel = dialog.findViewById(R.id.ritikCancel);
+                link = dialog.findViewById(R.id.ritikLinkedin);
+                git = dialog.findViewById(R.id.ritikGithub);
+                email = dialog.findViewById(R.id.ritikEmail);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                link.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri uri = Uri.parse("https://www.linkedin.com/in/ritik-suryawanshi-7075441a6");
+                        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+                email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.putExtra(Intent.EXTRA_EMAIL,new String[] {"ritik.suryawanshi@gmail.com"});
+                        intent.putExtra(Intent.EXTRA_SUBJECT,"");
+                        intent.putExtra(Intent.EXTRA_TEXT,"");
+                        intent.setType("message/rfc822");
+                        startActivity(intent);
+                    }
+                });
+                git.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri uri = Uri.parse("https://github.com/rajritik2607");
+                        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                        v.getContext().startActivity(intent);
+                    }
+                });
             }
         });
         return view;

@@ -110,8 +110,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         initials.setText(initials1);
 
 
-
-
         String team1 = team.replace("[", "");
         String team2 = team1.replace("]", "");
         teamlist= new ArrayList<>(Arrays.asList(team2.split(", ")));
@@ -120,7 +118,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         profileName.setText(name);
         regNoText.setText(regNo);
         userEmail.setText(email);
-        userContact.setText(phone);
+        userContact.setText("+91 "+phone);
         if(domain.equals("0")){
             textDomain.setText("iOS Development");
         }

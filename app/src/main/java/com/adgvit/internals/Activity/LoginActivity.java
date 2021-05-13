@@ -162,6 +162,8 @@ public class LoginActivity extends AppCompatActivity {
                     String bestLuck = snapshot.child(uid).child("bestFuture").getValue().toString();
                     editor.putString("bestLuck",bestLuck);
 
+                    String isAdmin = snapshot.child(uid).child("isAdmin").getValue().toString();
+                    editor.putString("isAdmin",isAdmin);
                     String team = snapshot.child(uid).child("teams").getValue().toString();
                     String team1 = team.replace("[", "");
                     String team2 = team1.replace("]", "");

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -285,16 +286,13 @@ public class HomeFragment extends Fragment {
     public void sendToken(){
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         String token = pref.getString("Token","");
-        String uid = pref.getString("uid","");
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.i("fcm",token);
         try {
-            if (uid.equals("")){
-
-            }else {
                 FirebaseDatabase db = FirebaseDatabase.getInstance();
                 DatabaseReference myref = db.getReference("Users");
                 myref.child(uid).child("fcm").setValue(token);
             }
-        }
         catch (Exception e){
 
         }
