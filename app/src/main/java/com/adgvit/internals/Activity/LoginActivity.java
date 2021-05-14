@@ -198,14 +198,14 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     private boolean checkemail(){
-        String tempemail=email.getText().toString().trim();
-        Pattern emailpattern = Pattern.compile("^[a-z]+.[a-z]*[0-9]?20[0-9][0-9]@vitstudent.ac.in$");
-        Matcher emailMatcher= emailpattern.matcher(tempemail);
-        if(emailMatcher.matches()){
-            return true;
-        }
-        Toast.makeText(this, "Please Enter a Valid Email ID", Toast.LENGTH_SHORT).show();
-        email.requestFocus();
-        return false;
+//        String tempemail=email.getText().toString().trim();
+//        Pattern emailpattern = Pattern.compile("^[a-z]+.[a-z]*[0-9]?20[0-9][0-9]@vitstudent.ac.in$");
+//        Matcher emailMatcher= emailpattern.matcher(tempemail);
+//        if(emailMatcher.matches()){
+//            return true;
+//        }
+//        Toast.makeText(this, "Please Enter a Valid Email ID", Toast.LENGTH_SHORT).show();
+//        email.requestFocus();
+        return true;
     }
 }
