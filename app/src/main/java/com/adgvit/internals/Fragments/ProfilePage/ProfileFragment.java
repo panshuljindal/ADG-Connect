@@ -22,10 +22,12 @@ import android.widget.Toast;
 
 import com.adgvit.internals.Activity.BestOfLuck;
 import com.adgvit.internals.Activity.LoginActivity;
+import com.adgvit.internals.Activity.MainActivity;
 import com.adgvit.internals.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,7 +50,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     Button resetPw;
     Button Team;
     FirebaseAuth mauth;
-    String name,regNo,email,phone,team,domain;
+    String name,regNo,email,phone,team,domain,position;
     TextView profileName,regNoText,userEmail,userContact,textDomain;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -93,7 +95,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         email = pref.getString("emailid","");
         phone = pref.getString("phone","");
         team = pref.getString("teams","");
-
+        position = pref.getString("position","");
         String name1 = name;
         name1 = name1.trim();
         String words[] = name1.split(" ");
@@ -119,34 +121,39 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         regNoText.setText(regNo);
         userEmail.setText(email);
         userContact.setText("+91 "+phone);
-        if(domain.equals("0")){
-            textDomain.setText("iOS Development");
+        if (position.equals("")){
+            if(domain.equals("0")){
+                textDomain.setText("iOS Development");
+            }
+            else if(domain.equals("1")){
+                textDomain.setText("Web Development");
+            }
+            else if(domain.equals("2")){
+                textDomain.setText("Android Development");
+            }
+            else if(domain.contains("3")){
+                textDomain.setText("Machine Learning ");
+            }
+            else if(domain.contains("4")){
+                textDomain.setText("Logistics");
+            }
+            else if(domain.contains("5")){
+                textDomain.setText("Sponsorship");
+            }
+            else if(domain.contains("6")){
+                textDomain.setText("Marketing");
+            }
+            else if(domain.contains("7")){
+                textDomain.setText("Design");
+            }
+            else if(domain.contains("8")){
+                textDomain.setText("Video Editing");
+            }
         }
-        else if(domain.equals("1")){
-            textDomain.setText("Web Development");
+        else {
+            textDomain.setText(position);
         }
-        else if(domain.equals("2")){
-            textDomain.setText("Android Development");
-        }
-        else if(domain.contains("3")){
-            textDomain.setText("Machine Learning ");
-        }
-        else if(domain.contains("4")){
-            textDomain.setText("Logistics");
-        }
-        else if(domain.contains("5")){
-            textDomain.setText("Sponsorship");
-        }
-        else if(domain.contains("6")){
-            textDomain.setText("Marketing");
-        }
-        else if(domain.contains("7")){
-            textDomain.setText("Design");
-        }
-        else if(domain.contains("8")){
-            textDomain.setText("Video Editing");
-        }
-
+        datasave();
         return view;
     }
     public void bestOfLuck(){
@@ -161,12 +168,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
                     if (uid1.isEmpty()){
-                        Log.i("uid","Empty");
+                        //Log.i("uid","Empty");
                     }
                     else {
                         String bestluck = snapshot.child(uid1).child("bestFuture").getValue().toString();
                         if (bestluck.equals("false")) {
-                            Log.i("User", "isMember");
+                            //Log.i("User", "isMember");
                         } else if (bestluck.equals("true")) {
                             mauth.signOut();
                             Intent intent = new Intent(view.getContext(), BestOfLuck.class);
@@ -292,5 +299,60 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         SharedPreferences.Editor editor3 = preferences.edit();
         editor3.clear();
         editor3.apply();
+    }
+    private void datasave(){
+        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference myref = db.getReference("Users");
+        myref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    FirebaseUser user = mauth.getCurrentUser();
+                    String uid = user.getUid();
+
+                    editor.putString("uid",uid);
+                    String emaili = snapshot.child(uid).child("email").getValue().toString();
+                    editor.putString("emailid", emaili);
+
+                    String fcm = snapshot.child(uid).child("fcm").getValue().toString();
+                    editor.putString("fcm", fcm);
+
+                    String name = snapshot.child(uid).child("name").getValue().toString();
+                    editor.putString("name", name);
+
+                    String phone = snapshot.child(uid).child("phone").getValue().toString();
+                    editor.putString("phone", phone);
+
+                    String regNo = snapshot.child(uid).child("regNo").getValue().toString();
+                    editor.putString("regNo", regNo);
+
+                    String bestLuck = snapshot.child(uid).child("bestFuture").getValue().toString();
+                    editor.putString("bestLuck",bestLuck);
+
+                    String isAdmin = snapshot.child(uid).child("isAdmin").getValue().toString();
+                    editor.putString("isAdmin",isAdmin);
+                    String position = snapshot.child(uid).child("position").getValue().toString();
+                    editor.putString("position",position);
+                    String team = snapshot.child(uid).child("teams").getValue().toString();
+                    String team1 = team.replace("[", "");
+                    String team2 = team1.replace("]", "");
+                    List<String> mylist = new ArrayList<>(Arrays.asList(team2.split(", ")));
+                    editor.putString("teams",team);
+                    editor.apply();
+
+                }
+                catch (Exception e){
+                    Toast.makeText(view.getContext(), "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(view.getContext(), "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

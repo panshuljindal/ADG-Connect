@@ -23,14 +23,19 @@ import com.adgvit.internals.Model.Card1Item;
 import com.adgvit.internals.Model.Card2Item;
 import com.adgvit.internals.R;
 import com.adgvit.internals.Model.ScrollClass;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -53,6 +58,7 @@ public class HomeFragment extends Fragment {
     String team;
     List<String> teamlist;
     String uid;
+    String admin;
     ConstraintLayout ui1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,7 @@ public class HomeFragment extends Fragment {
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", MODE_PRIVATE);
         team = pref.getString("teams","");
         uid = pref.getString("uid","");
+        admin = pref.getString("isAdmin","");
         bestOfLuck();
         checkData1();
         String team1 = team.replace("[", "");
@@ -99,7 +106,7 @@ public class HomeFragment extends Fragment {
         adapter1();
         adapter2();
         checkData();
-        sendToken();
+        //sendToken();
         return view;
     }
 
@@ -228,7 +235,7 @@ public class HomeFragment extends Fragment {
                     try {
                         String uids = ds.child("users").getValue().toString();
                         //Log.i("uids",uids);
-                        if(uids.contains(uid)){
+                        if (admin.equals("true")){
                             Alertdata ad = ds.getValue(Alertdata.class);
                             String title = ad.getTitle();
                             String time = unixconvert(ad.getTime().toString());
@@ -239,6 +246,21 @@ public class HomeFragment extends Fragment {
                             } else {
                                 timeStampsTeam.add(ad.getTime());
                                 list2Team.add(new Card2Item(title, time));
+                            }
+                        }
+                        else {
+                            if(uids.contains(uid)){
+                                Alertdata ad = ds.getValue(Alertdata.class);
+                                String title = ad.getTitle();
+                                String time = unixconvert(ad.getTime().toString());
+                                Long current = System.currentTimeMillis();
+                                Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L;
+                                if (current >= date) {
+                                    //Log.i("Date","Date Matched");
+                                } else {
+                                    timeStampsTeam.add(ad.getTime());
+                                    list2Team.add(new Card2Item(title, time));
+                                }
                             }
                         }
                     }catch (Exception e){
@@ -283,20 +305,7 @@ public class HomeFragment extends Fragment {
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
     }
-    public void sendToken(){
-        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
-        String token = pref.getString("Token","");
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Log.i("fcm",token);
-        try {
-                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                DatabaseReference myref = db.getReference("Users");
-                myref.child(uid).child("fcm").setValue(token);
-            }
-        catch (Exception e){
 
-        }
-    }
     public void adapter1(){
         Card1Adapter adapter = new Card1Adapter(getContext(),list1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());

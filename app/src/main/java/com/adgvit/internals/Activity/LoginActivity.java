@@ -110,11 +110,23 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    login.setEnabled(true);
-                                    Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
-                                    startActivity(myIntent);
-                                    datasave();
-                                    Toast.makeText(LoginActivity.this, "Login Succesfull", Toast.LENGTH_SHORT).show();
+                                    if (mauth.getCurrentUser().isEmailVerified()){
+                                        login.setEnabled(true);
+                                        Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
+                                        datasave();
+                                        Toast.makeText(LoginActivity.this, "Login Succesful", Toast.LENGTH_SHORT).show();
+                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+                                        try {
+                                            reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("os").setValue("Android");
+                                        }
+                                        catch (Exception e){
+
+                                        }
+                                        startActivity(myIntent);
+                                    }
+                                    else {
+                                        Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                                 else if(!task.isSuccessful()){
                                     login.setEnabled(true);
@@ -164,6 +176,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     String isAdmin = snapshot.child(uid).child("isAdmin").getValue().toString();
                     editor.putString("isAdmin",isAdmin);
+                    String position = snapshot.child(uid).child("position").getValue().toString();
+                    editor.putString("position",position);
                     String team = snapshot.child(uid).child("teams").getValue().toString();
                     String team1 = team.replace("[", "");
                     String team2 = team1.replace("]", "");
@@ -173,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
                 catch (Exception e){
-                    Toast.makeText(LoginActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(LoginActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
                 }
 
             }

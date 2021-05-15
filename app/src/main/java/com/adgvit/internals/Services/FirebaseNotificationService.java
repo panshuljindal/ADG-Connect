@@ -77,10 +77,6 @@ public class FirebaseNotificationService extends com.google.firebase.messaging.F
     public void onNewToken(@NonNull String token) {
         Log.d(TAG, "Refreshed token : "+token);
         //send token to your app server
-        SharedPreferences pref = getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("Token",token);
-        editor.apply();
     }
 
     @SuppressLint("InvalidWakeLockTag")

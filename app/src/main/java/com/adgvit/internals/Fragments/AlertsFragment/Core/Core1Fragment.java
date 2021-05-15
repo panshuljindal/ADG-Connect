@@ -18,6 +18,7 @@ import com.adgvit.internals.Adapter.RecyclerView.AlertCardviewAdapter;
 import com.adgvit.internals.Model.AlertCardviewItem;
 import com.adgvit.internals.Model.Alertdata;
 import com.adgvit.internals.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +38,7 @@ public class Core1Fragment extends Fragment {
     FirebaseDatabase database;
     DatabaseReference myref;
     View view;
-    String uid;
+    String uid,admin;
     Boolean shimmer;
     ConstraintLayout layout;
     @Override
@@ -52,7 +53,8 @@ public class Core1Fragment extends Fragment {
         recyclerView=view.findViewById(R.id.recylerView1_1);
         list1=new ArrayList<>();
         SharedPreferences pref= view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
-        uid = pref.getString("uid","");
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        admin = pref.getString("isAdmin","");
 
         layout = view.findViewById(R.id.emptyAllLayout);
 
@@ -85,7 +87,7 @@ public class Core1Fragment extends Fragment {
                 for(DataSnapshot ds: datasnapshot.getChildren()){
                     try {
                         String uids = ds.child("users").getValue().toString();
-                        if(uids.contains(uid)){
+                        if (admin.equals("true")){
                             Alertdata ad = ds.getValue(Alertdata.class);
                             String title = ad.getTitle();
                             String time = unixconvert(ad.getTime().toString());
@@ -94,12 +96,30 @@ public class Core1Fragment extends Fragment {
                             String id =ad.getId();
                             Long current = System.currentTimeMillis();
                             Long date = Long.valueOf(ad.getTime())*1000+ 86400000L;
-
                             if (current>=date){
                             }
                             else {
                                 list1.add(new AlertCardviewItem(title,time,location,link,id));
 
+                            }
+                        }
+                        else {
+                            if(uids.contains(uid)){
+                                Alertdata ad = ds.getValue(Alertdata.class);
+                                String title = ad.getTitle();
+                                String time = unixconvert(ad.getTime().toString());
+                                String location = ad.getLocation();
+                                String link = ad.getLink();
+                                String id =ad.getId();
+                                Long current = System.currentTimeMillis();
+                                Long date = Long.valueOf(ad.getTime())*1000+ 86400000L;
+
+                                if (current>=date){
+                                }
+                                else {
+                                    list1.add(new AlertCardviewItem(title,time,location,link,id));
+
+                                }
                             }
                         }
                     }

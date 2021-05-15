@@ -36,7 +36,7 @@ public class Core2Fragment extends Fragment {
     ArrayList<AlertCardviewItem> list2;
     DatabaseReference myref;
     View view;
-    String uid;
+    String uid,admin;
     ConstraintLayout layout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class Core2Fragment extends Fragment {
         list2=new ArrayList<>();
         SharedPreferences pref= view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         uid = pref.getString("uid","");
+        admin = pref.getString("isAdmin","");
         layout = view.findViewById(R.id.emptyMeetingsLayout);
         loadData();
         FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -79,7 +80,7 @@ public class Core2Fragment extends Fragment {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     try {
                         String uids = ds.child("users").getValue().toString();
-                        if (uids.contains(uid)) {
+                        if (admin.equals("true")){
                             Alertdata ad = ds.getValue(Alertdata.class);
                             String title = ad.getTitle();
                             String time = unixconvert(ad.getTime().toString());
@@ -95,6 +96,27 @@ public class Core2Fragment extends Fragment {
                             else {
                                 if(type.equals(type1)){
                                     list2.add(new AlertCardviewItem(title,time,location,link,id));
+                                }
+                            }
+                        }
+                        else {
+                            if (uids.contains(uid)) {
+                                Alertdata ad = ds.getValue(Alertdata.class);
+                                String title = ad.getTitle();
+                                String time = unixconvert(ad.getTime().toString());
+                                String location = ad.getLocation();
+                                String link = ad.getLink();
+                                String id =ad.getId();
+                                String type = ad.getType();
+                                String type1="Meetings";
+                                Long current = System.currentTimeMillis();
+                                Long date = Long.valueOf(ad.getTime())*1000+ 86400000L;
+                                if (current>=date){
+                                }
+                                else {
+                                    if(type.equals(type1)){
+                                        list2.add(new AlertCardviewItem(title,time,location,link,id));
+                                    }
                                 }
                             }
                         }

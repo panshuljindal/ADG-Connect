@@ -40,7 +40,7 @@ public class Team1fragment extends Fragment {
     View view;
     String team;
     List<String> teamlist;
-    String uid;
+    String uid,admin;
     ConstraintLayout layout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class Team1fragment extends Fragment {
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
         team = pref.getString("teams","");
         uid = pref.getString("uid","");
+        admin=pref.getString("isAdmin","");
         String team1 = team.replace("[", "");
         String team2 = team1.replace("]", "");
         teamlist= new ArrayList<>(Arrays.asList(team2.split(", ")));
@@ -89,7 +90,7 @@ public class Team1fragment extends Fragment {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     try {
                         String uids = ds.child("users").getValue().toString();
-                        if(uids.contains(uid)){
+                        if (admin.equals("true")){
                             Alertdata ad = ds.getValue(Alertdata.class);
                             String title = ad.getTitle();
                             String time = unixconvert(ad.getTime().toString());
@@ -102,6 +103,23 @@ public class Team1fragment extends Fragment {
 
                             } else {
                                 list1_1.add(new AlertCardviewItem(title, time, location, link, id));
+                            }
+                        }
+                        else {
+                            if(uids.contains(uid)){
+                                Alertdata ad = ds.getValue(Alertdata.class);
+                                String title = ad.getTitle();
+                                String time = unixconvert(ad.getTime().toString());
+                                String location = ad.getLocation();
+                                String link = ad.getLink();
+                                String id =ad.getId();
+                                Long current = System.currentTimeMillis();
+                                Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L;
+                                if (current >= date) {
+
+                                } else {
+                                    list1_1.add(new AlertCardviewItem(title, time, location, link, id));
+                                }
                             }
                         }
                     }

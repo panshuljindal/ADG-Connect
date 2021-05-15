@@ -37,7 +37,7 @@ public class Core3Fragment extends Fragment {
     ArrayList<AlertCardviewItem> list3;
     DatabaseReference myref;
     View view;
-    String uid;
+    String uid,admin;
     ConstraintLayout layout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class Core3Fragment extends Fragment {
 
         SharedPreferences pref= view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         uid = pref.getString("uid","");
+        admin = pref.getString("isAdmin","");
 
         loadData();
         FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -83,7 +84,7 @@ public class Core3Fragment extends Fragment {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     try {
                         String uids = ds.child("users").getValue().toString();
-                        if (uids.contains(uid)) {
+                        if (admin.equals("true")){
                             Alertdata ad = ds.getValue(Alertdata.class);
                             String title = ad.getTitle();
                             String time = unixconvert(ad.getTime().toString());
@@ -101,6 +102,28 @@ public class Core3Fragment extends Fragment {
                                     list3.add(new AlertCardviewItem(title, time, location, link, id));
                                 }
 
+                            }
+                        }
+                        else {
+                            if (uids.contains(uid)) {
+                                Alertdata ad = ds.getValue(Alertdata.class);
+                                String title = ad.getTitle();
+                                String time = unixconvert(ad.getTime().toString());
+                                String location = ad.getLocation();
+                                String link = ad.getLink();
+                                String id = ad.getId();
+                                String type = ad.getType();
+                                String type1 = "Duties";
+                                Long current = System.currentTimeMillis();
+                                Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L;
+                                if (current >= date) {
+
+                                } else {
+                                    if (type.equals(type1)) {
+                                        list3.add(new AlertCardviewItem(title, time, location, link, id));
+                                    }
+
+                                }
                             }
                         }
                     }catch (Exception e){

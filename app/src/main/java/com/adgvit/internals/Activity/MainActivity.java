@@ -19,6 +19,8 @@ import com.adgvit.internals.Fragments.MomPage.MomDialogFragment;
 import com.adgvit.internals.Fragments.ProfilePage.ProfileFragment;
 import com.adgvit.internals.Fragments.ProfilePage.AboutUs;
 import com.adgvit.internals.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +28,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,16 +48,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mauth = FirebaseAuth.getInstance();
-        SharedPreferences pref = getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
-        String token = pref.getString("Token","");
-        String uid = pref.getString("uid","");
-        if (uid.equals("")){
+        sendToken();
 
-        }else {
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
-             myref= db.getReference("Users");
-            myref.child(uid).child("fcm").setValue(token);
-        }
 
 
 
@@ -126,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
                     String bestLuck = snapshot.child(uid).child("bestFuture").getValue().toString();
                     editor.putString("bestLuck",bestLuck);
 
+                    String isAdmin = snapshot.child(uid).child("isAdmin").getValue().toString();
+                    editor.putString("isAdmin",isAdmin);
+                    String position = snapshot.child(uid).child("position").getValue().toString();
+                    editor.putString("position",position);
                     String team = snapshot.child(uid).child("teams").getValue().toString();
                     String team1 = team.replace("[", "");
                     String team2 = team1.replace("]", "");
@@ -142,6 +143,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(MainActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void sendToken(){
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<String> task) {
+                if (task.isSuccessful()){
+                    String token = task.getResult();
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    FirebaseDatabase db = FirebaseDatabase.getInstance();
+                    myref= db.getReference("Users");
+                    myref.child(uid).child("fcm").setValue(token);
+
+                }
             }
         });
     }
