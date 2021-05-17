@@ -9,7 +9,7 @@
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,24 +18,23 @@
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
         android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
         app:backgroundColor="@color/colorPrimary"
         app:iconSize="24dp"
         app:iconTint="#C8FFFFFF"
-        app:itemFontFamily="@font/sf_pro_text_regular"
         app:iconTintActive="#FFFFFF"
-        app:indicatorColor="@color/colorPrimaryDark"
+        app:indicatorColor="#046BDD"
         app:indicatorRadius="20dp"
         app:itemPadding="10dp"
+        app:itemFontFamily="@font/sf_pro_text_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu"
         app:sideMargins="10dp"
         app:textColor="#FFFFFF"
-        app:textSize="14sp"
-        tools:layout_editor_absoluteX="-67dp"
-        tools:layout_editor_absoluteY="667dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:textSize="14sp" />
 
 
 

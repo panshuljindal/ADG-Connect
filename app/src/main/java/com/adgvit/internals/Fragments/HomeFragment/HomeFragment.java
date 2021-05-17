@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Card1Item> list1;
     ArrayList<Card2Item> list2Team,finalArrayF,sortedArrayF;
     ArrayList<Integer> timeStampsTeam,sortedFTime,timeF;
-    DatabaseReference myref,myref1,myref2;
+    DatabaseReference myref,myref2;
     int count;
     String team;
     List<String> teamlist;
@@ -64,6 +64,27 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+    public void sendToken(){
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<String> task) {
+                if (task.isSuccessful()){
+                    String token = task.getResult();
+                    // Log.i("token",token);
+                    if (token.equals("")){
+
+                    }
+                    else {
+                        String uid1 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        FirebaseDatabase db = FirebaseDatabase.getInstance();
+                        DatabaseReference myreference= db.getReference("Users");
+                        myreference.child(uid1).child("fcm").setValue(token);
+                    }
+
+                }
+            }
+        });
     }
 
     @Override
@@ -106,7 +127,7 @@ public class HomeFragment extends Fragment {
         adapter1();
         adapter2();
         checkData();
-        //sendToken();
+        sendToken();
         return view;
     }
 
@@ -277,7 +298,7 @@ public class HomeFragment extends Fragment {
                     timeF.set(index,0);
                     try {
                         sortedArrayF.add(finalArrayF.get(index));
-                        if (i==3){
+                        if (i==2){
                             break;
                         }
                     }

@@ -44,7 +44,7 @@ public class DialogReasonFragment extends DialogFragment {
         mid=pref.getString("mid","");
         title=pref.getString("title","");
         time=pref.getString("time","");
-        Log.i("mid",mid);
+        //Log.i("mid",mid);
 
         pref1 = view.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         name=pref1.getString("name","");

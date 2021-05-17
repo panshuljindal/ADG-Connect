@@ -6,17 +6,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#0B0B0B"
     tools:context=".Fragments.AlertsFragment.Team.Teamfragment">
+
     <com.google.android.material.tabs.TabLayout
-        android:layout_width="220dp"
-        android:layout_marginLeft="20dp"
-        android:layout_height="30dp"
-        app:tabIndicatorHeight="0dp"
         android:id="@+id/tablayout2_1"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        app:tabTextAppearance="@style/tab_text1"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/viewPager2"
         app:tabBackground="@drawable/tab_color_selector1"
-        app:layout_constraintBottom_toTopOf="@+id/viewPager2">
-    </com.google.android.material.tabs.TabLayout>
+        app:tabIndicatorHeight="0dp"
+        app:tabTextAppearance="@style/tab_text1"></com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2_1"

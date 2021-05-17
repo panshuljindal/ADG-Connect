@@ -345,13 +345,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
                 }
                 catch (Exception e){
-                    Toast.makeText(view.getContext(), "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(view.getContext(), "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(view.getContext(), "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
             }
         });
     }

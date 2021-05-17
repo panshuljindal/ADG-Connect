@@ -85,7 +85,7 @@ public class ForgotPassword extends DialogFragment {
         if(emailMatcher.matches()){
             return true;
         }
-        email.setError("Please enter a valid email id");
+        email.setError("Please enter a valid VIT Email ID");
         email.requestFocus();
         return false;
     }

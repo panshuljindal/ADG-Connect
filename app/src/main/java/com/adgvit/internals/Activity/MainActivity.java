@@ -48,11 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mauth = FirebaseAuth.getInstance();
-        sendToken();
-
-
-
-
+        //sendToken();
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.bottomBar);
 
         smoothBottomBar.setOnItemSelectedListener(i -> {
@@ -136,13 +132,13 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 catch (Exception e){
-                    Toast.makeText(MainActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Error Occurred. Please try again later", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -152,10 +148,16 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull @NotNull Task<String> task) {
                 if (task.isSuccessful()){
                     String token = task.getResult();
-                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    FirebaseDatabase db = FirebaseDatabase.getInstance();
-                    myref= db.getReference("Users");
-                    myref.child(uid).child("fcm").setValue(token);
+                    // Log.i("token",token);
+                    if (token.equals("")){
+
+                    }
+                    else {
+                        String uid1 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        FirebaseDatabase db = FirebaseDatabase.getInstance();
+                        DatabaseReference myreference= db.getReference("Users");
+                        myreference.child(uid1).child("fcm").setValue(token);
+                    }
 
                 }
             }

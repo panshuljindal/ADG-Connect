@@ -175,7 +175,7 @@ public class AlertCardviewAdapter extends RecyclerView.Adapter<AlertCardviewAdap
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Log.i("Cancelled", "Cancel");
+                    //Log.i("Cancelled", "Cancel");
                 }
             });
 
@@ -233,7 +233,7 @@ public class AlertCardviewAdapter extends RecyclerView.Adapter<AlertCardviewAdap
                                     editoralert.putString(holder.id.getText().toString(), state);
                                     editoralert.apply();
                                 } catch (Exception e) {
-                                    Toast.makeText(v.getContext(), "Error occurred. Please try again", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(v.getContext(), "Error occurred. Please try again", Toast.LENGTH_SHORT).show();
                                 }
 
                             } else {

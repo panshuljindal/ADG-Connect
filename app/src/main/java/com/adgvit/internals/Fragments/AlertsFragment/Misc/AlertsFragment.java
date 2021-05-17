@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,28 +60,11 @@ public class AlertsFragment extends Fragment {
             }
         });
         tabLayoutMediator.attach();
-        sendToken();
+
         bestOfLuck();
         return view;
     }
-    public void sendToken(){
-        SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
-        String token = pref.getString("Token","");
-        String uid = pref.getString("uid","");
-        if (uid.equals("")){
 
-        }else {
-            try {
-                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                DatabaseReference myref = db.getReference("Users");
-                myref.child(uid).child("fcm").setValue(token);
-            }
-            catch (Exception e){
-
-            }
-
-        }
-    }
     public void bestOfLuck(){
 
         SharedPreferences pref1 = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);

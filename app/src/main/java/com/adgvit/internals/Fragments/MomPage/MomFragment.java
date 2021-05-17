@@ -126,7 +126,7 @@ public class MomFragment extends Fragment {
                    else {
                        String bestluck = snapshot.child(uid).child("bestFuture").getValue().toString();
                        if (bestluck.equals("false")) {
-                           Log.i("User", "isMember");
+                           //Log.i("User", "isMember");
                        } else if (bestluck.equals("true")) {
                            mauth.signOut();
                            Intent intent = new Intent(view.getContext(), BestOfLuck.class);

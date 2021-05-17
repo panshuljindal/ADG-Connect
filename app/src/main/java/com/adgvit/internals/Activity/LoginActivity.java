@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -28,6 +31,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,40 +109,65 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(checkempty()){
                     if(checkemail()){
-                        login.setEnabled(false);
-                        emailid = email.getText().toString();
-                        pass = password.getText().toString();
-                        mauth.signInWithEmailAndPassword(emailid,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    if (mauth.getCurrentUser().isEmailVerified()){
-                                        login.setEnabled(true);
-                                        Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
-                                        datasave();
-                                        Toast.makeText(LoginActivity.this, "Login Succesful", Toast.LENGTH_SHORT).show();
-                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-                                        try {
-                                            reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("os").setValue("Android");
-                                        }
-                                        catch (Exception e){
+                        if (isNetworkAvailable(v.getContext())){
+                            login.setEnabled(false);
+                            emailid = email.getText().toString();
+                            pass = password.getText().toString();
+                            mauth.signInWithEmailAndPassword(emailid,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        if (mauth.getCurrentUser().isEmailVerified()){
+                                            login.setEnabled(true);
+                                            Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
+                                            datasave();
+                                            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+                                            try {
+                                                reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("os").setValue("Android");
+                                            }
+                                            catch (Exception e){
 
+                                            }
+                                            sendToken();
+                                            startActivity(myIntent);
                                         }
-                                        startActivity(myIntent);
+                                        else {
+                                            Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    else {
-                                        Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                    else if(!task.isSuccessful()){
+                                        login.setEnabled(true);
+                                        Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                                else if(!task.isSuccessful()){
-                                    login.setEnabled(true);
-                                    email.setText("");
-                                    password.setText("");
-                                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                            });
+                        }
+                        else {
+                            Toast.makeText(LoginActivity.this, "Please connect to Internet", Toast.LENGTH_SHORT).show();
+                        }
                     }
+                }
+            }
+        });
+    }
+    public void sendToken(){
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<String> task) {
+                if (task.isSuccessful()){
+                    String token = task.getResult();
+                   // Log.i("token",token);
+                    if (token.equals("")){
+
+                    }
+                    else {
+                        String uid1 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        FirebaseDatabase db = FirebaseDatabase.getInstance();
+                        DatabaseReference myreference= db.getReference("Users");
+                        myreference.child(uid1).child("fcm").setValue(token);
+                    }
+
                 }
             }
         });
@@ -201,25 +232,32 @@ public class LoginActivity extends AppCompatActivity {
     private boolean checkempty(){
         if(email.getText().length()==0){
             Toast.makeText(this, "Please Enter a Email ID", Toast.LENGTH_SHORT).show();
+            login.setEnabled(true);
             return false;
 
         }
         else if(password.getText().length()==0){
             Toast.makeText(this, "Please Enter a Password", Toast.LENGTH_SHORT).show();
+            login.setEnabled(true);
             return false;
         }
         return true;
 
     }
     private boolean checkemail(){
-//        String tempemail=email.getText().toString().trim();
-//        Pattern emailpattern = Pattern.compile("^[a-z]+.[a-z]*[0-9]?20[0-9][0-9]@vitstudent.ac.in$");
-//        Matcher emailMatcher= emailpattern.matcher(tempemail);
-//        if(emailMatcher.matches()){
-//            return true;
-//        }
-//        Toast.makeText(this, "Please Enter a Valid Email ID", Toast.LENGTH_SHORT).show();
-//        email.requestFocus();
+        String tempemail=email.getText().toString().trim();
+        Pattern emailpattern = Pattern.compile("^[a-z]+.[a-z]*[0-9]?20[0-9][0-9]@vitstudent.ac.in$");
+        Matcher emailMatcher= emailpattern.matcher(tempemail);
+        if(emailMatcher.matches()){
+            return true;
+        }
+        Toast.makeText(this, "Please Enter a Valid Email ID", Toast.LENGTH_SHORT).show();
+        email.requestFocus();
+        login.setEnabled(true);
         return true;
+    }
+    private  boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

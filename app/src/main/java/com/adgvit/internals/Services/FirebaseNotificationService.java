@@ -11,7 +11,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -75,7 +74,7 @@ public class FirebaseNotificationService extends com.google.firebase.messaging.F
 
     @Override
     public void onNewToken(@NonNull String token) {
-        Log.d(TAG, "Refreshed token : "+token);
+        //Log.d(TAG, "Refreshed token : "+token);
         //send token to your app server
     }
 
@@ -95,7 +94,7 @@ public class FirebaseNotificationService extends com.google.firebase.messaging.F
                 .setContentTitle(title)
                 .setContentText(messageBody)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                  .setColor(getResources().getColor(R.color.shimmercolour))
+                .setColor(getResources().getColor(R.color.shimmercolour))
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

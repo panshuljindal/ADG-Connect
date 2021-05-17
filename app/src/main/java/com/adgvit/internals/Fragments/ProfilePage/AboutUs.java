@@ -168,12 +168,12 @@ public class AboutUs extends Fragment  {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
                     if (uid1.isEmpty()){
-                        Log.i("uid","Empty");
+                        //Log.i("uid","Empty");
                     }
                     else {
                         String bestluck = snapshot.child(uid1).child("bestFuture").getValue().toString();
                         if (bestluck.equals("false")) {
-                            Log.i("User", "isMember");
+                            //Log.i("User", "isMember");
                         } else if (bestluck.equals("true")) {
                             mauth.signOut();
                             Intent intent = new Intent(view.getContext(), BestOfLuck.class);
