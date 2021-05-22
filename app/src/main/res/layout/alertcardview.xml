@@ -140,12 +140,10 @@
                 android:id="@+id/alertcardtext2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="5dp"
                 android:text="06 Aug, 10PM"
                 android:textColor="#ffffff"
                 android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/alertimageView"
+                app:layout_constraintStart_toStartOf="@+id/alertcardtext1"
                 app:layout_constraintTop_toBottomOf="@+id/alertcardtext1" />
 
             <TextView
@@ -167,14 +165,13 @@
                 android:id="@+id/alertcardtext4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="50dp"
                 android:text="https://meet.google.com/sso-cymm-gez"
                 android:textColor="#00C2FF"
                 android:textSize="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/alertimageView1"
+                app:layout_constraintStart_toStartOf="@+id/alertcardtext3"
                 app:layout_constraintTop_toBottomOf="@+id/alertcardtext3" />
 
             <Button
