@@ -33,14 +33,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Core1Fragment extends Fragment {
-    RecyclerView recyclerView;
-    ArrayList<AlertCardviewItem> list1;
-    FirebaseDatabase database;
-    DatabaseReference myref;
-    View view;
-    String uid,admin;
-    Boolean shimmer;
-    ConstraintLayout layout;
+    private RecyclerView recyclerView;
+    private ArrayList<AlertCardviewItem> list1;
+    private FirebaseDatabase database;
+    private DatabaseReference myref;
+    private View view;
+    private String uid,admin;
+    private Boolean shimmer;
+    private ConstraintLayout layout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +67,7 @@ public class Core1Fragment extends Fragment {
         return view;
     }
 
-    public void checkData(){
+    private void checkData(){
         if (list1.size()==0){
             layout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
@@ -78,7 +78,7 @@ public class Core1Fragment extends Fragment {
     }
 
 
-    public void addData(){
+    private void addData(){
 
         myref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -112,7 +112,7 @@ public class Core1Fragment extends Fragment {
                                 String link = ad.getLink();
                                 String id =ad.getId();
                                 Long current = System.currentTimeMillis();
-                                Long date = Long.valueOf(ad.getTime())*1000+ 86400000L;
+                                Long date = Long.valueOf(ad.getTime())*1000+ 86400000L*3;
 
                                 if (current>=date){
                                 }
@@ -138,13 +138,13 @@ public class Core1Fragment extends Fragment {
             }
         });
     }
-    public String unixconvert(String time){
+    private String unixconvert(String time){
         long dv = Long.valueOf(time)*1000;// its need to be in milisecond
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
     }
-    public void adapter(){
+    private void adapter(){
         AlertCardviewAdapter alertcardviewadapter = new AlertCardviewAdapter(getContext(),list1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);

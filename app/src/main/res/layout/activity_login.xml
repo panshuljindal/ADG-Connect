@@ -116,8 +116,8 @@
                 android:id="@+id/buttonLogin"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginStart="55dp"
-                android:layout_marginEnd="55dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:background="@drawable/loginbtnbg"
                 android:fontFamily="@font/sf_pro_text_bold"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -138,8 +138,10 @@
 
     <Button
         android:id="@+id/loginBtn1"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/loginbtnbg"
         android:fontFamily="@font/sf_pro_text_medium"

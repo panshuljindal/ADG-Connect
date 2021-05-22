@@ -17,8 +17,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class CoreFragment extends Fragment {
 
-    TabLayout tabLayout2;
-    ViewPager2 viewPager2;
+    private TabLayout tabLayout2;
+    private ViewPager2 viewPager2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

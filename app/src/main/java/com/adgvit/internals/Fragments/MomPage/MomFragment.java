@@ -43,17 +43,17 @@ import java.util.Date;
 import static android.content.Context.MODE_PRIVATE;
 
 public class MomFragment extends Fragment {
-    RecyclerView recyclerView;//String t[],d[];
+    private  RecyclerView recyclerView;
 
-    ArrayList<MomItem> momItems;
-    EditText momSearchBar;
-    MyAdapter myAdapter;
-    DatabaseReference myref;
-    String team;
-    ArrayList<String> mylist;
-    View view;
-    String uid,admin;
-    ConstraintLayout layout;
+    private ArrayList<MomItem> momItems;
+    private EditText momSearchBar;
+    private MyAdapter myAdapter;
+    private DatabaseReference myref;
+    private String team;
+    private ArrayList<String> mylist;
+    private View view;
+    private String uid,admin;
+    private ConstraintLayout layout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,7 @@ public class MomFragment extends Fragment {
         checkData();
          return  view;
     }
-    public void bestOfLuck(){
+    private void bestOfLuck(){
 
         SharedPreferences pref1 = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         String uid1 = pref1.getString("uid","");
@@ -146,7 +146,7 @@ public class MomFragment extends Fragment {
             }
         });
     }
-    public void checkData(){
+    private void checkData(){
         if (momItems.size()==0){
             layout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
@@ -166,7 +166,7 @@ public class MomFragment extends Fragment {
         myAdapter.filterList(filteredList);
 
     }
-    public void addData(){
+    private void addData(){
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -182,7 +182,7 @@ public class MomFragment extends Fragment {
                             String team = momdetails.getTeam();
                             String mid = momdetails.getId();
                             Long current = System.currentTimeMillis();
-                            Long date = Long.valueOf(momdetails.getTime()) * 1000 + 86400000L*30;
+                            Long date = Long.valueOf(momdetails.getTime()) * 1000 + 86400000L*90;
 
                             String point = snapshot.child(mid).child("points").getValue().toString();
                             String points1 = point.replace("[","");
@@ -238,18 +238,18 @@ public class MomFragment extends Fragment {
             }
         });
     }
-    public void adapter(){
+    private void adapter(){
         myAdapter = new MyAdapter(getContext(),momItems);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
-    public String unixconvert(String time){
+    private String unixconvert(String time){
         long dv = Long.valueOf(time)*1000;// its need to be in milisecond
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM yyyy").format(df);
         return vv;
     }
-    public void savaData(){
+    private void savaData(){
         SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.mom", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
@@ -257,7 +257,7 @@ public class MomFragment extends Fragment {
         editor.putString("mom",json);
         editor.apply();
     }
-    public void loadData(){
+    private void loadData(){
         SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.mom",Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = preferences.getString("mom","");

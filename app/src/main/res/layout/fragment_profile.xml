@@ -72,20 +72,22 @@
 
                     <TextView
                         android:id="@+id/profileName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
                         android:layout_marginTop="25dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
                         android:fontFamily="@font/sf_pro_text_medium"
                         android:text="Arupam Saha"
                         android:textColor="#ffffff"
                         android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/profilePic"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/regNo"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="21dp"
                         android:layout_marginTop="1dp"
@@ -93,21 +95,22 @@
                         android:text="19MIC0106"
                         android:textColor="#ffffff"
                         android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/profileName"
                         app:layout_constraintStart_toEndOf="@+id/profilePic"
                         app:layout_constraintTop_toBottomOf="@+id/profileName" />
 
                     <TextView
                         android:id="@+id/domain"
-                        android:layout_width="181dp"
-                        android:layout_height="50dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/monumentext"
                         android:singleLine="false"
                         android:text="Android Development"
                         android:textColor="#bebebe"
                         android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="@+id/regNo"
                         app:layout_constraintStart_toEndOf="@+id/profilePic"
                         app:layout_constraintTop_toBottomOf="@+id/regNo" />
 
@@ -126,13 +129,14 @@
 
                     <TextView
                         android:id="@+id/userEmail"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:fontFamily="@font/sf_pro_text_regular"
                         android:text="arupamkumar.saha2019@vitstudent.ac.in"
                         android:textColor="#ffffff"
                         android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="@+id/domain"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/email" />
 
@@ -151,7 +155,7 @@
 
                     <TextView
                         android:id="@+id/userContact"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="10dp"
@@ -160,6 +164,7 @@
                         android:textColor="#ffffff"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/userEmail"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/contact"
                         app:layout_constraintVertical_bias="0.0" />

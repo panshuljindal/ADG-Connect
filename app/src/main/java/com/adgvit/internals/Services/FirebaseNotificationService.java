@@ -91,7 +91,7 @@ public class FirebaseNotificationService extends com.google.firebase.messaging.F
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,CHANNEL_ID)
                 .setSmallIcon(R.drawable.app_logo)
                 .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),R.drawable.app_logo))
-                .setContentTitle(title)
+                .setContentText(title)
                 .setContentText(messageBody)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setColor(getResources().getColor(R.color.shimmercolour))

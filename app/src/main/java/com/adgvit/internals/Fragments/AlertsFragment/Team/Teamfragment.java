@@ -17,9 +17,9 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class Teamfragment extends Fragment {
 
-    TabLayout tabLayout2_1;
-    ViewPager2 viewPager2_1;
-    View view;
+    private TabLayout tabLayout2_1;
+    private ViewPager2 viewPager2_1;
+    private  View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

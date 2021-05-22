@@ -27,9 +27,9 @@ import com.google.firebase.database.ValueEventListener;
 import static android.content.Context.MODE_PRIVATE;
 
 public class AlertsFragment extends Fragment {
-    ViewPager2 viewPager1;
-    TabLayout tabLayout1;
-    View view;
+    private ViewPager2 viewPager1;
+    private TabLayout tabLayout1;
+    private View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +65,7 @@ public class AlertsFragment extends Fragment {
         return view;
     }
 
-    public void bestOfLuck(){
+    private void bestOfLuck(){
 
         SharedPreferences pref1 = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         String uid1 = pref1.getString("uid","");

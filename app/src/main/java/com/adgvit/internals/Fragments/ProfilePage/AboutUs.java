@@ -37,12 +37,12 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 public class AboutUs extends Fragment  {
-    TextView adg,ritik;
-    RecyclerView ios,android,web;
-    ArrayList<AboutUsItem> listios,listandroid,listweb;
-    View view;
-    SharedPreferences pref;
-    String admin="";
+    private TextView adg,ritik;
+    private RecyclerView ios,android,web;
+    private ArrayList<AboutUsItem> listios,listandroid,listweb;
+    private View view;
+    private SharedPreferences pref;
+    private String admin="";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,7 +153,7 @@ public class AboutUs extends Fragment  {
         return view;
 
     }
-    public void bestOfLuck(){
+    private void bestOfLuck(){
 
         SharedPreferences pref1 = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         String uid1 = pref1.getString("uid","");
@@ -193,7 +193,7 @@ public class AboutUs extends Fragment  {
             }
         });
     }
-    public void addData(){
+    private void addData(){
         listandroid.add(new AboutUsItem("Panshul Jindal",
                 "https://www.linkedin.com/in/panshul-jindal-392746199",
                 "https://github.com/panshuljindal",
@@ -229,7 +229,6 @@ public class AboutUs extends Fragment  {
                 ,"https://www.linkedin.com/in/cryptus-neoxys/",
                 "https://github.com/cryptus-neoxys",
                 "sharma.dev4242@gmail.com",R.drawable.dev));
-
     }
 
 }

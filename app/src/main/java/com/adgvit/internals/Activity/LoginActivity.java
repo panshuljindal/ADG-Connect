@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    public void sendToken(){
+    private void sendToken(){
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<String> task) {

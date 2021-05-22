@@ -23,11 +23,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ForgotPassword extends DialogFragment {
-    FirebaseAuth mauth;
-    EditText email;
-    String emailid;
-    Button forgot,Cancel;
-    View view;
+    private FirebaseAuth mauth;
+    private EditText email;
+    private String emailid;
+    private Button forgot,Cancel;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -71,14 +71,14 @@ public class ForgotPassword extends DialogFragment {
         });
         return view;
     }
-    public boolean checkempty(){
+    private boolean checkempty(){
         if(email.getText().length()==0){
             Toast.makeText(view.getContext(), "Please enter an email id", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
-    public boolean checkemail(){
+    private boolean checkemail(){
         String tempemail=email.getText().toString().trim();
         Pattern emailpattern = Pattern.compile("^[a-z]+.[a-z]*[0-9]?20[0-9][0-9]@vitstudent.ac.in$");
         Matcher emailMatcher= emailpattern.matcher(tempemail);

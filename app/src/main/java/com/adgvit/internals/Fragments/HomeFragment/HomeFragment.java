@@ -48,24 +48,24 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
-    RecyclerView recyclerView1,recyclerViewNotification;
-    View view;
-    ArrayList<Card1Item> list1;
-    ArrayList<Card2Item> list2Team,finalArrayF,sortedArrayF;
-    ArrayList<Integer> timeStampsTeam,sortedFTime,timeF;
-    DatabaseReference myref,myref2;
-    int count;
-    String team;
-    List<String> teamlist;
-    String uid;
-    String admin;
+    private RecyclerView recyclerView1,recyclerViewNotification;
+    private View view;
+    private ArrayList<Card1Item> list1;
+    private ArrayList<Card2Item> list2Team,finalArrayF,sortedArrayF;
+    private ArrayList<Integer> timeStampsTeam,sortedFTime,timeF;
+    private DatabaseReference myref,myref2;
+    private int count;
+    private String team;
+    private List<String> teamlist;
+    private String uid;
+    private String admin;
     ConstraintLayout ui1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
-    public void sendToken(){
+    private void sendToken(){
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<String> task) {
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    public void checkData1(){
+    private void checkData1(){
         if (uid.equals("")){
             ui1.setVisibility(View.VISIBLE);
             recyclerViewNotification.setVisibility(View.INVISIBLE);
@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
             recyclerViewNotification.setVisibility(View.VISIBLE);
         }
     }
-    public void checkData(){
+    private void checkData(){
         if (uid.isEmpty()){
 
         }
@@ -155,7 +155,7 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-    public void bestOfLuck(){
+    private void bestOfLuck(){
 
         FirebaseAuth mauth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -192,16 +192,16 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-    public void addData(){
+    private void addData(){
         String title="";
         list1.add(new Card1Item(R.drawable.androidback,R.drawable.ic_android,"ANDROID",title));
-        list1.add(new Card1Item(R.drawable.mlback,R.drawable.ic_ml,"Machine Language",title));
+        list1.add(new Card1Item(R.drawable.mlback,R.drawable.ic_ml,"Machine Learning",title));
         list1.add(new Card1Item(R.drawable.designback,R.drawable.ic_design,"Design",title));
         list1.add(new Card1Item(R.drawable.iosback,R.drawable.ic_ios,"iOS",title));
         list1.add(new Card1Item(R.drawable.webback,R.drawable.ic_web,"Web Dev",title));
         adapter1();
     }
-    public void firebase(){
+    private void firebase(){
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -222,7 +222,7 @@ public class HomeFragment extends Fragment {
                             list1.add(new Card1Item(R.drawable.androidback,R.drawable.ic_android,"ANDROID",title));
                         }
                         else if(type.equals("3")){
-                            list1.add(new Card1Item(R.drawable.mlback,R.drawable.ic_ml,"Machine Language",title));
+                            list1.add(new Card1Item(R.drawable.mlback,R.drawable.ic_ml,"Machine Learning",title));
                         }
                         else if(type.equals("8")){
                             list1.add(new Card1Item(R.drawable.designback,R.drawable.ic_design,"Design",title));
@@ -275,7 +275,7 @@ public class HomeFragment extends Fragment {
                                 String title = ad.getTitle();
                                 String time = unixconvert(ad.getTime().toString());
                                 Long current = System.currentTimeMillis();
-                                Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L;
+                                Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L*3;
                                 if (current >= date) {
                                     //Log.i("Date","Date Matched");
                                 } else {
@@ -298,9 +298,6 @@ public class HomeFragment extends Fragment {
                     timeF.set(index,0);
                     try {
                         sortedArrayF.add(finalArrayF.get(index));
-                        if (i==2){
-                            break;
-                        }
                     }
                     catch (IndexOutOfBoundsException e){
 
@@ -320,21 +317,21 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public String unixconvert(String time){
+    private String unixconvert(String time){
         long dv = Long.valueOf(time)*1000;
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
     }
 
-    public void adapter1(){
+    private void adapter1(){
         Card1Adapter adapter = new Card1Adapter(getContext(),list1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView1.setAdapter(adapter);
         recyclerView1.setLayoutManager(manager);
     }
-    public void adapter2(){
+    private void adapter2(){
         checkData();
         Card2Adapter adapter1= new Card2Adapter(getContext(),sortedArrayF);
         LinearLayoutManager manager1= new LinearLayoutManager(getContext());
@@ -342,7 +339,7 @@ public class HomeFragment extends Fragment {
         recyclerViewNotification.setAdapter(adapter1);
         recyclerViewNotification.setLayoutManager(manager1);
     }
-    public void savaData(){
+    private void savaData(){
         SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.home", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
@@ -353,7 +350,7 @@ public class HomeFragment extends Fragment {
         editor.apply();
 
     }
-    public void loadData(){
+    private void loadData(){
         SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.home", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = preferences.getString("scrollbar","");

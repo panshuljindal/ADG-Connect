@@ -34,14 +34,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Team1fragment extends Fragment {
-    RecyclerView recyclerView;
-    ArrayList<AlertCardviewItem> list1_1;
-    DatabaseReference myref ;
-    View view;
-    String team;
-    List<String> teamlist;
-    String uid,admin;
-    ConstraintLayout layout;
+    private  RecyclerView recyclerView;
+    private ArrayList<AlertCardviewItem> list1_1;
+    private   DatabaseReference myref ;
+    private   View view;
+    private   String team;
+    private   List<String> teamlist;
+    private  String uid,admin;
+    private  ConstraintLayout layout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,7 @@ public class Team1fragment extends Fragment {
         checkData();
         return view;
     }
-    public void checkData(){
+    private void checkData(){
         if (list1_1.size()==0){
             layout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
@@ -82,7 +82,7 @@ public class Team1fragment extends Fragment {
             recyclerView.setVisibility(View.VISIBLE);
         }
     }
-    public void addData(){
+    private void addData(){
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -98,7 +98,7 @@ public class Team1fragment extends Fragment {
                             String link = ad.getLink();
                             String id =ad.getId();
                             Long current = System.currentTimeMillis();
-                            Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L;
+                            Long date = Long.valueOf(ad.getTime()) * 1000 + 86400000L*3;
                             if (current >= date) {
 
                             } else {
@@ -140,20 +140,20 @@ public class Team1fragment extends Fragment {
 
     }
 
-    public void adapter() {
+    private void adapter() {
         AlertCardviewAdapter alertcardviewadapter = new AlertCardviewAdapter(getContext(),list1_1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setAdapter(alertcardviewadapter);
         recyclerView.setLayoutManager(manager);
     }
-    public String unixconvert(String time){
+    private String unixconvert(String time){
         long dv = Long.valueOf(time)*1000;// its need to be in milisecond
         Date df = new java.util.Date(dv);
         String vv = new SimpleDateFormat("dd MMM, hh:mma").format(df);
         return vv;
     }
-    public void savaData(){
+    private void savaData(){
         SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
@@ -161,7 +161,7 @@ public class Team1fragment extends Fragment {
         editor.putString("team1",json);
         editor.apply();
     }
-    public void loadData(){
+    private void loadData(){
         SharedPreferences preferences = view.getContext().getSharedPreferences("com.adgvit.com.alert",Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = preferences.getString("team1","");

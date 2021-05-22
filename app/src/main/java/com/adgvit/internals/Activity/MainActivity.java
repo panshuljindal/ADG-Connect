@@ -40,8 +40,8 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class MainActivity extends AppCompatActivity {
     private SmoothBottomBar smoothBottomBar;
-    DatabaseReference myref;
-    FirebaseAuth mauth;
+    private DatabaseReference myref;
+    private FirebaseAuth mauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    Boolean doubleback=false;
+    private Boolean doubleback=false;
     @Override
     public void onBackPressed() {
 

@@ -18,7 +18,7 @@ public class BestOfLuck extends AppCompatActivity {
         setContentView(R.layout.activity_best_of_luck);
         clearData();
     }
-    public void clearData(){
+    private void clearData(){
         SharedPreferences userdata = getSharedPreferences("com.adgvit.com.userdata", Context.MODE_PRIVATE);
         SharedPreferences.Editor  editoruser = userdata.edit();
         editoruser.clear();

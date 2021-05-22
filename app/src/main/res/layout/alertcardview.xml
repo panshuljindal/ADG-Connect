@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="5dp"
+    android:layout_margin="7dp"
     android:background="#0b0b0b"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardCornerRadius="7.5dp"
         app:cardBackgroundColor="#0b0b0b"
+        app:cardCornerRadius="7.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,10 +28,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/alertcardtext4">
 
                 <Button
                     android:id="@+id/buttonack"
@@ -66,6 +68,7 @@
                 android:id="@+id/buttonpostedun"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/ic_posted"
                 android:fontFamily="@font/sf_pro_text_medium"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -77,12 +80,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/alertcardtext4" />
 
             <Button
                 android:id="@+id/buttonpostedack"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/ic_posted"
                 android:fontFamily="@font/sf_pro_text_medium"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -93,7 +98,8 @@
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/alertcardtext4" />
 
             <ImageView
                 android:id="@+id/alertimageView"
@@ -112,7 +118,7 @@
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/alertimageView"
+                app:layout_constraintTop_toBottomOf="@+id/alertcardtext2"
                 app:srcCompat="@drawable/ic_meeting" />
 
             <TextView
@@ -135,6 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="5dp"
                 android:text="06 Aug, 10PM"
                 android:textColor="#ffffff"
                 android:textSize="15dp"
@@ -146,7 +153,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="13dp"
                 android:layout_marginEnd="50dp"
                 android:text="Google Meet"
                 android:textColor="#ffffff"
@@ -161,6 +168,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="50dp"
                 android:text="https://meet.google.com/sso-cymm-gez"
                 android:textColor="#00C2FF"

@@ -21,14 +21,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class DialogReasonFragment extends DialogFragment {
-    EditText reason;
-    Button post,cancel;
-    TextView text1,text2;
-    DatabaseReference myref,myref1;
-    SharedPreferences pref,pref1;
-    String mid,name,uid,title,time;
-    String reasons;
-    View view;
+    private EditText reason;
+    private Button post,cancel;
+    private TextView text1,text2;
+    private DatabaseReference myref,myref1;
+    private SharedPreferences pref,pref1;
+    private String mid,name,uid,title,time;
+    private String reasons;
+    private View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -91,14 +91,14 @@ public class DialogReasonFragment extends DialogFragment {
         });
         return view;
     }
-    public boolean checkempty(){
+    private boolean checkempty(){
         if(reason.getText().length()==0){
-            Toast.makeText(getContext(),"Please enter a reason",Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(),"Please enter a reason",Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
-    public boolean isNetworkAvailable(final Context context) {
+    private boolean isNetworkAvailable(final Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }

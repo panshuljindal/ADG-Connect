@@ -23,9 +23,9 @@ import java.util.Arrays;
 public class MomDialogFragment extends Fragment{
 
     private MomItem argItem = null;
-    RecyclerView pointRecycler;
-    ArrayList<MomPoint> list1;
-    ArrayList<String> pointlist;
+    private RecyclerView pointRecycler;
+    private  ArrayList<MomPoint> list1;
+    private ArrayList<String> pointlist;
     public MomDialogFragment(MomItem momItem){
         argItem = momItem;
     }

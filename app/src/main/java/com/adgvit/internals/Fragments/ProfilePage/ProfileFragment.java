@@ -42,20 +42,20 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
-    Button logoutbtn;
-    Button logoutlogoutbtn,logoutReset;
-    Button logoutcancelbtn,cancelReset;
-    TextView initials;
-    String initials1="";
-    Button resetPw;
-    Button Team;
-    FirebaseAuth mauth;
-    String name,regNo,email,phone,team,domain,position;
-    TextView profileName,regNoText,userEmail,userContact,textDomain;
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
-    List<String> teamlist;
-    View view;
+    private Button logoutbtn;
+    private Button logoutlogoutbtn,logoutReset;
+    private Button logoutcancelbtn,cancelReset;
+    private TextView initials;
+    private String initials1="";
+    private Button resetPw;
+    private Button Team;
+    private FirebaseAuth mauth;
+    private String name,regNo,email,phone,team,domain,position;
+    private TextView profileName,regNoText,userEmail,userContact,textDomain;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+    private List<String> teamlist;
+    private View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,7 +156,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         datasave();
         return view;
     }
-    public void bestOfLuck(){
+    private void bestOfLuck(){
 
         SharedPreferences pref1 = view.getContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         String uid1 = pref1.getString("uid","");
@@ -282,7 +282,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             });
         }
     }
-    public void clearData(){
+    private void clearData(){
         SharedPreferences userdata = getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
         SharedPreferences.Editor  editoruser = userdata.edit();
         editoruser.clear();
