@@ -51,20 +51,25 @@ public class ForgotPassword extends DialogFragment {
                 if(checkempty()){
                     if(checkemail()){
                         emailid = email.getText().toString();
-                        mauth.sendPasswordResetEmail(emailid).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(view.getContext(), "Check email", Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(view.getContext(), LoginActivity.class));
+                        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals("n8umBZyFjoglO7CBs19QNOEheMN2")){
+                            Toast.makeText(view.getContext(), "Guest users can't send verification email", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            mauth.sendPasswordResetEmail(emailid).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(view.getContext(), "Check email", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(view.getContext(), LoginActivity.class));
+                                    }
+                                    else{
+                                        Toast.makeText(view.getContext(), "Please Try Again", Toast.LENGTH_SHORT).show();
+                                        email.setText("");
+                                        email.requestFocus();
+                                    }
                                 }
-                                else{
-                                    Toast.makeText(view.getContext(), "Please Try Again", Toast.LENGTH_SHORT).show();
-                                    email.setText("");
-                                    email.requestFocus();
-                                }
-                            }
-                        });
+                            });
+                        }
                     }
                 }
             }
@@ -80,7 +85,7 @@ public class ForgotPassword extends DialogFragment {
     }
     private boolean checkemail(){
         String tempemail=email.getText().toString().trim();
-        Pattern emailpattern = Pattern.compile("^[a-z]+.[a-z]*[0-9]?20[0-9][0-9]@vitstudent.ac.in$");
+        Pattern emailpattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
         Matcher emailMatcher= emailpattern.matcher(tempemail);
         if(emailMatcher.matches()){
             return true;

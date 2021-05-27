@@ -3,12 +3,14 @@ package com.adgvit.internals.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -45,9 +47,10 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email,password;
     private Button login, login1btn;
     private ImageView bgImg;
-    private TextView forgettext;
+    private TextView forgettext,cancel;
     private String emailid,pass,uid;
     private FirebaseAuth mauth;
+    private TextView guest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +64,12 @@ public class LoginActivity extends AppCompatActivity {
         Animation imgAnim2 = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadeout);
 
 
-        CardView loginCard = findViewById(R.id.loginCard);
+        ConstraintLayout loginCard = findViewById(R.id.loginCardConst);
         login1btn = findViewById(R.id.loginBtn1);
         bgImg = findViewById(R.id.landingimg);
         forgettext = findViewById(R.id.textViewForget);
+        guest = findViewById(R.id.loginAsGuest);
+        cancel = findViewById(R.id.cancel);
 
         bgImg.setAnimation(imgAnim);
         login1btn.setAnimation(buttonAnim);
@@ -89,10 +94,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //toggleFullscreen(false);
+                loginCard.setVisibility(View.VISIBLE);
                 loginCard.setAnimation(Anim);
                 //bgImg.setAnimation(imgAnim2);
-                loginCard.setVisibility(View.VISIBLE);
-                login1btn.setVisibility(View.GONE);
+                login1btn.setVisibility(View.INVISIBLE);
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginCard.setAnimation(imgAnim2);
+                loginCard.setVisibility(View.GONE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        login1btn.setVisibility(View.VISIBLE);
+                    }
+                },500);
+//                bgImg.setAnimation(imgAnim);
+//                login1btn.setAnimation(buttonAnim);
             }
         });
     }
@@ -102,6 +122,36 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ForgotPassword dialog = new ForgotPassword();
                 dialog.show(getSupportFragmentManager(), "Reset Password");
+            }
+        });
+
+        guest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guest.setEnabled(false);
+                mauth.signInWithEmailAndPassword("appledevelopersgroup@gmail.com","guest1234").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            guest.setEnabled(true);
+                            Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
+                            Toast.makeText(LoginActivity.this, "Guest login Successful", Toast.LENGTH_SHORT).show();
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+                            datasave();
+                            try {
+                                reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("os").setValue("Android");
+                            }
+                            catch (Exception e){
+
+                            }
+                            sendToken();
+                            startActivity(myIntent);
+                        }
+                        else {
+                            guest.setEnabled(true);
+                        }
+                    }
+                });
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
@@ -133,12 +183,13 @@ public class LoginActivity extends AppCompatActivity {
                                             startActivity(myIntent);
                                         }
                                         else {
+                                            mauth.signOut();
                                             Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                     else if(!task.isSuccessful()){
                                         login.setEnabled(true);
-                                        Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "Invalid email id or password", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -246,7 +297,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private boolean checkemail(){
         String tempemail=email.getText().toString().trim();
-        Pattern emailpattern = Pattern.compile("^[a-z]+.[a-z]*[0-9]?20[0-9][0-9]@vitstudent.ac.in$");
+        Pattern emailpattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
         Matcher emailMatcher= emailpattern.matcher(tempemail);
         if(emailMatcher.matches()){
             return true;

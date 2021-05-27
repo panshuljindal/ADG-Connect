@@ -132,7 +132,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 textDomain.setText("Android Development");
             }
             else if(domain.contains("3")){
-                textDomain.setText("Machine Learning ");
+                textDomain.setText("Machine Learning");
             }
             else if(domain.contains("4")){
                 textDomain.setText("Logistics");
@@ -210,21 +210,27 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 public void onClick(View v) {
                    SharedPreferences pref = v.getContext().getSharedPreferences("com.adgvit.com.userdata",Context.MODE_PRIVATE);
                    String emailID = pref.getString("emailid","");
-                   mauth.sendPasswordResetEmail(emailID).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(v.getContext(), "Check email", Toast.LENGTH_LONG).show();
-                                resetDialog.dismiss();
-                                //startActivity(new Intent(v.getContext(),LoginActivity.class));
-                            }
-                            else{
-                                Toast.makeText(v.getContext(), "Please Try Again", Toast.LENGTH_SHORT).show();
-                                resetDialog.dismiss();
+                   if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals("n8umBZyFjoglO7CBs19QNOEheMN2")){
+                       Toast.makeText(v.getContext(), "Guest users are not allowed to send reset email", Toast.LENGTH_LONG).show();
+                        resetDialog.dismiss();
+                   }
+                   else {
+                       mauth.sendPasswordResetEmail(emailID).addOnCompleteListener(new OnCompleteListener<Void>() {
+                           @Override
+                           public void onComplete(@NonNull Task<Void> task) {
+                               if (task.isSuccessful()) {
+                                   Toast.makeText(v.getContext(), "Check email", Toast.LENGTH_LONG).show();
+                                   resetDialog.dismiss();
+                                   //startActivity(new Intent(v.getContext(),LoginActivity.class));
+                               }
+                               else{
+                                   Toast.makeText(v.getContext(), "Please Try Again", Toast.LENGTH_SHORT).show();
+                                   resetDialog.dismiss();
 
-                            }
-                        }
-                    });
+                               }
+                           }
+                       });
+                   }
 
                 }
             });

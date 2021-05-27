@@ -13,8 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.BestOfLuck"
+
             android:screenOrientation="portrait"></activity>
         <activity android:name=".Fragments.ProfilePage.ForgotPassword"
+            android:theme="@style/Theme_Dialog"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".Activity.MainActivity"
