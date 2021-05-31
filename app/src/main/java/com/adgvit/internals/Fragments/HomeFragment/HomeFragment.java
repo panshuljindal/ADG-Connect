@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment {
 
         SharedPreferences pref = view.getContext().getSharedPreferences("com.adgvit.com.userdata", MODE_PRIVATE);
         team = pref.getString("teams","");
-        uid = pref.getString("uid","");
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         admin = pref.getString("isAdmin","");
         bestOfLuck();
         checkData1();

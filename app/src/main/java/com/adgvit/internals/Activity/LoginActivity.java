@@ -226,17 +226,14 @@ public class LoginActivity extends AppCompatActivity {
     private void datasave(){
         SharedPreferences pref = getApplicationContext().getSharedPreferences("com.adgvit.com.userdata",MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference myref = db.getReference("Users");
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
-
                     FirebaseUser user = mauth.getCurrentUser();
                     uid = user.getUid();
-
                     editor.putString("uid",uid);
                     String emaili = snapshot.child(uid).child("email").getValue().toString();
                     editor.putString("emailid", emaili);
@@ -295,16 +292,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
 
     }
-    private boolean checkemail(){
-        String tempemail=email.getText().toString().trim();
-        Pattern emailpattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
-        Matcher emailMatcher= emailpattern.matcher(tempemail);
-        if(emailMatcher.matches()){
-            return true;
-        }
-        Toast.makeText(this, "Please Enter a Valid Email ID", Toast.LENGTH_SHORT).show();
-        email.requestFocus();
-        login.setEnabled(true);
+    public boolean checkemail(){
         return true;
     }
     private  boolean isNetworkAvailable(final Context context) {
