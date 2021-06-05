@@ -84,14 +84,14 @@ public class ForgotPassword extends DialogFragment {
         return true;
     }
     private boolean checkemail(){
-        String tempemail=email.getText().toString().trim();
-        Pattern emailpattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
-        Matcher emailMatcher= emailpattern.matcher(tempemail);
-        if(emailMatcher.matches()){
-            return true;
-        }
-        email.setError("Please enter a valid VIT Email ID");
-        email.requestFocus();
-        return false;
+//        String tempemail=email.getText().toString().trim();
+//        Pattern emailpattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
+//        Matcher emailMatcher= emailpattern.matcher(tempemail);
+//        if(emailMatcher.matches()){
+//            return true;
+//        }
+//        email.setError("Please enter a valid VIT Email ID");
+//        email.requestFocus();
+        return true;
     }
 }
