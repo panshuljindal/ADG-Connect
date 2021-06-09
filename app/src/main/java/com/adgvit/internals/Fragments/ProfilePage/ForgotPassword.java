@@ -50,8 +50,8 @@ public class ForgotPassword extends DialogFragment {
             public void onClick(View v) {
                 if(checkempty()){
                     if(checkemail()){
-                        emailid = email.getText().toString();
-                        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals("n8umBZyFjoglO7CBs19QNOEheMN2")){
+                        emailid = email.getText().toString().toLowerCase();
+                        if (emailid.equals("appledevelopersgroup@gmail.com")){
                             Toast.makeText(view.getContext(), "Guest users can't send verification email", Toast.LENGTH_LONG).show();
                         }
                         else {
